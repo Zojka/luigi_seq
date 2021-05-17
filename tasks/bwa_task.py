@@ -17,7 +17,7 @@ class Mapping(ExternalProgramTask):
     reference = luigi.Parameter()
 
     def program_args(self):
-        return ["bwa", "mem", "-SP5M", f"-t{self.threads}", self.reference, self.r1, self.r2]
+        return ["bwa", "mem"] #, "-SP5M", f"-t{self.threads}", self.reference, self.r1, self.r2]
 
     def output(self):
         return luigi.LocalTarget("output.bam")
