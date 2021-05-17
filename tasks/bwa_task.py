@@ -6,20 +6,21 @@
 
 import luigi
 from os import system
+from luigi.contrib.external_program import ExternalProgramTask, ExternalPythonProgramTask
+from luigi.contrib.external_program import ExternalProgramRunError
 
 
-class Mapping(luigi.Task):
+class Mapping(ExternalProgramTask):
     r1 = luigi.Parameter()
     r2 = luigi.Parameter()
     threads = luigi.Parameter()
     reference = luigi.Parameter()
 
-    def output(self):
-        return luigi.LocalTarget(f"{self.r1.split('R1')[0]}.bam")
+    def program_args(self):
+        return ["bwa mem", "-SP5M", f"-t{self.threads}", self.reference, self.r1, self.r2]
 
-    def run(self):
-        command = f"bwa mem -SP5M -t{self.threads} {self.r1} {self.r2} > {self.output()}"
-        system(command)
+    def output(self):
+        return luigi.LocalTarget("output.bam")
 
 
 if __name__ == '__main__':
