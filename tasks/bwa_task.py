@@ -15,10 +15,10 @@ class Mapping(luigi.Task):
     reference = luigi.Parameter()
 
     def output(self):
-        return luigi.LocalTarget(f"{self.r1_file.split('R1')[0]}.bam")
+        return luigi.LocalTarget(f"{self.r1.split('R1')[0]}.bam")
 
     def run(self):
-        command = f"bwa mem -SP5M -t{self.threads} {self.r1_file} {self.r2_file} > {self.output()}"
+        command = f"bwa mem -SP5M -t{self.threads} {self.r1} {self.r2} > {self.output()}"
         system(command)
 
 
