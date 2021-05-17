@@ -15,7 +15,6 @@ class Mapping(ExternalProgramTask):
     r2 = luigi.Parameter()
     threads = luigi.Parameter()
     reference = luigi.Parameter()
-    super.capture_output = False
 
     def program_args(self):
         return ["bwa", "mem", "-SP5M", f"-t{self.threads}", self.reference, self.r1, self.r2]
