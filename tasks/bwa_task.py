@@ -42,7 +42,7 @@ class RemoveNotAlignedReads(luigi.Task):
 
     def run(self):
         samtools = local["samtools"]
-        (samtools["view", "-F", "0x04", "-b", self.input()] > self.outname_mapped)()
+        (samtools["view", "-F", "0x04", "-b", self.outname] > self.outname_mapped)()
 
 
 if __name__ == '__main__':
