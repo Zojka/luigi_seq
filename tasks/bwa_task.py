@@ -27,7 +27,7 @@ class Mapping(luigi.Task):
 
 class RemoveNotAlignedReads(luigi.Task):
     inp = Mapping.outname
-    outname = Mapping.outname[:-4] + "_mapped.bam"
+    outname = "output_mapped.bam"
 
     def requires(self):
         return Mapping()
