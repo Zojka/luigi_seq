@@ -21,7 +21,7 @@ class Mapping(luigi.Task):
     def run(self):
         bwa = local["bwa"]
         samtools = local["samtools"]
-        (bwa["mem", "-SP5M", f"-t{self.threads}", self.reference, self.r1, self.r2] | samtools["view", "--bhS"] > self.outname)()
+        (bwa["mem", "-SP5M", f"-t{self.threads}", self.reference, self.r1, self.r2] | samtools["view", "-bhS"] > self.outname)()
 
 
 if __name__ == '__main__':
