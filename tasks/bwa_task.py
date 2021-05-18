@@ -26,19 +26,24 @@ class Mapping(luigi.Task):
 
 
 class RemoveNotAlignedReads(luigi.Task):
-    inp = Mapping.outname
-    outname = "output_mapped.bam"
+    r1 = luigi.Parameter()
+    r2 = luigi.Parameter()
+    threads = luigi.Parameter()
+    reference = luigi.Parameter()
+    outname = luigi.Parameter(default="output.bam")
+
+    outname_mapped = "output_mapped.bam"
 
     def requires(self):
-        return Mapping()
+        return Mapping(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference, outname=self.outname)
 
     def output(self):
         return luigi.LocalTarget(self.outname)
 
     def run(self):
         samtools = local["samtools"]
-        (samtools["view", "-F", "0x04", "-b", self.input()] > self.outname)()
+        (samtools["view", "-F", "0x04", "-b", self.input()] > self.outname_mapped)()
 
 
 if __name__ == '__main__':
-    luigi.run()
+    luigi.build()
