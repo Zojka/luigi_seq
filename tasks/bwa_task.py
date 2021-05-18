@@ -5,7 +5,7 @@
 """
 
 import luigi
-import subprocess
+from plumbum import local
 from luigi.contrib.external_program import ExternalProgramTask, ExternalPythonProgramTask
 from luigi.contrib.external_program import ExternalProgramRunError
 
@@ -20,8 +20,8 @@ class Mapping(luigi.Task):
         return luigi.LocalTarget("output.bam")
 
     def run(self):
-        subprocess.run(
-            ["bwa", "mem", "-SP5M", f"-t{self.threads}", self.reference, self.r1, self.r2, ">", self.output()])
+        bwa = local["bwa"]
+        bwa["mem", "-SP5M", f"-t{self.threads}", self.reference, self.r1, self.r2] > self.output()
 
 
 if __name__ == '__main__':
