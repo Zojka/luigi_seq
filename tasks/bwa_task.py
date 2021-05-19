@@ -120,8 +120,8 @@ class CreateBigwig(luigi.Task):
         samtools = local["samtools"]
         bamCoverage = local["bamCoverage"]
         (samtools["sort", "-t", self.threads, self.outname_nodup, "-o", self.outname_sorted])()
-        (samtools["index", self.outname_sorted] > self.outname_index)()
-        (bamCoverage["-b", self.outname_index, "-o", self.outname_bigwig])()
+        (samtools["index", self.outname_sorted])()
+        (bamCoverage["-b", self.outname_sorted, "-o", self.outname_bigwig])()
 
 
 if __name__ == '__main__':
