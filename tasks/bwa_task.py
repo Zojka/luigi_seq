@@ -88,7 +88,7 @@ class RemoveDuplicates(luigi.Task):
 
     def run(self):
         samtools = local["samtools"]
-        (samtools["sort", "-n", "-t", self.threads, self.outname_filtered, self.outname_nodup])() #| samtools[
+        (samtools["sort", "-n", "-t", self.threads, self.outname_filtered, "-o", self.outname_nodup])() #| samtools[
             #"fixmate", "--threads", self.threads, "-", "-"] | samtools["rmdup", "-S", "-", self.outname_nodup])()
 
 
