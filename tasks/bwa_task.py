@@ -71,8 +71,8 @@ class RemoveDuplicates(luigi.Task):
     reference = luigi.Parameter()
     outname = luigi.Parameter(default="output.bam")
     outname_mapped = luigi.Parameter(default="output_mapped.bam")
-    outname_filtered = "output_mapped_filtered.bam"
-    outname_nodup = "output_mapped_filtered_nodup.bam"
+    outname_filtered = luigi.Parameter(default="output_mapped_filtered.bam")
+    outname_nodup = luigi.Parameter(default="output_mapped_filtered_nodup.bam")
     quality = luigi.Parameter(default=30)
 
     def requires(self):
