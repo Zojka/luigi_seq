@@ -104,6 +104,7 @@ class CreateBigwig(luigi.Task):
     outname_nodup = luigi.Parameter(default="output_mapped_filtered_nodup.bam")
     quality = luigi.Parameter(default=30)
     outname_bigwig = luigi.Parameter(default="output.bw")
+    outname_index = luigi.Parameter(default="output_indexed.bam")
 
     def requires(self):
         return RemoveDuplicates(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
@@ -117,7 +118,8 @@ class CreateBigwig(luigi.Task):
         # todo this is not poducing an output file
         samtools = local["samtools"]
         bamCoverage = local["bamCoverage"]
-        (samtools["sort", self.outname_nodup, "-o", "-"] | samtools["index", "-"] | bamCoverage["-b", "-", "-o", self.outname_bigwig])()
+        (samtools["sort", self.outname_nodup, "-o", "-"] | samtools["index", "-"] > self.outname_index)()
+        (bamCoverage["-b", self.outname_index, "-o", self.outname_bigwig])()
 
 
 if __name__ == '__main__':
