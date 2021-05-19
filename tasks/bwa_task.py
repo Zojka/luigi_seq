@@ -44,23 +44,52 @@ class RemoveNotAlignedReads(luigi.Task):
         samtools = local["samtools"]
         (samtools["view", "-F", "0x04", "-b", self.outname] > self.outname_mapped)()
 
+
 class MappingQualityFilter(luigi.Task):
     r1 = luigi.Parameter()
     r2 = luigi.Parameter()
     threads = luigi.Parameter()
     reference = luigi.Parameter()
     outname = luigi.Parameter(default="output.bam")
-
     outname_mapped = luigi.Parameter(default="output_mapped.bam")
     outname_filtered = "output_mapped_filtered.bam"
     quality = luigi.Parameter(default=30)
 
     def requires(self):
-        return RemoveNotAlignedReads(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference, outname=self.outname)
+        return RemoveNotAlignedReads(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
+                                     outname=self.outname, ourname_mapped=self.outname_mapped)
 
     def run(self):
         samtools = local["samtools"]
         (samtools["view", "-q", self.quality, "-t", self.threads, "-b", self.outname_mapped] > self.outname_filtered)()
+
+
+class RemoveDuplicates(luigi.Task):
+    r1 = luigi.Parameter()
+    r2 = luigi.Parameter()
+    threads = luigi.Parameter()
+    reference = luigi.Parameter()
+    outname = luigi.Parameter(default="output.bam")
+    outname_mapped = luigi.Parameter(default="output_mapped.bam")
+    outname_filtered = "output_mapped_filtered.bam"
+    outname_nodup = "output_mapped_filtered_nodup.bam"
+    quality = luigi.Parameter(default=30)
+
+    def requires(self):
+        return MappingQualityFilter(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
+                                    outname=self.outname, quality=self.quality, outname_mapped=self.outname_mapped,
+                                    outname_filtered=self.outname_filtered)
+
+    def run(self):
+        samtools = local["samtools"]
+        (samtools["sort", "-n", "-t", self.threads, self.outname_filtered, "-"] | samtools[
+            "fixmate", "--threads", self.threads, "-", "-"] > samtools["rmdup", "-S", "-", self.outname_nodup])()
+
+
+class CreateBigwig(luigi.Task):
+    """Create BigWig coverage file from deduplicated bam file. Needs samtools and deeptools"""
+    pass
+
 
 if __name__ == '__main__':
     luigi.build()
