@@ -52,12 +52,12 @@ class MappingQualityFilter(luigi.Task):
     reference = luigi.Parameter()
     outname = luigi.Parameter(default="output.bam")
     outname_mapped = luigi.Parameter(default="output_mapped.bam")
-    outname_filtered = "output_mapped_filtered.bam"
+    outname_filtered = luigi.Parameter(default="output_mapped_filtered.bam")
     quality = luigi.Parameter(default=30)
 
     def requires(self):
         return RemoveNotAlignedReads(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
-                                     outname=self.outname, ourname_mapped=self.outname_mapped)
+                                     outname=self.outname, outname_mapped=self.outname_mapped)
 
     def run(self):
         samtools = local["samtools"]
