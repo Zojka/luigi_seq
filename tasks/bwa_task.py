@@ -114,10 +114,12 @@ class CreateBigwig(luigi.Task):
         return luigi.LocalTarget(self.outname_bigwig)
 
     def run(self):
+        # todo this is not poducing an output file
         samtools = local["samtools"]
         bamCoverage = local["bamCoverage"]
-        (samtools["sort", self.outname_nodup, "-o", "-"] | samtools["index", "-", "-"] | bamCoverage[
-            "-b", "-", "-o", self.outname_bigwig])
+        (samtools["sort", self.outname_nodup, "-o", "-"] |
+         samtools["index", "-", "-"] |
+         bamCoverage["-b", "-", "-o", self.outname_bigwig])()
 
 
 if __name__ == '__main__':
