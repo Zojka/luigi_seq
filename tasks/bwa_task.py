@@ -38,7 +38,7 @@ class RemoveNotAlignedReads(luigi.Task):
         return Mapping(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference, outname=self.outname)
 
     def output(self):
-        return luigi.LocalTarget(self.outname)
+        return luigi.LocalTarget(self.outname_mapped)
 
     def run(self):
         samtools = local["samtools"]
@@ -54,6 +54,9 @@ class MappingQualityFilter(luigi.Task):
     outname_mapped = luigi.Parameter(default="output_mapped.bam")
     outname_filtered = luigi.Parameter(default="output_mapped_filtered.bam")
     quality = luigi.Parameter(default=30)
+
+    def output(self):
+        return luigi.LocalTarget(self.outname_filtered)
 
     def requires(self):
         return RemoveNotAlignedReads(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
@@ -79,6 +82,9 @@ class RemoveDuplicates(luigi.Task):
         return MappingQualityFilter(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
                                     outname=self.outname, quality=self.quality, outname_mapped=self.outname_mapped,
                                     outname_filtered=self.outname_filtered)
+
+    def output(self):
+        return luigi.LocalTarget(self.outname_nodup)
 
     def run(self):
         samtools = local["samtools"]
