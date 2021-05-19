@@ -116,12 +116,42 @@ class CreateBigwig(luigi.Task):
         return luigi.LocalTarget(self.outname_bigwig)
 
     def run(self):
-        # todo this is not poducing an output file
         samtools = local["samtools"]
         bamCoverage = local["bamCoverage"]
         (samtools["sort", "-t", self.threads, self.outname_nodup, "-o", self.outname_sorted])()
         (samtools["index", self.outname_sorted])()
         (bamCoverage["-b", self.outname_sorted, "-o", self.outname_bigwig])()
+
+
+class CallPeaks(luigi.Task):
+    r1 = luigi.Parameter()
+    r2 = luigi.Parameter()
+    threads = luigi.Parameter()
+    reference = luigi.Parameter()
+    outname = luigi.Parameter(default="output.bam")
+    outname_mapped = luigi.Parameter(default="output_mapped.bam")
+    outname_filtered = luigi.Parameter(default="output_mapped_filtered.bam")
+    outname_nodup = luigi.Parameter(default="output_mapped_filtered_nodup.bam")
+    quality = luigi.Parameter(default=30)
+    outname_bigwig = luigi.Parameter(default="output.bw")
+    outname_index = luigi.Parameter(default="output_indexed.bam")
+    outname_sorted = luigi.Parameter(default="output_sorted.bam")
+    peak_quality = luigi.Parameter(default=0.01)
+    peak_output = luigi.Parameter(default="peaks_macs3")
+
+    def requires(self):
+        return RemoveDuplicates(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
+                                outname=self.outname, quality=self.quality, outname_mapped=self.outname_mapped,
+                                outname_filtered=self.outname_filtered, outname_nodup=self.outname_nodup)
+
+    def output(self):
+        return luigi.LocalTarget("cos")
+
+    def run(self):
+        # macs3
+        macs3 = local["macs3"]
+        (macs3["callpeak", "--nomodel", "-q", "_B", self.peak_quality, "-t", self.outname_nodup, "-n", self.peak_output])()
+
 
 
 if __name__ == '__main__':
