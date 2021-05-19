@@ -94,7 +94,30 @@ class RemoveDuplicates(luigi.Task):
 
 class CreateBigwig(luigi.Task):
     """Create BigWig coverage file from deduplicated bam file. Needs samtools and deeptools"""
-    pass
+    r1 = luigi.Parameter()
+    r2 = luigi.Parameter()
+    threads = luigi.Parameter()
+    reference = luigi.Parameter()
+    outname = luigi.Parameter(default="output.bam")
+    outname_mapped = luigi.Parameter(default="output_mapped.bam")
+    outname_filtered = luigi.Parameter(default="output_mapped_filtered.bam")
+    outname_nodup = luigi.Parameter(default="output_mapped_filtered_nodup.bam")
+    quality = luigi.Parameter(default=30)
+    outname_bigwig = luigi.Parameter(default="outname.bw")
+
+    def requires(self):
+        return RemoveDuplicates(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
+                                outname=self.outname, quality=self.quality, outname_mapped=self.outname_mapped,
+                                outname_filtered=self.outname_filtered, outname_nodup=self.outname_nodup)
+
+    def output(self):
+        return luigi.LocalTarget(self.outname_bigwig)
+
+    def run(self):
+        samtools = local["samtools"]
+        bamCoverage = local["bamCoverage"]
+        (samtools["sort", self.outname_nodup, "-o", "-"] | samtools["index", "-", "-"] | bamCoverage[
+            "-b", "-", "-o", self.outname_bigwig])
 
 
 if __name__ == '__main__':
