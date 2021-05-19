@@ -103,7 +103,7 @@ class CreateBigwig(luigi.Task):
     outname_filtered = luigi.Parameter(default="output_mapped_filtered.bam")
     outname_nodup = luigi.Parameter(default="output_mapped_filtered_nodup.bam")
     quality = luigi.Parameter(default=30)
-    outname_bigwig = luigi.Parameter(default="outname.bw")
+    outname_bigwig = luigi.Parameter(default="output.bw")
 
     def requires(self):
         return RemoveDuplicates(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
