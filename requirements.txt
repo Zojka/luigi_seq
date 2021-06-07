@@ -1,0 +1,9 @@
+# MAPS
+pandas==v0.20.3
+numpy==v1.13.1
+pysam==v0.15.2
+pybedtools==v0.8.0
+
+# luigi
+luigi
+

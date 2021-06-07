@@ -150,8 +150,8 @@ class CallPeaks(luigi.Task):
     def run(self):
         # macs3
         macs3 = local["macs3"]
-        (macs3["callpeak", "--nomodel", "-q",  self.peak_quality, "-B", "-t", self.outname_nodup, "-n", self.peak_output])()
-
+        (macs3[
+            "callpeak", "--nomodel", "-q", self.peak_quality, "-B", "-t", self.outname_nodup, "-n", self.peak_output])()
 
 
 if __name__ == '__main__':
