@@ -56,6 +56,7 @@ RUN apt-get install -y python3-pip
 RUN apt-get clean && apt-get purge && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN git clone https://github.com/ijuric/MAPS.git
 
 WORKDIR /app
 
