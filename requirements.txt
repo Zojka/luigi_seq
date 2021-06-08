@@ -6,4 +6,5 @@ pybedtools==v0.8.0
 
 # luigi
 luigi
+plumbum
 
