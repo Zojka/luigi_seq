@@ -65,7 +65,7 @@ COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 RUN pip3 install cykhash macs3
 
-
+ENV PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$"
 
 COPY . .
 CMD /bin/bash
