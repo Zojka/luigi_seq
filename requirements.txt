@@ -6,7 +6,10 @@ pybedtools==v0.8.0
 
 # macs3
 
+
 Cython
+# cykhash
+# macs3
 
 # luigi
 luigi
