@@ -3,8 +3,16 @@
 """
 @author: zparteka
 """
+import luigi
+from plumbum import local
+
 # todo run analysis on multiple hichip samples
 
 # todo add config files
 
-# todo add docker
+class RunAnalysis(luigi.Task):
+    pass
+
+
+
+

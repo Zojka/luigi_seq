@@ -6,12 +6,15 @@
 
 import luigi
 from plumbum import local
+from configuration.load_configuration import load
+
+c = load()
 
 
 class Mapping(luigi.Task):
     r1 = luigi.Parameter()
     r2 = luigi.Parameter()
-    threads = luigi.Parameter()
+    threads = luigi.Parameter(c.threads)
     reference = luigi.Parameter()
     outname = luigi.Parameter(default="output.bam")
 
