@@ -124,6 +124,7 @@ if [ $feather -eq 1 ]; then
 		$python_path $cwd/feather/feather_pipe preprocess -o $feather_output -p $dataset_name -f1 $fastq1 -f2 $fastq2 -b $bwa_index -q $mapq -l $length_cutoff -t $threads -c $per_chr -j $generate_hic -a $macs2_filepath -d $optical_duplicate_distance
 		qc_filename=$feather_output/$dataset_name".feather.qc"
 		temp_qc_file=$feather_output/tempfiles/$dataset_name".feather.qc.modified"
+		echo "tutaj tez"
 		#printf "dataset name:\t"$dataset_name"\n" >> $qc_filename
 		#printf "MACS2 file:\t"$macs2_filename"\n" >> $qc_filename
 		sed -r 's/  +/\t/g' $qc_filename > $temp_qc_file
