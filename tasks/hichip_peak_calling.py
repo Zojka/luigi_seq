@@ -12,95 +12,104 @@ c = Configuration
 
 
 class Mapping(luigi.Task):
-    outname = luigi.Parameter(c.outnames["mapped"])
+    config = luigi.DictParameter()
 
     def output(self):
-        return luigi.LocalTarget(self.outname)
+        return luigi.LocalTarget(self.config.outnames["mapped"])
 
     def run(self):
         bwa = local["bwa"]
         samtools = local["samtools"]
-        (bwa["mem", "-SP5M", f"-t{c.threads}", c.reference, c.r1, c.r2] | samtools[
-            "view", "-bhS"] > self.outname)()
+        (bwa["mem", "-SP5M", f"-t{self.config.threads}", self.config.reference, self.config.r1, self.config.r2] |
+         samtools["view", "-bhS"] > self.config.outnames["mapped"])()
 
 
 class RemoveNotAlignedReads(luigi.Task):
-    outname_mapped = luigi.Parameter(c.outnames["mapped_only"])
+    config = luigi.DictParameter()
 
     def requires(self):
-        return Mapping()
+        return Mapping(self.config)
 
     def output(self):
-        return luigi.LocalTarget(self.outname_mapped)
+        return luigi.LocalTarget(self.config.outnames["mapped_only"])
 
     def run(self):
         samtools = local["samtools"]
-        (samtools["view", "-F", "0x04", "-b", c.outnames["mapped"]] > self.outname_mapped)()
+        (samtools["view", "-F", "0x04", "-b", self.config.outnames["mapped"]] > self.config.outnames["mapped_only"])()
 
 
 class MappingQualityFilter(luigi.Task):
-    outname_filtered = luigi.Parameter(c.outnames["filtered"])
+    config = luigi.DictParameter()
 
     def output(self):
-        return luigi.LocalTarget(self.outname_filtered)
+        return luigi.LocalTarget(self.config.outnames["filtered"])
 
     def requires(self):
-        return RemoveNotAlignedReads()
+        return RemoveNotAlignedReads(self.config)
 
     def run(self):
         samtools = local["samtools"]
-        (samtools["view", "-q", c.mapq, "-t", c.threads, "-b", c.outnames["mapped_only"]] > self.outname_filtered)()
+        (samtools[
+             "view", "-q", self.config.mapq, "-t", self.config.threads, "-b", self.config.outnames["mapped_only"]] >
+         self.config.outnames["filtered"])()
 
 
 class RemoveDuplicates(luigi.Task):
-    outname_nodup = luigi.Parameter(c.outnames["nodup"])
+    config = luigi.DictParameter()
+
+    # outname_nodup = luigi.Parameter(self.config.outnames["nodup"])
 
     def requires(self):
-        return MappingQualityFilter()
+        return MappingQualityFilter(self.config)
 
     def output(self):
-        return luigi.LocalTarget(self.outname_nodup)
+        return luigi.LocalTarget(self.config.outnames["nodup"])
 
     def run(self):
         samtools = local["samtools"]
-        (samtools["sort", "-n", "-t", c.threads, c.outnames["filtered"], "-o", "-"] | samtools[
-            "fixmate", "--threads", c.threads, "-", "-"] | samtools["rmdup", "-S", "-", self.outname_nodup])()
+        (samtools["sort", "-n", "-t", self.config.threads, self.config.outnames["filtered"], "-o", "-"] | samtools[
+            "fixmate", "--threads", self.config.threads, "-", "-"] | samtools[
+             "rmdup", "-S", "-", self.config.outnames["nodup"]])()
 
 
 class CreateBigwig(luigi.Task):
     """Create BigWig coverage file from deduplicated bam file. Needs samtools and deeptools"""
+    config = luigi.DictParameter()
 
-    outname_bigwig = luigi.Parameter(c.outnames["bigwig"])
+    # outname_bigwig = luigi.Parameter(self.config.outnames["bigwig"])
 
     def requires(self):
-        return RemoveDuplicates()
+        return RemoveDuplicates(self.config)
 
     def output(self):
-        return luigi.LocalTarget(self.outname_bigwig)
+        return luigi.LocalTarget(self.config.outnames["bigwig"])
 
     def run(self):
         samtools = local["samtools"]
         bamCoverage = local["bamCoverage"]
-        (samtools["sort", "-t", c.threads, c.outnames["nodup"], "-o", c.outnames["sorted"]])()
-        (samtools["index", c.outnames["sorted"]])()
-        (bamCoverage["-b", c.outnames["sorted"], "-o", self.outname_bigwig])()
+        (samtools[
+            "sort", "-t", self.config.threads, self.config.outnames["nodup"], "-o", self.config.outnames["sorted"]])()
+        (samtools["index", self.config.outnames["sorted"]])()
+        (bamCoverage["-b", self.config.outnames["sorted"], "-o", self.config.outnames["bigwig"]])()
 
 
 class CallPeaks(luigi.Task):
     config = luigi.DictParameter()
-    peak_output = luigi.Parameter(c.outnames["peaks"])
+
+    # peak_output = luigi.Parameter(self.config.outnames["peaks"])
 
     def requires(self):
-        return RemoveDuplicates()
+        return RemoveDuplicates(self.config)
 
     def output(self):
-        return luigi.LocalTarget(self.peak_output)
+        return luigi.LocalTarget(self.config.outnames["peaks"])
 
     def run(self):
         # macs3
         macs3 = local["macs3"]
         (macs3[
-            "callpeak", "--nomodel", "-q", self.config.peak_quality, "-B", "-t", self.config.outnames["nodup"], "-n", self.config.outnames["peaks"]])()
+            "callpeak", "--nomodel", "-q", self.config.peak_quality, "-B", "-t", self.config.outnames["nodup"], "-n",
+            self.config.outnames["peaks"]])()
 
 
 if __name__ == '__main__':

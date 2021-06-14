@@ -24,8 +24,17 @@ class RunAnalysis(luigi.WrapperTask):
                           ("/mnt/raid/zparteka/natalia_uva/ko2/fastq/KO2_S2_L001_R1_001.fastq.gz",
                            "/mnt/raid/zparteka/natalia_uva/ko2/fastq/KO2_S2_L001_R2_001.fastq.gz")]}
 
-        for sample in samples.keys():
+        for sam in samples.keys():
+            sample = samples[sam]
+            out_r1 = f"{sample[0][0].split('_')[0]}_{sample[0][0].split('_')[1]}_R1.fastq.gz"
+            out_r2 = f"{sample[0][1].split('_')[0]}_{sample[0][0].split('_')[1]}_R2.fastq.gz"
+            cat = local["cat"]
+            (cat[sample[0][0], sample[1][0], ">", out_r1])()
+            (cat[sample[0][1], sample[1][1], ">", out_r2])()
+
+            sample.append((out_r1, out_r2))
             sample_luigi = luigi.DictParameter(sample)
+
             yield RunMapsPulledReplicates(sample_luigi)
 
             # todo take first replicate, build configuration (pass configuration in hichip_analysis)
