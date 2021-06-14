@@ -15,7 +15,7 @@ class Configuration:
                 "sorted": None,
                 "peaks": None}
 
-    def __init__(self, r1, r2):
+    def __init__(self, r1="/mnt/raid/zparteka/natalia_uva/ko1/fastq/KO1_S1_L001_R1_001.fastq.gz", r2="/mnt/raid/zparteka/natalia_uva/ko1/fastq/KO1_S1_L001_R2_001.fastq.gz"):
         self.r1 = r1
         self.r2 = r2
         self.create_outnames()
