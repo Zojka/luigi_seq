@@ -46,6 +46,6 @@ class Configuration:
 
 
 def loads(p):
-    print(p)
+    print(p.keys())
     c = Configuration(p["r1"], p["r2"])
     return c
