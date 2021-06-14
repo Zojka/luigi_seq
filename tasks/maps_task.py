@@ -15,7 +15,7 @@ class RunMapsSingleReplicate(luigi.Task):
 
     def requires(self):
         config = loads(self.c)
-        return CallPeaks(config)
+        return CallPeaks(self.c)
 
     def output(self):
         return luigi.LocalTarget(is_tmp=True)
