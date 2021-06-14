@@ -4,7 +4,7 @@
 @author: zparteka
 """
 from os import makedirs
-from os.path import basename, join, isdir
+from os.path import basename, join, isdir, dirname
 import pickle
 
 
@@ -25,6 +25,11 @@ class Configuration:
             makedirs(self.outdir)
 
         self.create_outnames()
+        self.maps_dataset = basename(r1).split("_R")[0]
+        self.fastq_dir = dirname(r1)
+        self.narrow_peak = self.outnames["peaks"] + "_peaks.narrowPeak"
+        self.bwa_index = "/mnt/raid/zparteka/hg38_reference/Homo_sapiens_assembly38.fasta"
+
 
     # todo add checking if value is None
     def create_outnames(self):
