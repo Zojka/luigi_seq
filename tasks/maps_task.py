@@ -16,9 +16,9 @@ class RunMapsSingleReplicate(luigi.Task):
     def requires(self):
         return CallPeaks(self.c)
 
-    # def output(self):
-    #     config = loads(self.c)
-    #     return luigi.LocalTarget(config.outnames["peaks"])
+    def output(self):
+        # config = loads(self.c)
+        return luigi.LocalTarget("maps.txt")
 
     # todo include MAPS
 
@@ -26,7 +26,7 @@ class RunMapsSingleReplicate(luigi.Task):
         print("tutaj")
         with local.env(DATASET_NUMBER=1, DATASET_NAME=2, FASTQDIR=3):
             run_maps = local["./tasks/run_maps.sh"]
-            (run_maps)()
+            (run_maps > "maps.txt")()
 
 
 class RunMapsPulledReplicates(luigi.Task):
@@ -39,10 +39,10 @@ class RunMapsPulledReplicates(luigi.Task):
 
         return RunMapsSingleReplicate(conf_s1), RunMapsSingleReplicate(conf_s2), CallPeaks(conf_s3)
 
-    # def output(self):
-    #     return luigi.LocalTarget()
+    def output(self):
+        return luigi.LocalTarget("done.txt")
 
     def run(self):
         # macs3
-        macs3 = local["sleep"]
-        (macs3[5])()
+        echo = local["echo"]
+        (echo["done"] > "done.txt")()
