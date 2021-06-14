@@ -7,10 +7,14 @@ import luigi
 from plumbum import local
 from tasks.configuration.load_configuration import Configuration
 from tasks.maps_task import RunMapsPulledReplicates
+from os.path import basename, dirname, join, isdir
+from pathlib import Path
+from os import makedirs
+
+
 # todo run analysis on multiple hichip samples
 
 # todo add config files
-
 
 
 class RunAnalysis(luigi.WrapperTask):
@@ -26,11 +30,16 @@ class RunAnalysis(luigi.WrapperTask):
 
         for sam in samples.keys():
             sample = samples[sam]
-            out_r1 = f"{sample[0][0].split('_')[0]}_{sample[0][0].split('_')[1]}_R1.fastq.gz"
-            out_r2 = f"{sample[0][1].split('_')[0]}_{sample[0][0].split('_')[1]}_R2.fastq.gz"
+            folder = join(Path(dirname(sample[0][0])).parent().parent().absolute(), f"{sam}_pulled")
+            if not isdir(folder):
+                makedirs(folder)
+            template = basename(sample[0][0]).split('_')
+            out_r1 = join(folder, f"{template[0]}_{template[1]}_R1.fastq.gz")
+            out_r2 = join(folder, f"{template[0]}_{template[1]}_R2.fastq.gz")
+
             cat = local["cat"]
-            (cat[sample[0][0], sample[1][0], ">", out_r1])()
-            (cat[sample[0][1], sample[1][1], ">", out_r2])()
+            (cat[sample[0][0], sample[1][0]] > out_r1)()
+            (cat[sample[0][1], sample[1][1]] > out_r2)()
 
             sample.append((out_r1, out_r2))
             sample_luigi = luigi.DictParameter(sample)
@@ -55,10 +64,3 @@ class RunAnalysis(luigi.WrapperTask):
             # todo run hichip analysis on pulled replicates
 
             # todo run MAPS on pulled samples → needs results from MAPS run on separate replicates and peak calling on pulled samples
-
-
-
-
-
-
-
