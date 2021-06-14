@@ -30,7 +30,7 @@ class RunAnalysis(luigi.WrapperTask):
 
         for sam in samples.keys():
             sample = samples[sam]
-            folder = join(Path(dirname(sample[0][0])).parent.parent.absolute(), f"{sam}_pulled")
+            folder = join(Path(dirname(sample[0][0])).parent.parent.absolute(), f"{sam}_pulled/fastq/")
             if not isdir(folder):
                 makedirs(folder)
             out_r1 = join(folder, f"{sam}_pulled_R1.fastq.gz")
