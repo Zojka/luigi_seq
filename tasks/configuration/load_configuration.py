@@ -3,7 +3,8 @@
 """
 @author: zparteka
 """
-from os.path import basename, join
+from os import makedirs
+from os.path import basename, join, isdir
 
 
 class Configuration:
@@ -19,7 +20,9 @@ class Configuration:
         self.r1 = r1
         self.r2 = r2
         # todo chnge this: my case - can be overwritten
-        self.outdir = r1.split("fastq")[0] + "maps_output/"
+        self.outdir = r1.split("fastq")[0] + "luigi_seq_output/"
+        if not isdir(self.outdir):
+            makedirs(self.outdir)
 
         self.create_outnames()
 
