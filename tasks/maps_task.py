@@ -11,10 +11,11 @@ from plumbum import local
 
 
 class RunMapsSingleReplicate(luigi.Task):
-    config = loads(luigi.DictParameter())
+    c = luigi.DictParameter()
 
     def requires(self):
-        return CallPeaks(self.config)
+        config = loads(self.c)
+        return CallPeaks(config)
 
     def output(self):
         return luigi.LocalTarget()
