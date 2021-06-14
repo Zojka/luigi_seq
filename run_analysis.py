@@ -15,7 +15,7 @@ from tasks.maps_task import RunMapsPulledReplicates
 
 class RunAnalysis(luigi.WrapperTask):
 
-    def run(self):
+    def requires(self):
 
         # todo build a dictionary with samples (find? glob?)
 
