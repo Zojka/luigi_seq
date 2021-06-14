@@ -25,7 +25,7 @@ class RunMapsSingleReplicate(luigi.Task):
     def run(self):
         print("tutaj")
         config = loads(self.c)
-        with local.env(DATASET_NUMBER=1, DATASET_NAME=config.maps_dataset, FASTQDIR=config.fastq_dir, OUTDIR=config.outdir, MACS_OUTPUT=config.narrow_peak ):
+        with local.env(DATASET_NUMBER=1, DATASET_NAME=config.maps_dataset, FASTQDIR=config.fastq_dir, OUTDIR=config.outdir, MACS_OUTPUT=config.narrow_peak, BWA_INDEX=config.bwa_index ):
             run_maps = local["./tasks/run_maps.sh"]
             (run_maps > "maps.txt")()
 
