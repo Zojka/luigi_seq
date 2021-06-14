@@ -12,16 +12,19 @@ c = Configuration
 
 
 class Mapping(luigi.Task):
-    config = loads(luigi.Parameter())
+    c = luigi.DictParameter()
 
     def output(self):
-        return luigi.LocalTarget(self.config.outnames["mapped"])
+        config = loads(self.c)
+        return luigi.LocalTarget(config.outnames["mapped"])
 
     def run(self):
+        config = loads(self.c)
+
         bwa = local["bwa"]
         samtools = local["samtools"]
-        (bwa["mem", "-SP5M", f"-t{self.config.threads}", self.config.reference, self.config.r1, self.config.r2] |
-         samtools["view", "-bhS"] > self.config.outnames["mapped"])()
+        (bwa["mem", "-SP5M", f"-t{config.threads}", config.reference, config.r1, config.r2] |
+         samtools["view", "-bhS"] > config.outnames["mapped"])()
 
 
 class RemoveNotAlignedReads(luigi.Task):
