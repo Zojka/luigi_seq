@@ -112,7 +112,7 @@ class CallPeaks(luigi.Task):
 
     def output(self):
         config = loads(self.c)
-        return luigi.LocalTarget(config.outnames["peaks"])
+        return luigi.LocalTarget(config.outnames["peaks"] + "_peaks.narrowPeak")
 
     def run(self):
         print("callpeaks")
