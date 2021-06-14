@@ -12,7 +12,7 @@ c = Configuration
 
 
 class Mapping(luigi.Task):
-    config = loads(luigi.Parameter())
+    config = loads(luigi.DictParameter())
 
     def output(self):
         return luigi.LocalTarget(self.config.outnames["mapped"])
@@ -25,7 +25,7 @@ class Mapping(luigi.Task):
 
 
 class RemoveNotAlignedReads(luigi.Task):
-    config = loads(luigi.Parameter())
+    config = loads(luigi.DictParameter())
 
     def requires(self):
         return Mapping(self.config)
@@ -39,7 +39,7 @@ class RemoveNotAlignedReads(luigi.Task):
 
 
 class MappingQualityFilter(luigi.Task):
-    config = loads(luigi.Parameter())
+    config = loads(luigi.DictParameter())
 
     def output(self):
         return luigi.LocalTarget(self.config.outnames["filtered"])
@@ -55,9 +55,9 @@ class MappingQualityFilter(luigi.Task):
 
 
 class RemoveDuplicates(luigi.Task):
-    config = loads(luigi.Parameter())
+    config = loads(luigi.DictParameter())
 
-    # outname_nodup = luigi.Parameter(self.config.outnames["nodup"])
+    # outname_nodup = luigi.DictParameter(self.config.outnames["nodup"])
 
     def requires(self):
         return MappingQualityFilter(self.config)
@@ -74,9 +74,9 @@ class RemoveDuplicates(luigi.Task):
 
 class CreateBigwig(luigi.Task):
     """Create BigWig coverage file from deduplicated bam file. Needs samtools and deeptools"""
-    config = loads(luigi.Parameter())
+    config = loads(luigi.DictParameter())
 
-    # outname_bigwig = luigi.Parameter(self.config.outnames["bigwig"])
+    # outname_bigwig = luigi.DictParameter(self.config.outnames["bigwig"])
 
     def requires(self):
         return RemoveDuplicates(self.config)
@@ -94,9 +94,9 @@ class CreateBigwig(luigi.Task):
 
 
 class CallPeaks(luigi.Task):
-    config = loads(luigi.Parameter())
+    config = loads(luigi.DictParameter())
 
-    # peak_output = luigi.Parameter(self.config.outnames["peaks"])
+    # peak_output = luigi.DictParameter(self.config.outnames["peaks"])
 
     def requires(self):
         return RemoveDuplicates(self.config)
