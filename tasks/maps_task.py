@@ -37,7 +37,7 @@ class RunMapsPulledReplicates(luigi.Task):
         conf_s2 = Configuration(self.sample[1][0], self.sample[1][1]).dumps()
         conf_s3 = Configuration(self.sample[2][0], self.sample[2][1]).dumps()
 
-        return RunMapsSingleReplicate(conf_s1), RunMapsSingleReplicate(conf_s2), CallPeaks(conf_s3)
+        return RunMapsSingleReplicate(conf_s1) #, RunMapsSingleReplicate(conf_s2), CallPeaks(conf_s3)
 
     def output(self):
         return luigi.LocalTarget("done.txt")
