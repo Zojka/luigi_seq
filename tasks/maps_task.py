@@ -35,8 +35,8 @@ class RunMapsPulledReplicates(luigi.Task):
 
         return RunMapsSingleReplicate(conf_s1), RunMapsSingleReplicate(conf_s2), CallPeaks(conf_s3)
 
-    def output(self):
-        return luigi.LocalTarget()
+    # def output(self):
+    #     return luigi.LocalTarget()
 
     def run(self):
         # macs3
