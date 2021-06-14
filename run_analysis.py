@@ -15,13 +15,13 @@ from os import makedirs
 # todo run analysis on multiple hichip samples
 
 # todo add config files
-
+samples_yoruban = {}
+samples_chinese = {}
+samples_puerto = {}
 
 class RunAnalysis(luigi.WrapperTask):
 
     def requires(self):
-
-        # todo build a dictionary with samples (find? glob?)
 
         samples = {"ko": [("/mnt/raid/zparteka/natalia_uva/ko1/fastq/KO1_S1_L001_R1_001.fastq.gz",
                            "/mnt/raid/zparteka/natalia_uva/ko1/fastq/KO1_S1_L001_R2_001.fastq.gz"),
@@ -33,9 +33,8 @@ class RunAnalysis(luigi.WrapperTask):
             folder = join(Path(dirname(sample[0][0])).parent.parent.absolute(), f"{sam}_pulled")
             if not isdir(folder):
                 makedirs(folder)
-            template = basename(sample[0][0]).split('_')
-            out_r1 = join(folder, f"{template[0]}_{template[1]}_R1.fastq.gz")
-            out_r2 = join(folder, f"{template[0]}_{template[1]}_R2.fastq.gz")
+            out_r1 = join(folder, f"{sam}_pulled_R1.fastq.gz")
+            out_r2 = join(folder, f"{sam}_pulled_R2.fastq.gz")
 
             cat = local["cat"]
             (cat[sample[0][0], sample[1][0]] > out_r1)()

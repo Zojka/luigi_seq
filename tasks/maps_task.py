@@ -21,13 +21,11 @@ class RunMapsSingleReplicate(luigi.Task):
         return luigi.LocalTarget(config.outnames["peaks"])
 
     # todo include MAPS
-    def complete(self):
-        return True
 
     def run(self):
-        # macs3
-        macs3 = local["sleep"]
-        (macs3[5])()
+        with local.env(DATASET_NUMBER=1, DATASET_NAME=2, FASTQDIR=3):
+            run_maps = local["./tasks/run_maps.sh"]
+            (run_maps)()
 
 
 class RunMapsPulledReplicates(luigi.Task):

@@ -2,14 +2,14 @@
 
 # copied from: https://github.com/ijuric/MAPS
 
-python_path=/home/abnousa/software/python3.6.5/bin/python #should have pysam, pybedtools installed. bedtools, samtools should be in the path
-Rscript_path=/opt/R-3.4.3/bin/Rscript
+python_path=/usr/bin/python #should have pysam, pybedtools installed. bedtools, samtools should be in the path
+Rscript_path=/usr/local/bin/Rscript
 ###################################################################
 feather=1 #start from feather or run only MAPS
 maps=1
 number_of_datasets=${DATASET_NUMBER}
 dataset_name=${DATASET_NAME}
-fastq_format=".fastq"
+fastq_format=".fastq.gz"
 fastq_dir=${FASTQDIR}
 outdir=${OUTDIR}
 macs2_filepath=${MACS_OUTPUT}
