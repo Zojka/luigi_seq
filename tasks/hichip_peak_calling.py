@@ -6,7 +6,7 @@
 
 import luigi
 from plumbum import local
-from configuration.load_configuration import load
+from tasks.configuration import load
 
 c = load()
 
