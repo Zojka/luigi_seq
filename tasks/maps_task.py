@@ -14,7 +14,6 @@ class RunMapsSingleReplicate(luigi.Task):
     c = luigi.DictParameter()
 
     def requires(self):
-        config = loads(self.c)
         return CallPeaks(self.c)
 
     def output(self):
@@ -22,8 +21,7 @@ class RunMapsSingleReplicate(luigi.Task):
 
     def run(self):
         # macs3
-        macs3 = local["sleep"]
-        (macs3[5])()
+        self.complete()
 
 
 class RunMapsPulledReplicates(luigi.Task):
