@@ -23,6 +23,7 @@ class RunMapsSingleReplicate(luigi.Task):
     # todo include MAPS
 
     def run(self):
+        print("tutaj")
         with local.env(DATASET_NUMBER=1, DATASET_NAME=2, FASTQDIR=3):
             run_maps = local["./tasks/run_maps.sh"]
             (run_maps)()
