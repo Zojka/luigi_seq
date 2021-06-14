@@ -12,7 +12,7 @@ c = Configuration
 
 
 class Mapping(luigi.Task):
-    config = loads(luigi.DictParameter())
+    config = loads(luigi.Parameter())
 
     def output(self):
         return luigi.LocalTarget(self.config.outnames["mapped"])
