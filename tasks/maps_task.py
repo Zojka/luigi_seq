@@ -11,7 +11,7 @@ from plumbum import local
 
 
 class RunMapsSingleReplicate(luigi.Task):
-    conf = luigi.Parameter()
+    conf = luigi.DictParameter()
 
     def requires(self):
         return CallPeaks(conf)
