@@ -115,7 +115,7 @@ class CallPeaks(luigi.Task):
 
     def requires(self):
         config = loads(self.c)
-        return RemoveDuplicates(config)
+        return RemoveDuplicates(self.c)
 
     def output(self):
         config = loads(self.c)
