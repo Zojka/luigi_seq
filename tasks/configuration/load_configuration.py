@@ -5,6 +5,7 @@
 """
 from os import makedirs
 from os.path import basename, join, isdir
+import pickle
 
 
 class Configuration:
@@ -16,9 +17,7 @@ class Configuration:
                 "sorted": None,
                 "peaks": None}
 
-
-
-    def __init__(self, r1="/mnt/raid/zparteka/natalia_uva/ko1/fastq/KO1_S1_L001_R1_001.fastq.gz", r2="/mnt/raid/zparteka/natalia_uva/ko1/fastq/KO1_S1_L001_R2_001.fastq.gz"):
+    def __init__(self, r1, r2):
         self.r1 = r1
         self.r2 = r2
         # todo change this: my case - can be overwritten
@@ -28,9 +27,7 @@ class Configuration:
 
         self.create_outnames()
 
-
-        # todo add checking if value is None
-
+    # todo add checking if value is None
     def create_outnames(self):
         base = basename(self.r1.split("_R1")[0])
         self.outnames["mapped"] = join(self.outdir, f"{base}.bam")
@@ -42,3 +39,9 @@ class Configuration:
         self.outnames["sorted"] = join(self.outdir, f"{base}_sorted.bam")
         self.outnames["peaks"] = join(self.outdir, f"{base}_macs3")
 
+    def dumps(self):
+        return pickle.dumps(self)
+
+
+def loads(p):
+    return pickle.loads(p)
