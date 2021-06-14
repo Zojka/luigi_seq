@@ -40,8 +40,11 @@ class Configuration:
         self.outnames["peaks"] = join(self.outdir, f"{base}_macs3")
 
     def dumps(self):
-        return pickle.dumps(self)
+        c = {"r1": self.r1, "r2": self.r2}
+
+        return c
 
 
 def loads(p):
-    return pickle.loads(p)
+    c = Configuration(p.r1, p.r2)
+    return c
