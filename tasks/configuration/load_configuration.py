@@ -46,5 +46,5 @@ class Configuration:
 
 
 def loads(p):
-    c = Configuration(p.r1, p.r2)
+    c = Configuration(p["r1"], p["r2"])
     return c
