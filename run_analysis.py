@@ -42,9 +42,8 @@ class RunAnalysis(luigi.WrapperTask):
             (cat[sample[0][1], sample[1][1]] > out_r2)()
 
             sample.append((out_r1, out_r2))
-            sample_luigi = luigi.DictParameter(sample)
 
-            yield RunMapsPulledReplicates(sample_luigi)
+            yield RunMapsPulledReplicates(sample)
 
             # todo take first replicate, build configuration (pass configuration in hichip_analysis)
             # todo run peak calling on first replicate
