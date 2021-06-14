@@ -14,7 +14,6 @@ c = load()
 class Mapping(luigi.Task):
     r1 = luigi.Parameter()
     r2 = luigi.Parameter()
-    threads = luigi.Parameter(c.threads)
     reference = luigi.Parameter()
     outname = luigi.Parameter(default="output.bam")
 
@@ -24,21 +23,20 @@ class Mapping(luigi.Task):
     def run(self):
         bwa = local["bwa"]
         samtools = local["samtools"]
-        (bwa["mem", "-SP5M", f"-t{self.threads}", self.reference, self.r1, self.r2] | samtools[
+        (bwa["mem", "-SP5M", f"-t{c.threads}", self.reference, self.r1, self.r2] | samtools[
             "view", "-bhS"] > self.outname)()
 
 
 class RemoveNotAlignedReads(luigi.Task):
     r1 = luigi.Parameter()
     r2 = luigi.Parameter()
-    threads = luigi.Parameter()
     reference = luigi.Parameter()
     outname = luigi.Parameter(default="output.bam")
 
     outname_mapped = luigi.Parameter(default="output_mapped.bam")
 
     def requires(self):
-        return Mapping(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference, outname=self.outname)
+        return Mapping(r1=self.r1, r2=self.r2, reference=self.reference, outname=self.outname)
 
     def output(self):
         return luigi.LocalTarget(self.outname_mapped)
@@ -51,7 +49,6 @@ class RemoveNotAlignedReads(luigi.Task):
 class MappingQualityFilter(luigi.Task):
     r1 = luigi.Parameter()
     r2 = luigi.Parameter()
-    threads = luigi.Parameter()
     reference = luigi.Parameter()
     outname = luigi.Parameter(default="output.bam")
     outname_mapped = luigi.Parameter(default="output_mapped.bam")
@@ -62,18 +59,17 @@ class MappingQualityFilter(luigi.Task):
         return luigi.LocalTarget(self.outname_filtered)
 
     def requires(self):
-        return RemoveNotAlignedReads(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
+        return RemoveNotAlignedReads(r1=self.r1, r2=self.r2, reference=self.reference,
                                      outname=self.outname, outname_mapped=self.outname_mapped)
 
     def run(self):
         samtools = local["samtools"]
-        (samtools["view", "-q", self.quality, "-t", self.threads, "-b", self.outname_mapped] > self.outname_filtered)()
+        (samtools["view", "-q", self.quality, "-t", c.threads, "-b", self.outname_mapped] > self.outname_filtered)()
 
 
 class RemoveDuplicates(luigi.Task):
     r1 = luigi.Parameter()
     r2 = luigi.Parameter()
-    threads = luigi.Parameter()
     reference = luigi.Parameter()
     outname = luigi.Parameter(default="output.bam")
     outname_mapped = luigi.Parameter(default="output_mapped.bam")
@@ -82,7 +78,7 @@ class RemoveDuplicates(luigi.Task):
     quality = luigi.Parameter(default=30)
 
     def requires(self):
-        return MappingQualityFilter(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
+        return MappingQualityFilter(r1=self.r1, r2=self.r2, reference=self.reference,
                                     outname=self.outname, quality=self.quality, outname_mapped=self.outname_mapped,
                                     outname_filtered=self.outname_filtered)
 
@@ -91,15 +87,14 @@ class RemoveDuplicates(luigi.Task):
 
     def run(self):
         samtools = local["samtools"]
-        (samtools["sort", "-n", "-t", self.threads, self.outname_filtered, "-o", "-"] | samtools[
-            "fixmate", "--threads", self.threads, "-", "-"] | samtools["rmdup", "-S", "-", self.outname_nodup])()
+        (samtools["sort", "-n", "-t", c.threads, self.outname_filtered, "-o", "-"] | samtools[
+            "fixmate", "--threads", c.threads, "-", "-"] | samtools["rmdup", "-S", "-", self.outname_nodup])()
 
 
 class CreateBigwig(luigi.Task):
     """Create BigWig coverage file from deduplicated bam file. Needs samtools and deeptools"""
     r1 = luigi.Parameter()
     r2 = luigi.Parameter()
-    threads = luigi.Parameter()
     reference = luigi.Parameter()
     outname = luigi.Parameter(default="output.bam")
     outname_mapped = luigi.Parameter(default="output_mapped.bam")
@@ -111,7 +106,7 @@ class CreateBigwig(luigi.Task):
     outname_sorted = luigi.Parameter(default="output_sorted.bam")
 
     def requires(self):
-        return RemoveDuplicates(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
+        return RemoveDuplicates(r1=self.r1, r2=self.r2, reference=self.reference,
                                 outname=self.outname, quality=self.quality, outname_mapped=self.outname_mapped,
                                 outname_filtered=self.outname_filtered, outname_nodup=self.outname_nodup)
 
@@ -121,7 +116,7 @@ class CreateBigwig(luigi.Task):
     def run(self):
         samtools = local["samtools"]
         bamCoverage = local["bamCoverage"]
-        (samtools["sort", "-t", self.threads, self.outname_nodup, "-o", self.outname_sorted])()
+        (samtools["sort", "-t", c.threads, self.outname_nodup, "-o", self.outname_sorted])()
         (samtools["index", self.outname_sorted])()
         (bamCoverage["-b", self.outname_sorted, "-o", self.outname_bigwig])()
 
@@ -129,7 +124,6 @@ class CreateBigwig(luigi.Task):
 class CallPeaks(luigi.Task):
     r1 = luigi.Parameter()
     r2 = luigi.Parameter()
-    threads = luigi.Parameter()
     reference = luigi.Parameter()
     outname = luigi.Parameter(default="output.bam")
     outname_mapped = luigi.Parameter(default="output_mapped.bam")
@@ -143,7 +137,7 @@ class CallPeaks(luigi.Task):
     peak_output = luigi.Parameter(default="peaks_macs3")
 
     def requires(self):
-        return RemoveDuplicates(r1=self.r1, r2=self.r2, threads=self.threads, reference=self.reference,
+        return RemoveDuplicates(r1=self.r1, r2=self.r2, reference=self.reference,
                                 outname=self.outname, quality=self.quality, outname_mapped=self.outname_mapped,
                                 outname_filtered=self.outname_filtered, outname_nodup=self.outname_nodup)
 
