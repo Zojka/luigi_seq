@@ -16,9 +16,9 @@ class RunMapsSingleReplicate(luigi.Task):
     def requires(self):
         return CallPeaks(self.c)
 
-    def output(self):
-        config = loads(self.c)
-        return luigi.LocalTarget(config.outnames["peaks"])
+    # def output(self):
+    #     config = loads(self.c)
+    #     return luigi.LocalTarget(config.outnames["peaks"])
 
     # todo include MAPS
 
