@@ -18,7 +18,7 @@ class RunMapsSingleReplicate(luigi.Task):
         return CallPeaks(config)
 
     def output(self):
-        return luigi.LocalTarget()
+        return luigi.LocalTarget(is_tmp=True)
 
     def run(self):
         # macs3
