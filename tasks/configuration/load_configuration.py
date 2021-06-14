@@ -42,7 +42,3 @@ class Configuration:
         self.outnames["sorted"] = join(self.outdir, f"{base}_sorted.bam")
         self.outnames["peaks"] = join(self.outdir, f"{base}_macs3")
 
-
-def load():
-    conf = Configuration()
-    return conf

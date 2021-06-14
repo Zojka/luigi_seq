@@ -6,9 +6,9 @@
 
 import luigi
 from plumbum import local
-from configuration.load_configuration import load
+from configuration.load_configuration import Configuration
 
-c = load()
+c = Configuration
 
 
 class Mapping(luigi.Task):
@@ -87,6 +87,7 @@ class CreateBigwig(luigi.Task):
 
 
 class CallPeaks(luigi.Task):
+    config = luigi.DictParameter()
     peak_output = luigi.Parameter(c.outnames["peaks"])
 
     def requires(self):
@@ -99,7 +100,7 @@ class CallPeaks(luigi.Task):
         # macs3
         macs3 = local["macs3"]
         (macs3[
-            "callpeak", "--nomodel", "-q", c.peak_quality, "-B", "-t", c.outnames["nodup"], "-n", self.peak_output])()
+            "callpeak", "--nomodel", "-q", self.config., "-B", "-t", self.config.outnames["nodup"], "-n", self.config.outnames["peaks"]])()
 
 
 if __name__ == '__main__':
