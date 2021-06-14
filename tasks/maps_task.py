@@ -17,11 +17,13 @@ class RunMapsSingleReplicate(luigi.Task):
         return CallPeaks(self.c)
 
     def output(self):
-        return luigi.LocalTarget(is_tmp=True)
+        config = loads(self.c)
+        return luigi.LocalTarget(config.outnames["peaks"])
 
     def run(self):
         # macs3
-        self.complete()
+        macs3 = local["sleep"]
+        (macs3[5])()
 
 
 class RunMapsPulledReplicates(luigi.Task):
