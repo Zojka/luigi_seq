@@ -20,6 +20,9 @@ class RunMapsSingleReplicate(luigi.Task):
         config = loads(self.c)
         return luigi.LocalTarget(config.outnames["peaks"])
 
+    def complete(self):
+        return True
+
     def run(self):
         # macs3
         macs3 = local["sleep"]
