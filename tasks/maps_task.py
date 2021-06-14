@@ -6,7 +6,7 @@
 
 import luigi
 from tasks.hichip_peak_calling import CallPeaks
-from configuration.load_configuration import Configuration
+from tasks.configuration.load_configuration import Configuration
 from plumbum import local
 
 
