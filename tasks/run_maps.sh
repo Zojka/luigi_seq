@@ -27,7 +27,9 @@ model="pospoisson" #"negbinom"
 sex_chroms_to_process="X"
 optical_duplicate_distance=0
 
-cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+echo "number_of_datasets=$number_of_datasets"
+
+cwd="/opt/MAPS/bin"
 ####################################################################
 ###SET THE VARIABLES AT THIS PORTION ONLY IF
 ### number_of_datasets > 1 (merging exisitng datasets)
