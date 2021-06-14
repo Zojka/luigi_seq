@@ -43,6 +43,8 @@ class RunMapsPulledReplicates(luigi.Task):
         return luigi.LocalTarget("done.txt")
 
     def run(self):
+        print("echo")
+
         # macs3
         echo = local["echo"]
         (echo["done"] > "done.txt")()

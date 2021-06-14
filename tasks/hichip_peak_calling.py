@@ -73,6 +73,8 @@ class RemoveDuplicates(luigi.Task):
         return luigi.LocalTarget(config.outnames["nodup"])
 
     def run(self):
+        print("samtools")
+
         config = loads(self.c)
         samtools = local["samtools"]
         (samtools["sort", "-n", "-t", config.threads, config.outnames["filtered"], "-o", "-"] | samtools[
@@ -113,6 +115,8 @@ class CallPeaks(luigi.Task):
         return luigi.LocalTarget(config.outnames["peaks"])
 
     def run(self):
+        print("callpeaks")
+
         # macs3
         config = loads(self.c)
         macs3 = local["macs3"]
