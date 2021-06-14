@@ -16,10 +16,12 @@ class Configuration:
                 "sorted": None,
                 "peaks": None}
 
+
+
     def __init__(self, r1="/mnt/raid/zparteka/natalia_uva/ko1/fastq/KO1_S1_L001_R1_001.fastq.gz", r2="/mnt/raid/zparteka/natalia_uva/ko1/fastq/KO1_S1_L001_R2_001.fastq.gz"):
         self.r1 = r1
         self.r2 = r2
-        # todo chnge this: my case - can be overwritten
+        # todo change this: my case - can be overwritten
         self.outdir = r1.split("fastq")[0] + "luigi_seq_output/"
         if not isdir(self.outdir):
             makedirs(self.outdir)

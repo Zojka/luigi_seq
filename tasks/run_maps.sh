@@ -3,38 +3,40 @@
 # copied from: https://github.com/ijuric/MAPS
 
 python_path=/home/abnousa/software/python3.6.5/bin/python #should have pysam, pybedtools installed. bedtools, samtools should be in the path
-Rscript_path=/opt/R-3.5.0/bin/Rscript
+Rscript_path=/opt/R-3.4.3/bin/Rscript
 ###################################################################
 feather=1 #start from feather or run only MAPS
 maps=1
-number_of_datasets=1
-dataset_name="test_set1"
+number_of_datasets=${DATASET_NUMBER}
+dataset_name=${DATASET_NAME}
 fastq_format=".fastq"
-fastq_dir="/home/jurici/MAPS/examples/test_set1"
-outdir="/home/jurici/MAPS/examples/outputs/test_set1"
-macs2_filepath="/home/jurici/MAPS/PLAC-Seq_datasets/test_dataset2/MACS2_peaks/final.replicated.narrowPeak"
-organism="mm10"
+fastq_dir=${FASTQDIR}
+outdir=${OUTDIR}
+macs2_filepath=${MACS_OUTPUT}
+organism="hg38"
 bwa_index=""
 bin_size=10000
 binning_range=1000000
 fdr=2 # this is used just for labeling. do not change
 filter_file="None"
 generate_hic=1
-mapq=30
+mapq=${MAPQ}
 length_cutoff=1000
 threads=4
 model="pospoisson" #"negbinom"
 sex_chroms_to_process="X"
 optical_duplicate_distance=0
+
+cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 ####################################################################
 ###SET THE VARIABLES AT THIS PORTION ONLY IF
 ### number_of_datasets > 1 (merging exisitng datasets)
 ### specify as many datasets as required
 ####################################################################
-dataset1="/home/jurici/MAPS/PLAC-Seq_datasets/test_dataset2/feather_output/test_set1_current"
-dataset2="/home/jurici/MAPS/PLAC-Seq_datasets/test_dataset2/feather_output/test_set2_current"
-dataset3=""
-dataset4=""
+dataset1=${DATASET1}
+dataset2=${DATASET2}
+dataset3=${DATASET3}
+dataset4=${DATASET4}
 #...
 ##################################################################
 ###SET THESE VARIABLES ONLY IF FEATHER = 0 AND YOU WANT TO RUN
@@ -55,7 +57,6 @@ resolution=$(bc <<< "$bin_size/1000")
 per_chr='True' # set this to zero if you don't want per chromosome output bed and bedpe files
 feather_logfile=$feather_output"/"$dataset_name".feather.log"
 resolution=$(bc <<< "$bin_size/1000")
-cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 hic_dir="tempfiles/hic_tempfiles"
 if [ $organism == "mm10" ]; then
 	if [ -z $bwa_index ]; then
