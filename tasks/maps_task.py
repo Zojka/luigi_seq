@@ -30,6 +30,7 @@ class RunMapsPulledReplicates(luigi.Task):
 
     def requires(self):
         conf_s1 = Configuration(self.sample[0][0], self.sample[0][1]).dumps()
+        print(conf_s1["r1"])
         conf_s2 = Configuration(self.sample[1][0], self.sample[1][1]).dumps()
         conf_s3 = Configuration(self.sample[2][0], self.sample[2][1]).dumps()
 

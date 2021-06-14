@@ -14,8 +14,7 @@ class Configuration:
     mapq = 30
     peak_quality = 0.01
     outnames = {"mapped": None, "mapped_only": None, "filtered": None, "nodup": None, "bigwig": None, "index:": None,
-                "sorted": None,
-                "peaks": None}
+                "sorted": None, "peaks": None}
 
     def __init__(self, r1, r2):
         self.r1 = r1
@@ -46,6 +45,5 @@ class Configuration:
 
 
 def loads(p):
-    print(p.keys())
     c = Configuration(p["r1"], p["r2"])
     return c
