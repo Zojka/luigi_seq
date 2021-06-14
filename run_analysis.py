@@ -30,7 +30,7 @@ class RunAnalysis(luigi.WrapperTask):
 
         for sam in samples.keys():
             sample = samples[sam]
-            folder = join(Path(dirname(sample[0][0])).parent().parent().absolute(), f"{sam}_pulled")
+            folder = join(Path(dirname(sample[0][0])).parent.parent.absolute, f"{sam}_pulled")
             if not isdir(folder):
                 makedirs(folder)
             template = basename(sample[0][0]).split('_')
