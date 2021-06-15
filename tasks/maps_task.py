@@ -60,4 +60,4 @@ class RunMapsPulledReplicates(luigi.Task):
                        OUTDIR=conf_s3.outdir, MACS_OUTPUT=conf_s3.narrow_peak, BWA_INDEX=conf_s3.bwa_index,
                        MAPQ=conf_s3.mapq, THREADS=conf_s3.threads, DATASET1=feather1, DATASET2=feather2):
             run_maps = local["./tasks/run_maps.sh"]
-            (run_maps > "maps.txt")()
+            (run_maps > "done.txt")()
