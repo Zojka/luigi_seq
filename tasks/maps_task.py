@@ -25,7 +25,9 @@ class RunMapsSingleReplicate(luigi.Task):
     def run(self):
         print("tutaj")
         config = loads(self.c)
-        with local.env(DATASET_NUMBER=1, DATASET_NAME=config.maps_dataset, FASTQDIR=config.fastq_dir, OUTDIR=config.outdir, MACS_OUTPUT=config.narrow_peak, BWA_INDEX=config.bwa_index, MAPQ=config.mapq, THREADS=config.threads):
+        with local.env(DATASET_NUMBER=1, DATASET_NAME=config.maps_dataset, FASTQDIR=config.fastq_dir,
+                       OUTDIR=config.outdir, MACS_OUTPUT=config.narrow_peak, BWA_INDEX=config.bwa_index,
+                       MAPQ=config.mapq, THREADS=config.threads):
             run_maps = local["./tasks/run_maps.sh"]
             (run_maps > "maps.txt")()
 
@@ -38,7 +40,7 @@ class RunMapsPulledReplicates(luigi.Task):
         conf_s2 = Configuration(self.sample[1][0], self.sample[1][1]).dumps()
         conf_s3 = Configuration(self.sample[2][0], self.sample[2][1]).dumps()
 
-        return RunMapsSingleReplicate(conf_s1) #, RunMapsSingleReplicate(conf_s2), CallPeaks(conf_s3)
+        return RunMapsSingleReplicate(conf_s1), RunMapsSingleReplicate(conf_s2), CallPeaks(conf_s3)
 
     def output(self):
         return luigi.LocalTarget("done.txt")
