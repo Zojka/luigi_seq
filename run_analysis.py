@@ -39,10 +39,10 @@ class RunAnalysis(luigi.WrapperTask):
                 makedirs(folder)
             out_r1 = join(folder, f"{sam}_pulled_R1.fastq.gz")
             out_r2 = join(folder, f"{sam}_pulled_R2.fastq.gz")
-
-            cat = local["cat"]
-            (cat[sample[0][0], sample[1][0]] > out_r1)()
-            (cat[sample[0][1], sample[1][1]] > out_r2)()
+            #
+            # cat = local["cat"]
+            # (cat[sample[0][0], sample[1][0]] > out_r1)()
+            # (cat[sample[0][1], sample[1][1]] > out_r2)()
 
             sample.append((out_r1, out_r2))
 

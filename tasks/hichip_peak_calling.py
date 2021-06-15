@@ -24,7 +24,7 @@ class Mapping(luigi.Task):
         bwa = local["bwa"]
         samtools = local["samtools"]
         # todo -v for debugging
-        (bwa["mem", "-SP5M", "-v", 10, f"-t{config.threads}", config.reference, config.r1, config.r2] |
+        (bwa["mem", "-SP5M", "-v", 0, f"-t{config.threads}", config.reference, config.r1, config.r2] |
          samtools["view", "-bhS", "-"] > config.outnames["mapped"])()
 
 
