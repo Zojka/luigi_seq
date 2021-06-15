@@ -21,8 +21,6 @@ class RunMapsSingleReplicate(luigi.Task):
         # config = loads(self.c)
         return luigi.LocalTarget("maps.txt")
 
-    # todo include MAPS
-
     def run(self):
         print("tutaj")
         config = loads(self.c)
@@ -52,11 +50,10 @@ class RunMapsPulledReplicates(luigi.Task):
         conf_s2 = Configuration(self.sample[1][0], self.sample[1][1])
         conf_s3 = Configuration(self.sample[2][0], self.sample[2][1])
 
-
         feather1 = f"{conf_s1.outdir}/feather_output/{conf_s1.maps_dataset}_current/"
         feather2 = f"{conf_s2.outdir}/feather_output/{conf_s2.maps_dataset}_current/"
 
-        with local.env(DATASET_NUMBER=2, DATASET_NAME="", FASTQDIR="",
+        with local.env(DATASET_NUMBER=2, DATASET_NAME=conf_s3.maps_dataset, FASTQDIR="",
                        OUTDIR=conf_s3.outdir, MACS_OUTPUT=conf_s3.narrow_peak, BWA_INDEX=conf_s3.bwa_index,
                        MAPQ=conf_s3.mapq, THREADS=conf_s3.threads, DATASET1=feather1, DATASET2=feather2):
             run_maps = local["./tasks/run_maps.sh"]
