@@ -21,11 +21,17 @@ class Mapping(luigi.Task):
     def run(self):
         config = loads(self.c)
 
-        bwa = local["bwa"]
-        samtools = local["samtools"]
+        # bwa = local["bwa"]
+        # samtools = local["samtools"]
         # todo -v for debugging
-        (bwa["mem", "-SP5M", "-v", 0, f"-t{config.threads}", config.reference, config.r1, config.r2] |
-         samtools["view", "-bhS", "-"] > config.outnames["mapped"])()
+        # (bwa["mem", "-SP5M", "-v", 0, f"-t{config.threads}", config.reference, config.r1, config.r2] |
+        #  samtools["view", "-bhS", "-"] > config.outnames["mapped"])()
+
+        # bwa mem -SP5M -v 0 -t${THREADS} ${REFERENCE} ${R1} ${R2} | samtools view -bhS - > ${OUTNAME_MAPPED}
+        with local.env(THREADS=config.threads, REFERENCE=config.reference, R1=config.r1, R2=config.r2,
+                       OUTNAME_MAPPED=config.outnames["mapped"]):
+            run_bwa = local["./tasks/map.sh"]
+            (run_bwa())
 
 
 class RemoveNotAlignedReads(luigi.Task):
@@ -86,7 +92,6 @@ class RemoveDuplicates(luigi.Task):
 class CreateBigwig(luigi.Task):
     """Create BigWig coverage file from deduplicated bam file. Needs samtools and deeptools"""
     c = luigi.DictParameter()
-
 
     def requires(self):
         return RemoveDuplicates(self.c)
