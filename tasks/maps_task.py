@@ -17,6 +17,7 @@ class RunMapsSingleReplicate(luigi.Task):
         return CallPeaks(self.c)
 
     def output(self):
+        # todo add real output
         # config = loads(self.c)
         return luigi.LocalTarget("maps.txt")
 
@@ -43,11 +44,20 @@ class RunMapsPulledReplicates(luigi.Task):
         return RunMapsSingleReplicate(conf_s1), RunMapsSingleReplicate(conf_s2), CallPeaks(conf_s3)
 
     def output(self):
+        # todo add real output
         return luigi.LocalTarget("done.txt")
 
     def run(self):
-        print("echo")
+        conf_s1 = Configuration(self.sample[0][0], self.sample[0][1])
+        conf_s2 = Configuration(self.sample[1][0], self.sample[1][1])
+        conf_s3 = Configuration(self.sample[2][0], self.sample[2][1])
 
-        # macs3
-        echo = local["echo"]
-        (echo["done"] > "done.txt")()
+
+        feather1 = f"{conf_s1.outdir}/feather_output/{conf_s1.maps_dataset}_current/"
+        feather2 = f"{conf_s2.outdir}/feather_output/{conf_s2.maps_dataset}_current/"
+
+        with local.env(DATASET_NUMBER=2, DATASET_NAME="", FASTQDIR="",
+                       OUTDIR=conf_s3.outdir, MACS_OUTPUT=conf_s3.narrow_peak, BWA_INDEX=conf_s3.bwa_index,
+                       MAPQ=conf_s3.mapq, THREADS=conf_s3.threads, DATASET1=feather1, DATASET2=feather2):
+            run_maps = local["./tasks/run_maps.sh"]
+            (run_maps > "maps.txt")()
