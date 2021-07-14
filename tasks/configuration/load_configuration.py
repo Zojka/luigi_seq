@@ -42,7 +42,6 @@ class Configuration:
         self.outnames["index"] = join(self.outdir, f"{base}_indexed.bam")
         self.outnames["sorted"] = join(self.outdir, f"{base}_sorted.bam")
         self.outnames["peaks"] = join(self.outdir, f"{base}_macs3")
-        print("!!! peaks " + self.outnames["peaks"])
 
     def dumps(self):
         c = {"r1": self.r1, "r2": self.r2}

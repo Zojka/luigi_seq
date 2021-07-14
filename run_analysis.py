@@ -30,7 +30,7 @@ class RunAnalysis(luigi.WrapperTask):
 
     def requires(self):
 
-        samples = samples_yoruban
+        samples = trial_samples
 
         for sam in samples.keys():
             sample = samples[sam]
