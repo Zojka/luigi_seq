@@ -3,7 +3,7 @@
 # copied from: https://github.com/ijuric/MAPS
 
 python_path=/usr/bin/python #should have pysam, pybedtools installed. bedtools, samtools should be in the path
-Rscript_path=/opt/R-3.4.3/bin/Rscript
+Rscript_path=/usr/local/bin/R
 ###################################################################
 feather=1 #start from feather or run only MAPS
 maps=1
