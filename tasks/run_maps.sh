@@ -152,8 +152,8 @@ if [ $maps -eq 1 ]; then
 	echo "first"
 	$python_path $cwd/MAPS/MAPS.py $maps_output"maps_"$dataset_name".maps" 2>> /error.txt
 	echo "second"
-	$Rscript_path $cwd/MAPS/MAPS_regression_and_peak_caller.r $maps_output $dataset_name"."$resolution"k" $bin_size $chr_count$sex_chroms $filter_file $model 2>> /error.txt
-	$Rscript_path $cwd/MAPS/MAPS_peak_formatting.r $maps_output $dataset_name"."$resolution"k" $fdr $bin_size 2>> /error.txt
+	$Rscript_path --no-save $cwd/MAPS/MAPS_regression_and_peak_caller.r  $maps_output $dataset_name"."$resolution"k" $bin_size $chr_count$sex_chroms $filter_file $model 2>> /error.txt
+	$Rscript_path --no-save $cwd/MAPS/MAPS_peak_formatting.r $maps_output $dataset_name"."$resolution"k" $fdr $bin_size 2>> /error.txt
 	echo "third"
 	cp "$(readlink -f $0)" $maps_output"/execution_script_copy"
 	chmod 777 $maps_output
