@@ -5,7 +5,7 @@ FROM ubuntu:18.04
 RUN apt-get update && apt-get -y upgrade
 
 RUN apt-get install -y build-essential wget gfortran xorg-dev libpcre3-dev \
-		libncurses5-dev zlib1g-dev libbz2-dev liblzma-dev libcurl3-dev git fort77 libreadline-dev
+		libncurses5-dev zlib1g-dev libbz2-dev liblzma-dev libcurl3-dev git fort77 libreadline-dev bc
 
 RUN apt-get install -y python3.6
 RUN ln -s /usr/bin/python3.6 /usr/bin/python
