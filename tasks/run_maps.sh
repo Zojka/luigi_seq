@@ -5,7 +5,7 @@
 python_path=/usr/bin/python #should have pysam, pybedtools installed. bedtools, samtools should be in the path
 Rscript_path=/usr/local/bin/Rscript
 ###################################################################
-feather=0 #start from feather or run only MAPS
+feather=1 #start from feather or run only MAPS
 maps=1
 number_of_datasets=${DATASET_NUMBER}
 dataset_name=${DATASET_NAME}
