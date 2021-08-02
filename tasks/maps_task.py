@@ -51,6 +51,7 @@ class RunMapsPulledReplicates(luigi.Task):
 
         feather1 = f"{conf_s1.outdir}/feather_output/{conf_s1.maps_dataset}_current/"
         feather2 = f"{conf_s2.outdir}/feather_output/{conf_s2.maps_dataset}_current/"
+        print(feather1, feather2)
 
         with local.env(DATASET_NUMBER=2, DATASET_NAME=conf_s3.maps_dataset, FASTQDIR="",
                        OUTDIR=conf_s3.outdir, MACS_OUTPUT=conf_s3.narrow_peak, BWA_INDEX=conf_s3.bwa_index,
