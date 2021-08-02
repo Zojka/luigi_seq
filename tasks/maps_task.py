@@ -21,7 +21,6 @@ class RunMapsSingleReplicate(luigi.Task):
         return luigi.LocalTarget(config.outnames["maps"])
 
     def run(self):
-        print("tutaj")
         config = loads(self.c)
         with local.env(DATASET_NUMBER=1, DATASET_NAME=config.maps_dataset, FASTQDIR=config.fastq_dir,
                        OUTDIR=config.outdir, MACS_OUTPUT=config.narrow_peak, BWA_INDEX=config.bwa_index,
@@ -42,7 +41,7 @@ class RunMapsPulledReplicates(luigi.Task):
 
     def output(self):
         # todo check this
-        config = Configuration(self.sample[2][0], self.sample[2][1]).dumps()
+        config = Configuration(self.sample[2][0], self.sample[2][1])
         return luigi.LocalTarget(config.outnames["maps"])
 
     def run(self):
