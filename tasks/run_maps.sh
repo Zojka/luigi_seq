@@ -3,9 +3,9 @@
 # copied from: https://github.com/ijuric/MAPS
 
 python_path=/usr/bin/python #should have pysam, pybedtools installed. bedtools, samtools should be in the path
-Rscript_path=/usr/local/bin/R
+Rscript_path=/usr/local/bin/Rscript
 ###################################################################
-feather=1 #start from feather or run only MAPS
+feather=0 #start from feather or run only MAPS
 maps=1
 number_of_datasets=${DATASET_NUMBER}
 dataset_name=${DATASET_NAME}
@@ -15,7 +15,7 @@ outdir=${OUTDIR}
 macs2_filepath=${MACS_OUTPUT}
 organism="hg38"
 bwa_index=${BWA_INDEX}
-bin_size=10000
+bin_size=5000 #changed to 5kb
 binning_range=1000000
 fdr=2 # this is used just for labeling. do not change
 filter_file="None"
@@ -44,7 +44,7 @@ dataset4=${DATASET4}
 ###SET THESE VARIABLES ONLY IF FEATHER = 0 AND YOU WANT TO RUN
 ###USING A SPECIFIC FEATHER OUTPUT RATHER THAN $datasetname_Current
 ###################################################################
-feather_output_symlink=""
+feather_output_symlink="/mnt/raid/zparteka/hichip_trios/yoruban/gm19238/ctcf_i/luigi_seq_output/feather_output/GM19238_CTCF_I_part2_current/"
 ##################################################################
 
 DATE=`date '+%Y%m%d_%H%M%S'`
