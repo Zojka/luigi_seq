@@ -40,7 +40,7 @@ class Configuration:
         self.outnames["index"] = join(self.outdir, f"{base}_indexed.bam")
         self.outnames["sorted"] = join(self.outdir, f"{base}_sorted.bam")
         self.outnames["peaks"] = join(self.outdir, f"{base}_macs3")
-        self.outnames["maps"] = join(self.outdir, f"MAPS_output/{self.maps_dataset}_current/{self.maps_dataset}.5k.2.sig3Dinteractions.bedpe ")
+        self.outnames["maps"] = join(self.outdir, f"MAPS_output/{self.maps_dataset}_current/{self.maps_dataset}.5k.2.sig3Dinteractions.bedpe")
         print(self.outnames["maps"])
 
     def dumps(self):
