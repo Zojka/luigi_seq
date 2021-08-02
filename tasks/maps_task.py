@@ -17,9 +17,8 @@ class RunMapsSingleReplicate(luigi.Task):
         return CallPeaks(self.c)
 
     def output(self):
-        # todo add real output
-        # config = loads(self.c)
-        return luigi.LocalTarget("maps.txt")
+        config = loads(self.c)
+        return luigi.LocalTarget(config.outnames["maps"])
 
     def run(self):
         print("tutaj")
