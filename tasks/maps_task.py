@@ -27,7 +27,7 @@ class RunMapsSingleReplicate(luigi.Task):
                        OUTDIR=config.outdir, MACS_OUTPUT=config.narrow_peak, BWA_INDEX=config.bwa_index,
                        MAPQ=config.mapq, THREADS=config.threads):
             run_maps = local["./tasks/run_maps.sh"]
-            (run_maps > "maps.txt")()
+            (run_maps)()
 
 
 class RunMapsPulledReplicates(luigi.Task):
