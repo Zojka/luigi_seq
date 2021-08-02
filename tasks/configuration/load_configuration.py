@@ -23,13 +23,11 @@ class Configuration:
         self.outdir = r1.split("fastq")[0] + "luigi_seq_output/"
         if not isdir(self.outdir):
             makedirs(self.outdir)
-
-        self.create_outnames()
         self.maps_dataset = basename(r1).split("_R")[0]
         self.fastq_dir = dirname(r1)
         self.narrow_peak = self.outnames["peaks"] + "_peaks.narrowPeak"
         self.bwa_index = "/mnt/raid/zparteka/hg38_reference/Homo_sapiens_assembly38.fasta"
-
+        self.create_outnames()
 
     # todo add checking if value is None
     def create_outnames(self):
