@@ -7,7 +7,7 @@ import luigi
 from plumbum import local
 from tasks.configuration.load_configuration import Configuration
 from tasks.maps_task import RunMapsPulledReplicates
-from os.path import basename, dirname, join, isdir
+from os.path import basename, dirname, join, isdir, isfile
 from pathlib import Path
 from os import makedirs
 
@@ -39,11 +39,13 @@ class RunAnalysis(luigi.WrapperTask):
                 makedirs(folder)
             out_r1 = join(folder, f"{sam}_pulled_R1.fastq.gz")
             out_r2 = join(folder, f"{sam}_pulled_R2.fastq.gz")
-            #
-            # cat = local["cat"]
-            # (cat[sample[0][0], sample[1][0]] > out_r1)()
-            # (cat[sample[0][1], sample[1][1]] > out_r2)()
+
+            if isfile(out_r2) and isfile(out_r1):
+                pass
+            else:
+                cat = local["cat"]
+                (cat[sample[0][0], sample[1][0]] > out_r1)()
+                (cat[sample[0][1], sample[1][1]] > out_r2)()
 
             sample.append((out_r1, out_r2))
-
             yield RunMapsPulledReplicates(sample)
