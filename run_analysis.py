@@ -48,4 +48,5 @@ class RunAnalysis(luigi.WrapperTask):
                 (cat[sample[0][1], sample[1][1]] > out_r2)()
 
             sample.append((out_r1, out_r2))
+            print(sample)
             yield RunMapsPulledReplicates(sample)
