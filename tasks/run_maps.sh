@@ -44,7 +44,7 @@ dataset4=${DATASET4}
 ###SET THESE VARIABLES ONLY IF FEATHER = 0 AND YOU WANT TO RUN
 ###USING A SPECIFIC FEATHER OUTPUT RATHER THAN $datasetname_Current
 ###################################################################
-feather_output_symlink="/mnt/raid/zparteka/hichip_trios/yoruban/gm19238/ctcf_i/luigi_seq_output/feather_output/GM19238_CTCF_I_part2_current/"
+feather_output_symlink=""
 ##################################################################
 
 DATE=`date '+%Y%m%d_%H%M%S'`
