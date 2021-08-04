@@ -144,7 +144,6 @@ if [ $feather -eq 1 ]; then
 fi
 
 if [ $maps -eq 1 ]; then
-    # todo debug - change feather to 0
     set -x
 	mkdir -p $maps_output
 	echo "$dataset_name $maps_output $macs2_filepath $genomic_feat_filepath $long_bedpe_dir $short_bed_dir $bin_size $chr_count $maps_output"

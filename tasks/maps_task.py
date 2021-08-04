@@ -40,7 +40,6 @@ class RunMapsPulledReplicates(luigi.Task):
         return RunMapsSingleReplicate(conf_s1), RunMapsSingleReplicate(conf_s2), CallPeaks(conf_s3)
 
     def output(self):
-        # todo check this
         config = Configuration(self.sample[2][0], self.sample[2][1])
         return luigi.LocalTarget(config.outnames["maps"])
 
