@@ -6,7 +6,7 @@
 import luigi
 from plumbum import local
 from tasks.configuration.load_configuration import Configuration
-from tasks.maps_task import RunMapsPulledReplicates
+from tasks.maps_task import RunMapsPulledReplicates, CalculateCoverage
 from os.path import basename, dirname, join, isdir, isfile
 from pathlib import Path
 from os import makedirs
@@ -69,4 +69,4 @@ class RunAnalysis(luigi.WrapperTask):
 
             sample.append((out_r1, out_r2))
             print(sample)
-            yield RunMapsPulledReplicates(sample)
+            yield CalculateCoverage

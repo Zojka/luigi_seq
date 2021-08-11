@@ -5,7 +5,7 @@
 """
 
 import luigi
-from tasks.hichip_peak_calling import CallPeaks
+from tasks.hichip_peak_calling import CallPeaks, CreateBigwig
 from tasks.configuration.load_configuration import Configuration, loads
 from plumbum import local
 
@@ -57,3 +57,31 @@ class RunMapsPulledReplicates(luigi.Task):
                        MAPQ=conf_s3.mapq, THREADS=conf_s3.threads, DATASET1=feather1, DATASET2=feather2):
             run_maps = local["./tasks/run_maps.sh"]
             (run_maps > "done.txt")()
+
+
+# todo - change this, this should be before maps and splitted into different tasks
+class CalculateCoverage(luigi.Task):
+    sample = luigi.DictParameter()
+
+    def requires(self):
+        return RunMapsPulledReplicates(self.sample)
+
+    def run(self):
+        conf_s1 = Configuration(self.sample[0][0], self.sample[0][1])
+        conf_s2 = Configuration(self.sample[1][0], self.sample[1][1])
+        conf_s3 = Configuration(self.sample[2][0], self.sample[2][1])
+
+        conf_list = [conf_s1, conf_s2, conf_s3]
+        for config in conf_list:
+            samtools = local["samtools"]
+            bamCoverage = local["bamCoverage"]
+            (samtools[
+                "sort", "-t", config.threads, config.outnames["nodup"], "-o", config.outnames["sorted"]])()
+            (samtools["index", config.outnames["sorted"]])()
+            (bamCoverage["-b", config.outnames["sorted"], "-o", config.outnames["bigwig"]])()
+
+    def output(self):
+        conf_s1 = Configuration(self.sample[0][0], self.sample[0][1])
+        conf_s2 = Configuration(self.sample[1][0], self.sample[1][1])
+        conf_s3 = Configuration(self.sample[2][0], self.sample[2][1])
+        return luigi.LocalTarget(conf_s1.outnames["bigwig"]), luigi.LocalTarget(conf_s2.outnames["bigwig"]), luigi.LocalTarget(conf_s3.outnames["bigwig"])
