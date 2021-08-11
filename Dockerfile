@@ -64,6 +64,7 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 RUN pip3 install cykhash macs3
+RUN pip3 install deeptools
 
 COPY . .
 CMD /bin/bash
