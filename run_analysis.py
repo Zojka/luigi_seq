@@ -69,4 +69,4 @@ class RunAnalysis(luigi.WrapperTask):
 
             sample.append((out_r1, out_r2))
             print(sample)
-            yield CalculateCoverage
+            yield CalculateCoverage(sample)
