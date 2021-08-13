@@ -11,7 +11,7 @@ from os.path import basename, dirname, join, isdir, isfile
 from pathlib import Path
 from os import makedirs
 
-
+# on bilbo
 samples_yoruban = {
     "gm19238_CTCF": [("/mnt/raid/zparteka/hichip_trios/yoruban/gm19238/ctcf_i/fastq/GM19238_CTCF_I_part2_R1.fastq.gz",
                       "/mnt/raid/zparteka/hichip_trios/yoruban/gm19238/ctcf_i/fastq/GM19238_CTCF_I_part2_R2.fastq.gz"), (
@@ -38,7 +38,20 @@ samples_yoruban = {
                      ("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/smc1_ii/fastq/GM19240_Smc1_II_S8_R1.fastq.gz",
                       "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/smc1_ii/fastq/GM19240_Smc1_II_S8_R2.fastq.gz")]}
 
-samples_chinese = {}
+samples_chinese = {
+    "hg00512_CTCF": [("/mnt/raid/zparteka/hichip/chinese/HG00512/ctcf_i/fastq/HG00512_CTCF_I_S2_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/chinese/HG00512/ctcf_i/fastq/HG00512_CTCF_I_S2_R2.fastq.gz"),
+                     ("/mnt/raid/zparteka/hichip/chinese/HG00512/ctcf_ii/fastq/HG00512_CTCF_II_S8_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/chinese/HG00512/ctcf_ii/fastq/HG00512_CTCF_II_S8_R2.fastq.gz")],
+    "hg00513_CTCF": [("/mnt/raid/zparteka/hichip/chinese/HG00513/ctcf_i/fastq/HG00513_CTCF_I_S3_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/chinese/HG00513/ctcf_i/fastq/HG00513_CTCF_I_S3_R2.fastq.gz"),
+                     ("/mnt/raid/zparteka/hichip/chinese/HG00513/ctcf_ii/fastq/HG00513_CTCF_II_S9_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/chinese/HG00513/ctcf_ii/fastq/HG00513_CTCF_II_S9_R2.fastq.gz")],
+    "hg00514_CTCF": [("/mnt/raid/zparteka/hichip/chinese/HG00514/ctcf_i/fastq/HG00514_CTCF_I_S4_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/chinese/HG00514/ctcf_i/fastq/HG00514_CTCF_I_S4_R2.fastq.gz"),
+                     ("/mnt/raid/zparteka/hichip/chinese/HG00514/ctcf_ii/fastq/HG00514_CTCF_II_S10_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/chinese/HG00514/ctcf_ii/fastq/HG00514_CTCF_II_S10_R2.fastq.gz")]
+}
 samples_puerto = {}
 trial_samples = {"ko": [("/mnt/raid/zparteka/natalia_uva/ko1/fastq/KO1_S1_L001_R1_001.fastq.gz",
                          "/mnt/raid/zparteka/natalia_uva/ko1/fastq/KO1_S1_L001_R2_001.fastq.gz"),
@@ -50,7 +63,7 @@ class RunAnalysis(luigi.WrapperTask):
 
     def requires(self):
 
-        samples = samples_yoruban
+        samples = samples_chinese
 
         for sam in samples.keys():
             sample = samples[sam]
@@ -67,6 +80,7 @@ class RunAnalysis(luigi.WrapperTask):
                 (cat[sample[0][0], sample[1][0]] > out_r1)()
                 (cat[sample[0][1], sample[1][1]] > out_r2)()
 
-            sample.append((out_r1, out_r2))
+            if (out_r1, out_r2) not in sample:
+                sample.append((out_r1, out_r2))
             print(sample)
             yield CalculateCoverage(sample)
