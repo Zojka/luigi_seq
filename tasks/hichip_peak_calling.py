@@ -112,7 +112,7 @@ class CallPeaks(luigi.Task):
     c = luigi.DictParameter()
 
     def requires(self):
-        return RemoveDuplicates(self.c)
+        return RemoveDuplicates(self.c), CreateBigwig(self.c)
 
     def output(self):
         config = loads(self.c)
