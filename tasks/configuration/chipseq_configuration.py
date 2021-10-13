@@ -6,10 +6,22 @@
 from os import makedirs
 from os.path import basename, join, isdir, dirname
 
-# chipseq analysis configuration
+# chipseq analysis configuration - if using input - each sample has to have matching input in input dict
 
 
-chips = {}
+chips = {"wt_k9ac": [],
+         "ko_k9ac": [],
+         "wt_sirt6": [],
+         "ko_sirt6": [],
+         "wt_k56ac": [],
+         "ko_k56ac:": []}
+
+input = {"wt_k9ac": [[path1_r1, path1_r2], [path2_r1, path2_r2], ...],
+         "ko_k9ac": [],
+         "wt_sirt6": [],
+         "ko_sirt6": [],
+         "wt_k56ac": [],
+         "ko_k56ac:": []}
 
 
 class Configuration:
@@ -23,7 +35,6 @@ class Configuration:
     def __init__(self, r1, r2):
         self.r1 = r1
         self.r2 = r2
-        # todo change this: my case - can be overwritten
         self.outdir = r1.split("fastq")[0] + "luigi_seq_output/"
         if not isdir(self.outdir):
             makedirs(self.outdir)

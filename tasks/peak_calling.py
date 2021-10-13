@@ -5,8 +5,11 @@
 """
 
 import luigi
-from plumbum import local
+from plumbum import local, cmd, FG
 from tasks.configuration.load_configuration import Configuration, loads
+from os.path import join, dirname, isdir
+from os import makedirs
+from pathlib import Path
 
 c = Configuration
 
@@ -126,6 +129,89 @@ class CallPeaks(luigi.Task):
             "callpeak", "--nomodel", "-q", config.peak_quality, "-B", "-t", config.outnames["nodup"], "-n",
             config.outnames["peaks"]])()
 
+
+# todo test this
+class CallPeaksWithInput(luigi.Task):
+    # sample = [[data_R1, data_R2], [input_R1, input_R2]]
+    sample = luigi.Parameter()
+    conf_sample = Configuration(sample[0][0], sample[0][1]).dumps()
+    conf_input = Configuration(sample[1][0], sample[1][1]).dumps()
+
+    def requires(self):
+        list_of_tasks = [CreateBigwig(self.conf_sample), CreateBigwig(self.conf_input)]
+        return list_of_tasks
+
+    def output(self):
+        return luigi.LocalTarget(self.conf_sample.outnames["peaks"] + "_peaks.narrowPeak")
+
+    def run(self):
+        # macs3
+        macs3 = local["macs3"]
+        (macs3[
+            "callpeak", "--nomodel", "-q", self.conf_sample.peak_quality, "-B", "-t", self.conf_sample.outnames[
+                "nodup"],
+            "-c", self.conf_input.outnames["nodup"], "-n", self.conf_sample.outnames["peaks"]])()
+
+
+# todo wraperr task - test this
+class RunPeakCallingOnReplicates(luigi.WrapperTask):
+    # samples = [[replicates], [inputs]]
+    samples = luigi.Parameter()
+    def requires(self):
+        for i in range(len(self.samples[0])):
+            if isinstance(self.samples[1], list):
+                sample = [self.samples[0][i], self.samples[1][i]]
+            else:
+                sample = [self.samples[0][i], self.samples[1]]
+            yield CallPeaksWithInput(sample)
+
+
+
+# todo implement this
+class RunPeakCallingOnPulledReplicates(luigi.Task):
+    # samples = [[replicates], [inputs]]
+    # todo run pulling replicates
+    # todo run pulling input if inputs are on a list
+    # todo run callpeaks with input
+
+    samples = luigi.Parameter()
+
+
+class ReplicatePulling(luigi.Task):
+    # samples = [rep1, rep2, ....]
+    #
+
+    samples = luigi.Parameter()
+    conf_sample = Configuration(samples[0][0], samples[0][1]).dumps()
+    r1 = [sam[0] for sam in samples]
+    r2 = [sam[1] for sam in samples]
+
+    # todo change this to something better
+    folder = join(Path(dirname(r1[0])).parent.parent.absolute(), f"{r1[0][:-11]}_pulled/fastq/")
+    if not isdir(folder):
+        makedirs(folder)
+    out_r1 = join(folder, f"{r1[0][:-11]}_pulled_R1.fastq.gz")
+    out_r2 = join(folder, f"{r1[0][:-11]}_pulled_R2.fastq.gz")
+
+    def output(self):
+        return luigi.LocalTarget(self.out_r1, self.out_r2)
+
+    def run(self):
+        cat = local["cat"]
+
+        self.r1 += ">"
+        self.r1 += self.out_r1
+        (cat.__getitem__(self.r1))
+        self.r2 += ">"
+        self.r2 += self.out_r2
+        (cat.__getitem__(self.r2))
+
+
+# todo
+
+class CheckSimilatity(luigi.Task):
+    # implement usage of HPrep - probably not here
+    pass
 
 if __name__ == '__main__':
     luigi.build()
