@@ -1,1 +1,1 @@
-PYTHONPATH='.' luigi --module run_analysis RunAnalysis  --local-scheduler
+PYTHONPATH='.' luigi --module run_analysis_chipseq RunAnalysis  --local-scheduler
