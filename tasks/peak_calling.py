@@ -167,44 +167,57 @@ class RunPeakCallingOnReplicates(luigi.WrapperTask):
 
 
 
-# todo implement this
-class RunPeakCallingOnPulledReplicates(luigi.Task):
-    # samples = [[replicates], [inputs]]
-    # todo run pulling replicates
-    # todo run pulling input if inputs are on a list
-    # todo run callpeaks with input
-
-    samples = luigi.Parameter()
-
-
-class ReplicatePulling(luigi.Task):
-    # samples = [rep1, rep2, ....]
-    #
-
-    samples = luigi.Parameter()
-    conf_sample = Configuration(samples[0][0], samples[0][1]).dumps()
-    r1 = [sam[0] for sam in samples]
-    r2 = [sam[1] for sam in samples]
-
-    # todo change this to something better
-    folder = join(Path(dirname(r1[0])).parent.parent.absolute(), f"{r1[0][:-11]}_pulled/fastq/")
-    if not isdir(folder):
-        makedirs(folder)
-    out_r1 = join(folder, f"{r1[0][:-11]}_pulled_R1.fastq.gz")
-    out_r2 = join(folder, f"{r1[0][:-11]}_pulled_R2.fastq.gz")
-
-    def output(self):
-        return luigi.LocalTarget(self.out_r1, self.out_r2)
-
-    def run(self):
-        cat = local["cat"]
-
-        self.r1 += ">"
-        self.r1 += self.out_r1
-        (cat.__getitem__(self.r1))
-        self.r2 += ">"
-        self.r2 += self.out_r2
-        (cat.__getitem__(self.r2))
+# # todo implement this
+# class RunPeakCallingOnPulledReplicates(luigi.Task):
+#     # samples = [[replicates], [inputs]]
+#     # todo run pulling replicates
+#     # todo run pulling input if inputs are on a list
+#     # todo run callpeaks with input
+#
+#     samples = luigi.Parameter()
+#     # tu potrzebny jest config spullowanej probki
+#
+#     def requires(self):
+#         return ReplicatePulling("pulled sample"), ReplicatePulling("input sample")
+#
+#     def output(self):
+#         # peaks for pulled replicates
+#         pass
+#
+#     def run(self):
+#         # pull chip-seq replicates
+#         # check if inputs are on a list - if not, use the same for everything
+#         # runn callpeaks on pulled sample with pulled (or not) input
+#
+#
+# class ReplicatePulling(luigi.Task):
+#     # samples = [rep1, rep2, ....]
+#     #
+#
+#     samples = luigi.Parameter()
+#     conf_sample = Configuration(samples[0][0], samples[0][1]).dumps()
+#     r1 = [sam[0] for sam in samples]
+#     r2 = [sam[1] for sam in samples]
+#
+#     # todo change this to something better
+#     folder = join(Path(dirname(r1[0])).parent.parent.absolute(), f"{r1[0][:-11]}_pulled/fastq/")
+#     if not isdir(folder):
+#         makedirs(folder)
+#     out_r1 = join(folder, f"{r1[0][:-11]}_pulled_R1.fastq.gz")
+#     out_r2 = join(folder, f"{r1[0][:-11]}_pulled_R2.fastq.gz")
+#
+#     def output(self):
+#         return luigi.LocalTarget(self.out_r1, self.out_r2)
+#
+#     def run(self):
+#         cat = local["cat"]
+#
+#         self.r1 += ">"
+#         self.r1 += self.out_r1
+#         (cat.__getitem__(self.r1))
+#         self.r2 += ">"
+#         self.r2 += self.out_r2
+#         (cat.__getitem__(self.r2))
 
 
 # todo
