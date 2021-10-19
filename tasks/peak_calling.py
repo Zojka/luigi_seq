@@ -144,14 +144,14 @@ class CallPeaksWithInput(luigi.Task):
         return list_of_tasks
 
     def output(self):
-        conf_sample = Configuration(self.sample[0][0], self.sample[0][1]).dumps()
-        conf_input = Configuration(self.sample[1][0], self.sample[1][1]).dumps()
+        conf_sample = Configuration(self.sample[0][0], self.sample[0][1])
+        conf_input = Configuration(self.sample[1][0], self.sample[1][1])
         return luigi.LocalTarget(conf_sample.outnames["peaks"] + "_peaks.narrowPeak")
 
     def run(self):
         # macs3
-        conf_sample = Configuration(self.sample[0][0], self.sample[0][1]).dumps()
-        conf_input = Configuration(self.sample[1][0], self.sample[1][1]).dumps()
+        conf_sample = Configuration(self.sample[0][0], self.sample[0][1])
+        conf_input = Configuration(self.sample[1][0], self.sample[1][1])
         macs3 = local["macs3"]
         (macs3[
             "callpeak", "--nomodel", "-q", conf_sample.peak_quality, "-B", "-t", conf_sample.outnames[
