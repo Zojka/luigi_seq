@@ -34,7 +34,7 @@ chips = {"wt_k9ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.
                       ("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_K56AC/WT2_K56AC/fastq/wt2_k56ac_c3_R1.fastq.gz",
                        "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_K56AC/WT2_K56AC/fastq/wt2_k56ac_c3_R2.fastq.gz")],
 
-         "ko_k56ac:": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_K56AC/KO1_K56AC/fastq/ko1_k56ac_b3_R1.fastq.gz",
+         "ko_k56ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_K56AC/KO1_K56AC/fastq/ko1_k56ac_b3_R1.fastq.gz",
                         "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_K56AC/KO1_K56AC/fastq/ko1_k56ac_b3_R2.fastq.gz"),
                        ("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_K56AC/KO2_K56AC/fastq/ko2_k56ac_d3_R1.fastq.gz",
                         "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_K56AC/KO2_K56AC/fastq/ko2_k56ac_d3_R2.fastq.gz")]}
@@ -64,7 +64,7 @@ input = {"wt_k9ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.
                      ("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_IGG/WT2_IGG/fastq/wt2_igg_c4_R1.fastq.gz",
                       "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_IGG/WT2_IGG/fastq/wt2_igg_c4_R2.fastq.gz")],
 
-         "ko_k56ac:": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_IGG/KO1_IGG/fastq/ko1_igg_b4_R1.fastq.gz",
+         "ko_k56ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_IGG/KO1_IGG/fastq/ko1_igg_b4_R1.fastq.gz",
                       "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_IGG/KO1_IGG/fastq/ko1_igg_b4_R2.fastq.gz"),
                      ("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_IGG/KO2_IGG/fastq/ko2_igg_d4_R1.fastq.gz",
                       "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_IGG/KO2_IGG/fastq/ko2_igg_d4_R2.fastq.gz")]}

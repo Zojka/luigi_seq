@@ -11,7 +11,7 @@
 @author: zparteka
 """
 import luigi
-from plumbum import local
+from plumbum import local, FG, cmd
 from tasks.configuration.chipseq_configuration import chips, input, Configuration
 from tasks.peak_calling import RunPeakCallingOnReplicates
 from os.path import basename, dirname, join, isdir, isfile
@@ -44,10 +44,10 @@ class RunAnalysis(luigi.WrapperTask):
                 cat = local["cat"]
                 r1 += ">"
                 r1 += out_r1
-                (cat.__getitem__(r1))
+                cmd.cat.__getitem__(r1) & FG
                 r2 += ">"
                 r2 += out_r2
-                (cat.__getitem__(r2))
+                cmd.cat.__getitem__(r1) & FG
 
             if (out_r1, out_r2) not in sample:
                 sample.append((out_r1, out_r2))
@@ -56,7 +56,7 @@ class RunAnalysis(luigi.WrapperTask):
             # control data (input) - pulling replicates (if needed)
             inp = input[sam]
             if isinstance(inp, list):
-                folder = join(Path(dirname(inp[0][0])).parent.parent.absolute(), f"{sam}_pulled/fastq/")
+                folder = join(Path(dirname(inp[0][0])).parent.parent.absolute(), f"control_pulled/fastq/")
                 if not isdir(folder):
                     makedirs(folder)
                 out_input_r1 = join(folder, f"{sam}_igg_pulled_R1.fastq.gz")
@@ -65,13 +65,15 @@ class RunAnalysis(luigi.WrapperTask):
                 if isfile(out_input_r1) and isfile(out_input_r2):
                     pass
                 else:
+                    r1 = [s[0] for s in inp]
+                    r2 = [s[1] for s in inp]
                     cat = local["cat"]
                     r1 += ">"
                     r1 += out_r1
-                    (cat.__getitem__(r1))
+                    cmd.cat.__getitem__(r1) & FG
                     r2 += ">"
                     r2 += out_r2
-                    (cat.__getitem__(r2))
+                    cmd.cat.__getitem__(r2) & FG
 
                 if (out_input_r1, out_input_r2) not in sample:
                     inp.append((out_input_r1, out_input_r2))

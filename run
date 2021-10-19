@@ -1,1 +1,3 @@
 PYTHONPATH='.' luigi --module run_analysis_chipseq RunAnalysis  --local-scheduler
+
+sudo docker run -v /mnt/raid/zparteka/:/mnt/raid/zparteka -v `pwd`:/app -p 8082:8082 -it luigi_seq /bin/bash
