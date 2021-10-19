@@ -133,8 +133,9 @@ class CallPeaks(luigi.Task):
 # todo test this
 class CallPeaksWithInput(luigi.Task):
     # sample = [[data_R1, data_R2], [input_R1, input_R2]]
-    sample = luigi.TupleParameter()
+    sample = luigi.parameter.TupleParameter()
     configs = []
+
     for sam in sample:
         configs.append(Configuration(sam[0], sam[1]))
     conf_sample = configs[0] #Configuration(sample[0][0], sample[0][1]).dumps()
