@@ -91,5 +91,5 @@ class RunAnalysis(luigi.WrapperTask):
 
                 if (out_input_r1, out_input_r2) not in sample:
                     inp.append((out_input_r1, out_input_r2))
-            break
-            # yield RunPeakCallingOnReplicates(sample)
+
+            yield RunPeakCallingOnReplicates(sample)
