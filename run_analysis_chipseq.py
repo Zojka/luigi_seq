@@ -55,10 +55,10 @@ class RunAnalysis(luigi.WrapperTask):
                 # r2 += ">"
                 # r2 += out_r2
                 # cmd.cat.__getitem__(r1) & FG
-                (cmd.cat.__getitem__(r1) & FG > out_r1)()
+                (cmd.cat.__getitem__(r1) > out_r1)()
                 # r2 += ">"
                 # r2 += out_input_r2
-                (cmd.cat.__getitem__(r2) & FG > out_r2)()
+                (cmd.cat.__getitem__(r2) > out_r2)()
             if (out_r1, out_r2) not in sample:
                 sample.append((out_r1, out_r2))
             print(sample)
@@ -87,10 +87,10 @@ class RunAnalysis(luigi.WrapperTask):
                     # (cat[r2_inp_str] > out_input_r2)()
                     # r1 += ">"
                     # r1 += out_input_r1
-                    (cmd.cat.__getitem__(r1_inp) & FG > out_input_r1)()
+                    (cmd.cat.__getitem__(r1_inp) > out_input_r1)()
                     # r2 += ">"
                     # r2 += out_input_r2
-                    (cmd.cat.__getitem__(r2_inp) & FG > out_input_r2)()
+                    (cmd.cat.__getitem__(r2_inp) > out_input_r2)()
 
                 if (out_input_r1, out_input_r2) not in sample:
                     inp.append((out_input_r1, out_input_r2))
