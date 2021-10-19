@@ -135,8 +135,6 @@ class CallPeaksWithInput(luigi.Task):
     # sample = [[data_R1, data_R2], [input_R1, input_R2]]
     sample = luigi.DictParameter()
 
-
-
     def requires(self):
         conf_sample = Configuration(self.sample[0][0], self.sample[0][1]).dumps()
         conf_input = Configuration(self.sample[1][0], self.sample[1][1]).dumps()
@@ -172,9 +170,7 @@ class RunPeakCallingOnReplicates(luigi.WrapperTask):
             else:
                 sample = [self.samples[0][i], self.samples[1]]
             task_list.append(CallPeaksWithInput(sample))
-        print(task_list)
-        # return task_list
-
+        return task_list
 
 
 # # todo implement this
@@ -235,6 +231,7 @@ class RunPeakCallingOnReplicates(luigi.WrapperTask):
 class CheckSimilatity(luigi.Task):
     # implement usage of HPrep - probably not here
     pass
+
 
 if __name__ == '__main__':
     luigi.build()
