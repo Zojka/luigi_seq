@@ -7,8 +7,9 @@
 
 import luigi
 from plumbum import local, cmd, FG
-from tasks.configuration.load_configuration import Configuration, loads
+# from tasks.configuration.load_configuration import Configuration, loads
 from tasks.configuration.chipseq_configuration import Configuration as ChIPConfiguration
+from tasks.configuration.chipseq_configuration import loads
 from os.path import join, dirname, isdir
 from os import makedirs
 from pathlib import Path
