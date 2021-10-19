@@ -134,6 +134,7 @@ class CallPeaks(luigi.Task):
 class CallPeaksWithInput(luigi.Task):
     # sample = [[data_R1, data_R2], [input_R1, input_R2]]
     sample = luigi.ListParameter()
+    print(sample)
     conf_sample = Configuration(sample[0][0], sample[0][1]).dumps()
     conf_input = Configuration(sample[1][0], sample[1][1]).dumps()
 
