@@ -4,7 +4,7 @@
 @author: zparteka
 """
 
-# todo implement chip-seq data processing
+# todo chip-seq configuration??
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 """

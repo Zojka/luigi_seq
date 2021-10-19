@@ -3,15 +3,16 @@
 """
 @author: zparteka
 """
+# todo chip-seq configuration??
 
 import luigi
 from plumbum import local, cmd, FG
 from tasks.configuration.load_configuration import Configuration, loads
+from tasks.configuration.chipseq_configuration import Configuration as ChIPConfiguration
 from os.path import join, dirname, isdir
 from os import makedirs
 from pathlib import Path
 
-c = Configuration
 
 
 class Mapping(luigi.Task):
@@ -136,20 +137,19 @@ class CallPeaksWithInput(luigi.Task):
     sample = luigi.DictParameter()
 
     def requires(self):
-        conf_sample = Configuration(self.sample[0][0], self.sample[0][1]).dumps()
-        conf_input = Configuration(self.sample[1][0], self.sample[1][1]).dumps()
+        conf_sample = ChIPConfiguration(self.sample[0][0], self.sample[0][1]).dumps()
+        conf_input = ChIPConfiguration(self.sample[1][0], self.sample[1][1]).dumps()
         list_of_tasks = [CreateBigwig(conf_sample), CreateBigwig(conf_input)]
         return list_of_tasks
 
     def output(self):
-        conf_sample = Configuration(self.sample[0][0], self.sample[0][1])
-        conf_input = Configuration(self.sample[1][0], self.sample[1][1])
+        conf_sample = ChIPConfiguration(self.sample[0][0], self.sample[0][1])
         return luigi.LocalTarget(conf_sample.outnames["peaks"] + "_peaks.narrowPeak")
 
     def run(self):
         # macs3
-        conf_sample = Configuration(self.sample[0][0], self.sample[0][1])
-        conf_input = Configuration(self.sample[1][0], self.sample[1][1])
+        conf_sample = ChIPConfiguration(self.sample[0][0], self.sample[0][1])
+        conf_input = ChIPConfiguration(self.sample[1][0], self.sample[1][1])
         macs3 = local["macs3"]
         (macs3[
             "callpeak", "--nomodel", "-q", conf_sample.peak_quality, "-B", "-t", conf_sample.outnames[
