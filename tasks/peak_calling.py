@@ -134,8 +134,11 @@ class CallPeaks(luigi.Task):
 class CallPeaksWithInput(luigi.Task):
     # sample = [[data_R1, data_R2], [input_R1, input_R2]]
     sample = luigi.TupleParameter()
-    conf_sample = Configuration(sample[0][0], sample[0][1]).dumps()
-    conf_input = Configuration(sample[1][0], sample[1][1]).dumps()
+    configs = []
+    for sam in sample:
+        configs.append(Configuration(sam[0], sam[1]))
+    conf_sample = configs[0] #Configuration(sample[0][0], sample[0][1]).dumps()
+    conf_input = configs[1] #Configuration(sample[1][0], sample[1][1]).dumps()
 
     def requires(self):
         list_of_tasks = [CreateBigwig(self.conf_sample), CreateBigwig(self.conf_input)]
