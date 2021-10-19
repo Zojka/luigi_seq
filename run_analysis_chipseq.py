@@ -24,7 +24,7 @@ from os import makedirs, path
 class RunAnalysis(luigi.WrapperTask):
 
     def requires(self):
-
+        task_list = []
         for sam in chips.keys():
             # sample = [[(rep1_R1, rep1_R2), (rep2_R1, rep2_R2)], [(inp1_R1, inp2_R2),
 
@@ -46,24 +46,14 @@ class RunAnalysis(luigi.WrapperTask):
                 cat = local["cat"]
                 print(r1_str)
                 print(r2_str)
-
-                # (cat[r1_str] > out_r1)()
-                # (cat[r2_str] > out_r2)()
-                # r1 += ">"
-                # r1 += out_r1
-                # cmd.cat.__getitem__(r1) & FG
-                # r2 += ">"
-                # r2 += out_r2
-                # cmd.cat.__getitem__(r1) & FG
                 (cmd.cat.__getitem__(r1) > out_r1)()
-                # r2 += ">"
-                # r2 += out_input_r2
                 (cmd.cat.__getitem__(r2) > out_r2)()
             if (out_r1, out_r2) not in sample:
                 sample.append((out_r1, out_r2))
             print(sample)
 
             # control data (input) - pulling replicates (if needed)
+            # todo change this - control on tuple?
             inp = input[sam]
             if isinstance(inp, list):
                 name = path.basename(Path(dirname(inp[0][0])).parent.parent)
@@ -82,18 +72,11 @@ class RunAnalysis(luigi.WrapperTask):
                     r2_inp_str = ' '.join(r2_inp)
                     print(r1_inp_str)
                     print(r2_inp_str)
-                    cat = local["cat"]
-
-                    # (cat[r1_inp_str] > out_input_r1)()
-                    # (cat[r2_inp_str] > out_input_r2)()
-                    # r1 += ">"
-                    # r1 += out_input_r1
                     (cmd.cat.__getitem__(r1_inp) > out_input_r1)()
-                    # r2 += ">"
-                    # r2 += out_input_r2
                     (cmd.cat.__getitem__(r2_inp) > out_input_r2)()
 
                 if (out_input_r1, out_input_r2) not in sample:
                     inp.append((out_input_r1, out_input_r2))
-                break
-            # yield RunPeakCallingOnReplicates(sample)
+
+            task_list.append(RunPeakCallingOnReplicates(sample))
+        return task_list
