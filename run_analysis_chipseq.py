@@ -43,7 +43,6 @@ class RunAnalysis(luigi.WrapperTask):
                 r2 = [s[1] for s in sample]
                 r1_str = ' '.join(r1)
                 r2_str = ' '.join(r2)
-                cat = local["cat"]
                 print(r1_str)
                 print(r2_str)
                 (cmd.cat.__getitem__(r1) > out_r1)()
