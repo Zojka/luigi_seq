@@ -133,34 +133,37 @@ class CallPeaks(luigi.Task):
 # todo test this
 class CallPeaksWithInput(luigi.Task):
     # sample = [[data_R1, data_R2], [input_R1, input_R2]]
-    sample = luigi.parameter.TupleParameter()
-    configs = []
+    sample = luigi.DictParameter()
 
-    for sam in sample:
-        configs.append(Configuration(sam[0], sam[1]))
-    conf_sample = configs[0] #Configuration(sample[0][0], sample[0][1]).dumps()
-    conf_input = configs[1] #Configuration(sample[1][0], sample[1][1]).dumps()
+
 
     def requires(self):
-        list_of_tasks = [CreateBigwig(self.conf_sample), CreateBigwig(self.conf_input)]
+        conf_sample = Configuration(self.sample[0][0], self.sample[0][1]).dumps()
+        conf_input = Configuration(self.sample[1][0], self.sample[1][1]).dumps()
+        list_of_tasks = [CreateBigwig(conf_sample), CreateBigwig(conf_input)]
         return list_of_tasks
 
     def output(self):
-        return luigi.LocalTarget(self.conf_sample.outnames["peaks"] + "_peaks.narrowPeak")
+        conf_sample = Configuration(self.sample[0][0], self.sample[0][1]).dumps()
+        conf_input = Configuration(self.sample[1][0], self.sample[1][1]).dumps()
+        return luigi.LocalTarget(conf_sample.outnames["peaks"] + "_peaks.narrowPeak")
 
     def run(self):
         # macs3
+        conf_sample = Configuration(self.sample[0][0], self.sample[0][1]).dumps()
+        conf_input = Configuration(self.sample[1][0], self.sample[1][1]).dumps()
         macs3 = local["macs3"]
         (macs3[
-            "callpeak", "--nomodel", "-q", self.conf_sample.peak_quality, "-B", "-t", self.conf_sample.outnames[
+            "callpeak", "--nomodel", "-q", conf_sample.peak_quality, "-B", "-t", conf_sample.outnames[
                 "nodup"],
-            "-c", self.conf_input.outnames["nodup"], "-n", self.conf_sample.outnames["peaks"]])()
+            "-c", conf_input.outnames["nodup"], "-n", conf_sample.outnames["peaks"]])()
 
 
 # todo wraperr task - test this
 class RunPeakCallingOnReplicates(luigi.WrapperTask):
     # samples = [[replicates], [inputs]]
-    samples = luigi.ListParameter()
+    samples = luigi.Parameter()
+
     def requires(self):
         for i in range(len(self.samples[0])):
             if isinstance(self.samples[1], list):
