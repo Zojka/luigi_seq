@@ -16,7 +16,7 @@ from tasks.configuration.chipseq_configuration import chips, input, Configuratio
 from tasks.peak_calling import RunPeakCallingOnReplicates
 from os.path import basename, dirname, join, isdir, isfile
 from pathlib import Path
-from os import makedirs
+from os import makedirs, path
 
 
 # todo add information about input - needs to be trated as "normal" chip-seq file
@@ -66,11 +66,12 @@ class RunAnalysis(luigi.WrapperTask):
             # control data (input) - pulling replicates (if needed)
             inp = input[sam]
             if isinstance(inp, list):
-                folder = join(Path(dirname(inp[0][0])).parent.parent.absolute(), f"control_pulled/fastq/")
+                name = path.basename(Path(dirname(inp[0][0])).parent.parent)
+                folder = join(Path(dirname(inp[0][0])).parent.parent.absolute(), f"{name}_pulled/fastq/")
                 if not isdir(folder):
                     makedirs(folder)
-                out_input_r1 = join(folder, f"{sam}_igg_pulled_R1.fastq.gz")
-                out_input_r2 = join(folder, f"{sam}_igg_pulled_R2.fastq.gz")
+                out_input_r1 = join(folder, f"{name}_igg_pulled_R1.fastq.gz")
+                out_input_r2 = join(folder, f"{name}_igg_pulled_R2.fastq.gz")
 
                 if isfile(out_input_r1) and isfile(out_input_r2):
                     pass

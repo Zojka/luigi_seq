@@ -165,12 +165,14 @@ class RunPeakCallingOnReplicates(luigi.WrapperTask):
     samples = luigi.Parameter()
 
     def requires(self):
+        task_list = []
         for i in range(len(self.samples[0])):
             if isinstance(self.samples[1], list):
                 sample = [self.samples[0][i], self.samples[1][i]]
             else:
                 sample = [self.samples[0][i], self.samples[1]]
-            yield CallPeaksWithInput(sample)
+            task_list.append(CallPeaksWithInput(sample))
+        return task_list
 
 
 
