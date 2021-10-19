@@ -41,13 +41,19 @@ class RunAnalysis(luigi.WrapperTask):
             else:
                 r1 = [s[0] for s in sample]
                 r2 = [s[1] for s in sample]
+                r1_str = ' '.join(r1)
+                r2_str = ' '.join(r2)
                 cat = local["cat"]
-                r1 += ">"
-                r1 += out_r1
-                cmd.cat.__getitem__(r1) & FG
-                r2 += ">"
-                r2 += out_r2
-                cmd.cat.__getitem__(r1) & FG
+                print(r1_str)
+                print(r2_str)
+
+
+                # r1 += ">"
+                # r1 += out_r1
+                # cmd.cat.__getitem__(r1) & FG
+                # r2 += ">"
+                # r2 += out_r2
+                # cmd.cat.__getitem__(r1) & FG
 
             if (out_r1, out_r2) not in sample:
                 sample.append((out_r1, out_r2))
@@ -65,15 +71,20 @@ class RunAnalysis(luigi.WrapperTask):
                 if isfile(out_input_r1) and isfile(out_input_r2):
                     pass
                 else:
-                    r1 = [s[0] for s in inp]
-                    r2 = [s[1] for s in inp]
+                    r1_inp = [s[0] for s in inp]
+                    r2_inp = [s[1] for s in inp]
+                    r1_inp_str = ' '.join(r1_inp)
+                    r2_inp_str = ' '.join(r2_inp)
                     cat = local["cat"]
-                    r1 += ">"
-                    r1 += out_r1
-                    cmd.cat.__getitem__(r1) & FG
-                    r2 += ">"
-                    r2 += out_r2
-                    cmd.cat.__getitem__(r2) & FG
+                    print(r1_inp_str)
+                    print(r2_inp_str)
+                    cat = local["cat"]
+                    # r1 += ">"
+                    # r1 += out_input_r1
+                    # cmd.cat.__getitem__(r1) & FG
+                    # r2 += ">"
+                    # r2 += out_input_r2
+                    # cmd.cat.__getitem__(r2) & FG
 
                 if (out_input_r1, out_input_r2) not in sample:
                     inp.append((out_input_r1, out_input_r2))
