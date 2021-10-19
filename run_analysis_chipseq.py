@@ -74,8 +74,8 @@ class RunAnalysis(luigi.WrapperTask):
                     (cmd.cat.__getitem__(r1_inp) > out_input_r1)()
                     (cmd.cat.__getitem__(r2_inp) > out_input_r2)()
 
-                if (out_input_r1, out_input_r2) not in sample:
+                if (out_input_r1, out_input_r2) not in inp:
                     inp.append((out_input_r1, out_input_r2))
 
-            task_list.append(RunPeakCallingOnReplicates(sample))
+            task_list.append(RunPeakCallingOnReplicates([sample, inp]))
         return task_list
