@@ -47,8 +47,8 @@ class RunAnalysis(luigi.WrapperTask):
                 print(r1_str)
                 print(r2_str)
 
-                (cat[r1_str] > out_r1)()
-                (cat[r2_str] > out_r2)()
+                # (cat[r1_str] > out_r1)()
+                # (cat[r2_str] > out_r2)()
                 # r1 += ">"
                 # r1 += out_r1
                 # cmd.cat.__getitem__(r1) & FG
