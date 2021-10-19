@@ -133,7 +133,7 @@ class CallPeaks(luigi.Task):
 # todo test this
 class CallPeaksWithInput(luigi.Task):
     # sample = [[data_R1, data_R2], [input_R1, input_R2]]
-    sample = luigi.Parameter()
+    sample = luigi.ListParameter()
     conf_sample = Configuration(sample[0][0], sample[0][1]).dumps()
     conf_input = Configuration(sample[1][0], sample[1][1]).dumps()
 
@@ -156,7 +156,7 @@ class CallPeaksWithInput(luigi.Task):
 # todo wraperr task - test this
 class RunPeakCallingOnReplicates(luigi.WrapperTask):
     # samples = [[replicates], [inputs]]
-    samples = luigi.Parameter()
+    samples = luigi.ListParameter()
     def requires(self):
         for i in range(len(self.samples[0])):
             if isinstance(self.samples[1], list):
