@@ -43,10 +43,10 @@ class RunAnalysis(luigi.WrapperTask):
                 r2 = [s[1] for s in sample]
                 cat = local["cat"]
                 r1 += ">"
-                r1 += self.out_r1
+                r1 += out_r1
                 (cat.__getitem__(self.r1))
                 r2 += ">"
-                r2 += self.out_r2
+                r2 += out_r2
                 (cat.__getitem__(self.r2))
 
             if (out_r1, out_r2) not in sample:
@@ -67,10 +67,10 @@ class RunAnalysis(luigi.WrapperTask):
                 else:
                     cat = local["cat"]
                     r1 += ">"
-                    r1 += self.out_r1
+                    r1 += out_r1
                     (cat.__getitem__(self.r1))
                     r2 += ">"
-                    r2 += self.out_r2
+                    r2 += out_r2
                     (cat.__getitem__(self.r2))
 
                 if (out_input_r1, out_input_r2) not in sample:
