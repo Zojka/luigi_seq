@@ -161,7 +161,7 @@ class CallPeaksWithInput(luigi.Task):
 # todo wraperr task - test this
 class RunPeakCallingOnReplicates(luigi.WrapperTask):
     # samples = [[replicates], [inputs]]
-    samples = luigi.ListParameter()
+    samples = luigi.Parameter()
 
     def requires(self):
         task_list = []
