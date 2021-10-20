@@ -77,7 +77,6 @@ class Configuration:
     peak_quality = 0.01
 
     def __init__(self, r1, r2):
-        print(r1, r2)
         self.r1 = r1
         self.r2 = r2
         self.outdir = r1.split("fastq")[0] + "luigi_seq_output/"
@@ -86,8 +85,6 @@ class Configuration:
         self.maps_dataset = basename(r1).split("_R")[0]
         self.fastq_dir = dirname(r1)
         self.bwa_index = "/mnt/raid/zparteka/mm10_genome/bwa/mm10.fa"
-
-        print("config", self.outnames)
         self.narrow_peak = self.outnames["peaks"] + "_peaks.narrowPeak"
         self.outnames = {}
         self.create_outnames()
