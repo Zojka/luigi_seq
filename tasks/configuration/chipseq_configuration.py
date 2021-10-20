@@ -85,9 +85,9 @@ class Configuration:
         self.maps_dataset = basename(r1).split("_R")[0]
         self.fastq_dir = dirname(r1)
         self.bwa_index = "/mnt/raid/zparteka/mm10_genome/bwa/mm10.fa"
-        self.narrow_peak = self.outnames["peaks"] + "_peaks.narrowPeak"
         self.outnames = {}
         self.create_outnames()
+        self.narrow_peak = self.outnames["peaks"] + "_peaks.narrowPeak"
 
     # todo add checking if value is None
     def create_outnames(self):
