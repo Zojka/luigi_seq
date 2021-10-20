@@ -75,8 +75,6 @@ class Configuration:
     reference = "/mnt/raid/zparteka/mm10_genome/bwa/mm10.fa"
     mapq = 30
     peak_quality = 0.01
-    outnames = {"mapped": None, "mapped_only": None, "filtered": None, "nodup": None, "bigwig": None, "index:": None,
-                "sorted": None, "peaks": None}
 
     def __init__(self, r1, r2):
         print(r1, r2)
@@ -91,9 +89,11 @@ class Configuration:
         self.create_outnames()
         print("config", self.outnames)
         self.narrow_peak = self.outnames["peaks"] + "_peaks.narrowPeak"
+        self.outnames = {}
 
     # todo add checking if value is None
     def create_outnames(self):
+
         base = basename(self.r1.split("_R1")[0])
         self.outnames["mapped"] = join(self.outdir, f"{base}.bam")
         self.outnames["mapped_only"] = join(self.outdir, f"{base}_mapped.bam")
