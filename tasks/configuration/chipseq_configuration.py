@@ -79,6 +79,7 @@ class Configuration:
                 "sorted": None, "peaks": None}
 
     def __init__(self, r1, r2):
+        print(r1, r2)
         self.r1 = r1
         self.r2 = r2
         self.outdir = r1.split("fastq")[0] + "luigi_seq_output/"
