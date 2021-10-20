@@ -149,6 +149,7 @@ class CallPeaksWithInput(luigi.Task):
 
     def run(self):
         # macs3
+        print(self.sample[0], self.sample[1])
         conf_sample = ChIPConfiguration(self.sample[0][0], self.sample[0][1])
         conf_input = ChIPConfiguration(self.sample[1][0], self.sample[1][1])
         macs3 = local["macs3"]
