@@ -149,9 +149,12 @@ class CallPeaksWithInput(luigi.Task):
 
     def run(self):
         # macs3
+
+        print(self.sample[0][0], self.sample[0][1])
         conf_sample = ChIPConfiguration(self.sample[0][0], self.sample[0][1])
+        print(self.sample[1][0], self.sample[1][1])
         conf_input = ChIPConfiguration(self.sample[1][0], self.sample[1][1])
-        print(conf_input.r1, conf_sample.r1)
+
         macs3 = local["macs3"]
         (macs3[
             "callpeak", "--nomodel", "-q", conf_sample.peak_quality, "-B", "-t", conf_sample.outnames[
@@ -171,9 +174,8 @@ class RunPeakCallingOnReplicates(luigi.WrapperTask):
                 sample = [self.samples[0][i], self.samples[1][i]]
             else:
                 sample = [self.samples[0][i], self.samples[1]]
-            yield CallPeaksWithInput(sample)
-            # task_list.append(CallPeaksWithInput(sample))
-        # return task_list
+            task_list.append(CallPeaksWithInput(sample))
+        return task_list
 
 
 # # todo implement this
