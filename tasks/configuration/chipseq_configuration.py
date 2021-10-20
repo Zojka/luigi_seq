@@ -8,7 +8,13 @@ from os.path import basename, join, isdir, dirname
 
 # chipseq analysis configuration - if using input - each sample has to have matching input in input dict
 
+"""genome sizes
+hs: 2.7e9
+mm: 1.87e9
+ce: 9e7
+dm: 1.2e8
 
+"""
 chips = {"wt_k9ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_K9AC/WT1_K9AC/fastq/wt1_k9ac_a2_R1.fastq.gz",
                       "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_K9AC/WT1_K9AC/fastq/wt1_k9ac_a2_R2.fastq.gz"),
                      ("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_K9AC/WT2_K9AC/fastq/wt2_k9ac_c2_R1.fastq.gz",
@@ -74,7 +80,8 @@ class Configuration:
     threads = 33
     reference = "/mnt/raid/zparteka/mm10_genome/bwa/mm10.fa"
     mapq = 30
-    peak_quality = 0.01
+    peak_quality = 0.05
+    genome_size = "mm"
 
     def __init__(self, r1, r2):
         self.r1 = r1
