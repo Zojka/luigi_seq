@@ -171,8 +171,9 @@ class RunPeakCallingOnReplicates(luigi.WrapperTask):
                 sample = [self.samples[0][i], self.samples[1][i]]
             else:
                 sample = [self.samples[0][i], self.samples[1]]
-            task_list.append(CallPeaksWithInput(sample))
-        return task_list
+            yield CallPeaksWithInput(sample)
+            # task_list.append(CallPeaksWithInput(sample))
+        # return task_list
 
 
 # # todo implement this
