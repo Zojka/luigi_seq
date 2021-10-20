@@ -157,6 +157,9 @@ class CallPeaksWithInput(luigi.Task):
         print("tu tez")
         print(conf_sample.r1, conf_sample.r2)
         print(conf_input.r1, conf_input.r2)
+        print("pozniej")
+        print(conf_sample.outnames)
+        print(conf_input.outnames)
         macs3 = local["macs3"]
         (macs3[
             "callpeak", "--nomodel", "-q", conf_sample.peak_quality, "-B", "-t", conf_sample.outnames[
