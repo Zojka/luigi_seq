@@ -154,7 +154,9 @@ class CallPeaksWithInput(luigi.Task):
         conf_sample = ChIPConfiguration(self.sample[0][0], self.sample[0][1])
         print(self.sample[1][0], self.sample[1][1])
         conf_input = ChIPConfiguration(self.sample[1][0], self.sample[1][1])
-
+        print("tu tez")
+        print(conf_sample.r1, conf_sample.r2)
+        print(conf_input.r1, conf_input.r2)
         macs3 = local["macs3"]
         (macs3[
             "callpeak", "--nomodel", "-q", conf_sample.peak_quality, "-B", "-t", conf_sample.outnames[
