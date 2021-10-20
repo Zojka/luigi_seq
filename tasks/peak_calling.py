@@ -15,7 +15,6 @@ from os import makedirs
 from pathlib import Path
 
 
-
 class Mapping(luigi.Task):
     c = luigi.DictParameter()
 
@@ -155,7 +154,8 @@ class CallPeaksWithInput(luigi.Task):
         (macs3[
             "callpeak", "--nomodel", "-q", conf_sample.peak_quality, "-B", "-t", conf_sample.outnames[
                 "nodup"],
-            "-c", conf_input.outnames["nodup"], "-n", conf_sample.outnames["peaks"], "-g", conf_sample.genome_size])()
+            "-c", conf_input.outnames["nodup"], "-n", conf_sample.outnames[
+                "peaks"], "-g", conf_sample.genome_size, "-f", "BAMPE"])()
 
 
 # todo wraperr task - test this
