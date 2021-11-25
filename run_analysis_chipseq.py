@@ -11,10 +11,10 @@
 @author: zparteka
 """
 import luigi
-from plumbum import local, FG, cmd
-from tasks.configuration.chipseq_configuration import chips, input, Configuration
+from plumbum import cmd
+from tasks.configuration.chipseq_configuration import chips, input
 from tasks.peak_calling import RunPeakCallingOnReplicates
-from os.path import basename, dirname, join, isdir, isfile
+from os.path import dirname, join, isdir, isfile
 from pathlib import Path
 from os import makedirs, path
 
@@ -26,7 +26,6 @@ class RunAnalysis(luigi.WrapperTask):
     def requires(self):
         task_list = []
         for sam in chips.keys():
-            # sample = [[(rep1_R1, rep1_R2), (rep2_R1, rep2_R2)], [(inp1_R1, inp2_R2),
 
             # chip-seq samples - pulling replicates
             sample = chips[sam]
@@ -52,9 +51,10 @@ class RunAnalysis(luigi.WrapperTask):
             print(sample)
 
             # control data (input) - pulling replicates (if needed)
-            # todo change this - control on tuple?
             inp = input[sam]
-            if isinstance(inp, list):
+            if len(inp) > 1:
+                if len(inp) != len(sample):
+                    raise Exception("If you want to pull the input replicates you have to have an input for all samples.")
                 name = path.basename(Path(dirname(inp[0][0])).parent.parent)
                 folder = join(Path(dirname(inp[0][0])).parent.parent.absolute(), f"{name}_pulled/fastq/")
                 if not isdir(folder):
@@ -65,6 +65,7 @@ class RunAnalysis(luigi.WrapperTask):
                 if isfile(out_input_r1) and isfile(out_input_r2):
                     pass
                 else:
+                    # todo test pooling replicates
                     r1_inp = [s[0] for s in inp]
                     r2_inp = [s[1] for s in inp]
                     r1_inp_str = ' '.join(r1_inp)
@@ -73,9 +74,13 @@ class RunAnalysis(luigi.WrapperTask):
                     print(r2_inp_str)
                     (cmd.cat.__getitem__(r1_inp) > out_input_r1)()
                     (cmd.cat.__getitem__(r2_inp) > out_input_r2)()
-
                 if (out_input_r1, out_input_r2) not in inp:
                     inp.append((out_input_r1, out_input_r2))
+            else:
+                # todo does it work?
+                # use the same input file for all samples
+                while len(inp) < len(sample):
+                    inp.append(inp[0])
 
             task_list.append(RunPeakCallingOnReplicates([sample, inp]))
         return task_list
