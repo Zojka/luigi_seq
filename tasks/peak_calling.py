@@ -80,7 +80,7 @@ class RemoveDuplicates(luigi.Task):
         samtools = local["samtools"]
         (samtools["sort", "-n", "-t", config.threads, config.outnames["filtered"], "-o", "-"] | samtools[
             "fixmate", "--threads", config.threads, "-", "-"] | samtools[
-             "rmdup", "-", config.outnames["nodup"]])()
+             "rmdup", "-S", "-", config.outnames["nodup"]])()
 
 
 class CreateBigwig(luigi.Task):
