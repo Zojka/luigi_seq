@@ -16,9 +16,9 @@ dm: 1.2e8
 
 """
 chips_yoruban = {"gm19240_ctcf": [("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_i/chip_seq/fastq/SRR998409_R1.fastq.gz",
-                                   "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_i/chip_seq/fastq/SRR998409_R2.fastq.gz")]}
-                                    #("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_ii/chip_seq/fastq/SRR998410_R1.fastq.gz",
-                                   #"/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_ii/chip_seq/fastq/SRR998410_R2.fastq.gz")]}
+                                   "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_i/chip_seq/fastq/SRR998409_R2.fastq.gz"),
+                                    ("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_ii/chip_seq/fastq/SRR998410_R1.fastq.gz",
+                                   "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_ii/chip_seq/fastq/SRR998410_R2.fastq.gz")]}
 
 input_yoruban = {"gm19240_ctcf": [("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/chip_input/fastq/SRR998427_R1.fastq.gz",
                                    "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/chip_input/fastq/SRR998427_R2.fastq.gz")]}
