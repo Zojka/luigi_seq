@@ -15,7 +15,20 @@ ce: 9e7
 dm: 1.2e8
 
 """
-chips = {"wt_k9ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_K9AC/WT1_K9AC/fastq/wt1_k9ac_a2_R1.fastq.gz",
+chips_yoruban = {"gm19240_ctcf": [("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_i/chip_seq/fastq/SRR998409_R1.fastq.gz",
+                                   "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_i/chip_seq/fastq/SRR998409_R2.fastq.gz"),
+                                  ("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_ii/chip_seq/fastq/SRR998410_R1.fastq.gz",
+                                   "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_ii/chip_seq/fastq/SRR998410_R2.fastq.gz")]}
+
+input_yoruban = {"gm19240_ctcf": [("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/chip_input/fastq/SRR998427_R1.fastq.gz",
+                                   "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/chip_input/fastq/SRR998427_R2.fastq.gz")]}
+
+
+
+
+
+
+chips_uva = {"wt_k9ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_K9AC/WT1_K9AC/fastq/wt1_k9ac_a2_R1.fastq.gz",
                       "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_K9AC/WT1_K9AC/fastq/wt1_k9ac_a2_R2.fastq.gz"),
                      ("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_K9AC/WT2_K9AC/fastq/wt2_k9ac_c2_R1.fastq.gz",
                       "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_K9AC/WT2_K9AC/fastq/wt2_k9ac_c2_R2.fastq.gz")],
@@ -45,7 +58,7 @@ chips = {"wt_k9ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.
                        ("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_K56AC/KO2_K56AC/fastq/ko2_k56ac_d3_R1.fastq.gz",
                         "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_K56AC/KO2_K56AC/fastq/ko2_k56ac_d3_R2.fastq.gz")]}
 
-input = {"wt_k9ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_IGG/WT1_IGG/fastq/wt1_igg_a4_R1.fastq.gz",
+input_uva = {"wt_k9ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_IGG/WT1_IGG/fastq/wt1_igg_a4_R1.fastq.gz",
                       "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_IGG/WT1_IGG/fastq/wt1_igg_a4_R2.fastq.gz"),
                      ("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_IGG/WT2_IGG/fastq/wt2_igg_c4_R1.fastq.gz",
                       "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_IGG/WT2_IGG/fastq/wt2_igg_c4_R2.fastq.gz")],
@@ -74,6 +87,10 @@ input = {"wt_k9ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.
                       "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_IGG/KO1_IGG/fastq/ko1_igg_b4_R2.fastq.gz"),
                      ("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_IGG/KO2_IGG/fastq/ko2_igg_d4_R1.fastq.gz",
                       "/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/KO_IGG/KO2_IGG/fastq/ko2_igg_d4_R2.fastq.gz")]}
+
+
+chips = chips_yoruban
+input = input_yoruban
 
 
 class Configuration:
