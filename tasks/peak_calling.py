@@ -107,7 +107,7 @@ class SamFlagFilter(luigi.Task):
             (samtools["view", "-f", f"{flag}", "-b", name_base] > name)()
         (samtools["merge", config.outnames["sam_flags"], names[0], names[1], names[2], names[3], "-O", "BAM", "-c", "-p", "-t", config.threads])()
 
-
+# todo temp files? check this samtools sortr
 class CreateBigwig(luigi.Task):
     """Create BigWig coverage file from deduplicated bam file. Needs samtools and deeptools"""
     c = luigi.DictParameter()
@@ -148,7 +148,7 @@ class CallPeaks(luigi.Task):
             config.outnames["peaks"]])()
 
 
-# todo test this
+# todo change input file to flag output
 class CallPeaksWithInput(luigi.Task):
     # sample = [[data_R1, data_R2], [input_R1, input_R2]]
     sample = luigi.Parameter()
@@ -170,7 +170,7 @@ class CallPeaksWithInput(luigi.Task):
         macs3 = local["macs3"]
         (macs3[
             "callpeak", "--nomodel", "-q", conf_sample.peak_quality, "-B", "-t", conf_sample.outnames[
-                "nodup"],
+                "sam_flags"],
             "-c", conf_input.outnames["nodup"], "-n", conf_sample.outnames[
                 "peaks"], "-g", conf_sample.genome_size, "-f", "BAMPE"])()
 
