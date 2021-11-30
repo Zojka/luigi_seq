@@ -102,7 +102,7 @@ class SamFlagFilter(luigi.Task):
         flags = ["83", "147", "163", "99"]
         names = []
         for flag in flags:
-            name = name[:-4] + f"flag_{flag}.bam"
+            name = name_base[:-4] + f"flag_{flag}.bam"
             names.append(name)
             (samtools["view", "-f", f"{flag}", "-b", name_base] > name)
         (samtools["merge", "-b", config.outnames["sam_flags"], names[0], names[1], names[2], names[3], "-O", "BAM", "-c", "-p", "-t", config.threads])
