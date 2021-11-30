@@ -52,7 +52,7 @@ class RunAnalysis(luigi.WrapperTask):
 
             # control data (input) - pulling replicates (if needed)
             inp = input[sam]
-            print(inp)
+            print("here",inp)
             if len(inp) > 1:
                 if len(inp) != len(sample):
                     raise Exception("If you want to pull the input replicates you have to have an input for all samples.")
