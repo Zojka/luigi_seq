@@ -104,8 +104,8 @@ class SamFlagFilter(luigi.Task):
         for flag in flags:
             name = name_base[:-4] + f"flag_{flag}.bam"
             names.append(name)
-            (samtools["view", "-f", f"{flag}", "-b", name_base] > name)
-        (samtools["merge", "-b", config.outnames["sam_flags"], names[0], names[1], names[2], names[3], "-O", "BAM", "-c", "-p", "-t", config.threads])
+            (samtools["view", "-f", f"{flag}", "-b", name_base] > name)()
+        (samtools["merge", config.outnames["sam_flags"], names[0], names[1], names[2], names[3], "-O", "BAM", "-c", "-p", "-t", config.threads])()
 
 
 class CreateBigwig(luigi.Task):
