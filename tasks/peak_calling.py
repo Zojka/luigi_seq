@@ -170,7 +170,7 @@ class CallPeaksWithInput(luigi.Task):
         macs3 = local["macs3"]
         (macs3[
             "callpeak", "--nomodel", "-q", conf_sample.peak_quality, "-B", "-t", conf_sample.outnames[
-                "sam_flags"],
+                "nodup"],
             "-c", conf_input.outnames["nodup"], "-n", conf_sample.outnames[
                 "peaks"], "-g", conf_sample.genome_size, "-f", "BAMPE"])()
 
