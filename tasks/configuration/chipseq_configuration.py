@@ -15,13 +15,13 @@ ce: 9e7
 dm: 1.2e8
 
 """
-chips_yoruban = {"gm19240_ctcf": [("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_i/chip_seq/fastq/SRR998409_R1.fastq.gz",
-                                   "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_i/chip_seq/fastq/SRR998409_R2.fastq.gz"),
-                                    ("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_ii/chip_seq/fastq/SRR998410_R1.fastq.gz",
-                                   "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/ctcf_ii/chip_seq/fastq/SRR998410_R2.fastq.gz")]}
+chips_yoruban = {"gm19240_ctcf": [("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/chip_seq/chip_ctcf_i/fastq/SRR998409_R1.fastq.gz",
+                                   "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/chip_seq/chip_ctcf_i/fastq/SRR998409_R2.fastq.gz"),
+                                    ("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/chip_seq/chip_ctcf_ii/fastq/SRR998410_R1.fastq.gz",
+                                   "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/chip_seq/chip_ctcf_ii/fastq/SRR998410_R2.fastq.gz")]}
 
-input_yoruban = {"gm19240_ctcf": [("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/chip_input/fastq/SRR998427_R1.fastq.gz",
-                                   "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/chip_input/fastq/SRR998427_R2.fastq.gz")]}
+input_yoruban = {"gm19240_ctcf": [("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/chip_seq//chip_input/fastq/SRR998427_R1.fastq.gz",
+                                   "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/chip_seq//chip_input/fastq/SRR998427_R2.fastq.gz")]}
 
 
 
@@ -127,6 +127,7 @@ class Configuration:
         self.outnames["index"] = join(self.outdir, f"{base}_indexed.bam")
         self.outnames["sorted"] = join(self.outdir, f"{base}_sorted.bam")
         self.outnames["peaks"] = join(self.outdir, f"{base}_macs3")
+        self.outnames["sam_flags"] = join(self.outdir, f"{base}_mapped_nodup_flags.bam")
 
     def dumps(self):
         c = {"r1": self.r1, "r2": self.r2}

@@ -74,7 +74,7 @@ class RemoveDuplicates(luigi.Task):
     def output(self):
         config = loads(self.c)
         return luigi.LocalTarget(config.outnames["nodup"])
-    # todo remove -S "Treat paired-end reads and single-end reads.
+
     def run(self):
         config = loads(self.c)
         samtools = local["samtools"]
@@ -82,13 +82,38 @@ class RemoveDuplicates(luigi.Task):
             "fixmate", "--threads", config.threads, "-", "-"] | samtools[
              "rmdup", "-S", "-", config.outnames["nodup"]])()
 
+# todo add samtools flags filtering
+
+class SamFlagFilter(luigi.Task):
+    """Filter by samtools flags 83, 147, 163, 99 and merge all files"""
+    c = luigi.DictParameter()
+
+    def requires(self):
+        return RemoveDuplicates(self.c)
+
+    def output(self):
+        config = loads(self.c)
+        return luigi.LocalTarget(config.outnames["sam_flags"])
+
+    def run(self):
+        config = loads(self.c)
+        samtools = local["samtools"]
+        name_base = config.outnames["nodup"]
+        flags = ["83", "147", "163", "99"]
+        names = []
+        for flag in flags:
+            name = name[:-4] + f"flag_{flag}.bam"
+            names.append(name)
+            (samtools["view", "-f", f"{flag}", "-b", name_base] > name)
+        (samtools["merge", "-b", config.outnames["sam_flags"], names[0], names[1], names[2], names[3], "-O", "BAM", "-c", "-p", "-t", config.threads])
+
 
 class CreateBigwig(luigi.Task):
     """Create BigWig coverage file from deduplicated bam file. Needs samtools and deeptools"""
     c = luigi.DictParameter()
 
     def requires(self):
-        return RemoveDuplicates(self.c)
+        return SamFlagFilter(self.c)
 
     def output(self):
         config = loads(self.c)
@@ -99,7 +124,7 @@ class CreateBigwig(luigi.Task):
         samtools = local["samtools"]
         bamCoverage = local["bamCoverage"]
         (samtools[
-            "sort", "-t", config.threads, config.outnames["nodup"], "-o", config.outnames["sorted"]])()
+            "sort", "-t", config.threads, config.outnames["sam_flags"], "-o", config.outnames["sorted"]])()
         (samtools["index", config.outnames["sorted"]])()
         (bamCoverage["-b", config.outnames["sorted"], "-o", config.outnames["bigwig"]])()
 
@@ -108,7 +133,7 @@ class CallPeaks(luigi.Task):
     c = luigi.DictParameter()
 
     def requires(self):
-        return RemoveDuplicates(self.c), CreateBigwig(self.c)
+        return CreateBigwig(self.c)
 
     def output(self):
         config = loads(self.c)
