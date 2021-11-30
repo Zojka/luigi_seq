@@ -52,6 +52,7 @@ class RunAnalysis(luigi.WrapperTask):
 
             # control data (input) - pulling replicates (if needed)
             inp = input[sam]
+            print(inp)
             if len(inp) > 1:
                 if len(inp) != len(sample):
                     raise Exception("If you want to pull the input replicates you have to have an input for all samples.")
@@ -81,6 +82,7 @@ class RunAnalysis(luigi.WrapperTask):
                 # use the same input file for all samples
                 while len(inp) < len(sample):
                     inp.append(inp[0])
+                    print(inp)
 
             task_list.append(RunPeakCallingOnReplicates([sample, inp]))
         return task_list
