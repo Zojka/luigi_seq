@@ -25,7 +25,10 @@ input_yoruban = {"gm19240_ctcf": [("/mnt/raid/zparteka/hichip_trios/yoruban/gm19
 
 
 
-
+samples_puerto = {"hg00731_smc1": [("/mnt/raid/zparteka/hichip/puerto_rican/HG00731/smc1/raw_data/rep1/fastq/Rep1_Smc1_HiChiP_HG00731_R1.fastq.gz",
+                                    "/mnt/raid/zparteka/hichip/puerto_rican/HG00731/smc1/raw_data/rep1/fastq/Rep1_Smc1_HiChiP_HG00731_R2.fastq.gz"),
+                                   ("/mnt/raid/zparteka/hichip/puerto_rican/HG00731/smc1/raw_data/rep2/fastq/Rep2_Smc1_HiChiP_HG00731_R1.fastq.gz",
+                                    "/mnt/raid/zparteka/hichip/puerto_rican/HG00731/smc1/raw_data/rep2/fastq/Rep2_Smc1_HiChiP_HG00731_R2.fastq.gz")]}
 
 
 chips_uva = {"wt_k9ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novogene.com/raw_data/samples/WT_K9AC/WT1_K9AC/fastq/wt1_k9ac_a2_R1.fastq.gz",
@@ -91,7 +94,7 @@ input_uva = {"wt_k9ac": [("/mnt/raid/zparteka/natalia_uva/novogene/usftp21.novog
 
 chips = chips_yoruban
 input = input_yoruban
-
+samples = samples_puerto
 
 class Configuration:
     threads = 33
@@ -127,7 +130,7 @@ class Configuration:
         self.outnames["index"] = join(self.outdir, f"{base}_indexed.bam")
         self.outnames["sorted"] = join(self.outdir, f"{base}_sorted.bam")
         self.outnames["peaks"] = join(self.outdir, f"{base}_macs3")
-        self.outnames["sam_flags"] = join(self.outdir, f"{base}_mapped_nodup_flags.bam")
+        # self.outnames["sam_flags"] = join(self.outdir, f"{base}_mapped_nodup_flags.bam")
 
     def dumps(self):
         c = {"r1": self.r1, "r2": self.r2}

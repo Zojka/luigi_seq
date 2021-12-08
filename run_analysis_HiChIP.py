@@ -5,7 +5,7 @@
 """
 import luigi
 from plumbum import cmd
-from tasks.configuration.load_configuration import samples
+from tasks.configuration.chipseq_configuration import samples
 from tasks.maps_task import RunMapsPulledReplicates
 from os.path import basename, dirname, join, isdir, isfile
 from pathlib import Path
