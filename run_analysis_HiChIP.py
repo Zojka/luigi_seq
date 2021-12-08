@@ -4,7 +4,7 @@
 @author: zparteka
 """
 import luigi
-from plumbum import local
+from plumbum import cmd
 from tasks.configuration.load_configuration import samples
 from tasks.maps_task import RunMapsPulledReplicates
 from os.path import basename, dirname, join, isdir, isfile
@@ -28,9 +28,12 @@ class RunAnalysis(luigi.WrapperTask):
             if isfile(out_r2) and isfile(out_r1):
                 pass
             else:
-                cat = local["cat"]
-                (cat[sample[0][0], sample[1][0]] > out_r1)()
-                (cat[sample[0][1], sample[1][1]] > out_r2)()
+                r1 = [s[0] for s in sample]
+                r2 = [s[1] for s in sample]
+                (cmd.cat.__getitem__(r1) > out_r1)()
+                (cmd.cat.__getitem__(r2) > out_r2)()
+            if (out_r1, out_r2) not in sample:
+                sample.append((out_r1, out_r2))
 
             if (out_r1, out_r2) not in sample:
                 sample.append((out_r1, out_r2))
