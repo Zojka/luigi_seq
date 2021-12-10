@@ -64,7 +64,7 @@ class MappingQualityFilter(luigi.Task):
              "view", "-q", config.mapq, "-t", config.threads, "-b", config.outnames["mapped_only"]] >
          config.outnames["filtered"])()
 
-
+# samtools sort -m - podzielic pamięc na 4 procesory i dac mu wiecej pamieci, to sam dla fixmate?
 class RemoveDuplicates(luigi.Task):
     c = luigi.DictParameter()
 
@@ -123,7 +123,7 @@ class CreateBigwig(luigi.Task):
         samtools = local["samtools"]
         bamCoverage = local["bamCoverage"]
         (samtools[
-            "sort", "-t", config.threads, config.outnames["sam_flags"], "-o", config.outnames["sorted"]])()
+            "sort", "-t", config.threads, config.outnames["nodup"], "-o", config.outnames["sorted"]])()
         (samtools["index", config.outnames["sorted"]])()
         (bamCoverage["-b", config.outnames["sorted"], "-o", config.outnames["bigwig"]])()
 
