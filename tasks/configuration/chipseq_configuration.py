@@ -120,7 +120,7 @@ samples_yoruban = {
 
 chips = chips_yoruban
 input = input_yoruban
-samples = samples_yoruban
+samples = samples_puerto
 
 class Configuration:
     threads = 33
