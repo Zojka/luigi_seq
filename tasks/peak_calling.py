@@ -123,7 +123,7 @@ class CreateBigwig(luigi.Task):
         samtools = local["samtools"]
         bamCoverage = local["bamCoverage"]
         (samtools[
-            "sort", "-t", config.threads, config.outnames["nodup"], "-o", config.outnames["sorted"]])()
+            "sort", "-t", 4, "-m", "16G", config.outnames["nodup"], "-o", config.outnames["sorted"]])()
         (samtools["index", config.outnames["sorted"]])()
         (bamCoverage["-b", config.outnames["sorted"], "-o", config.outnames["bigwig"]])()
 
