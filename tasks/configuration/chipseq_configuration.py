@@ -120,8 +120,7 @@ samples_yoruban = {
 
 chips = chips_yoruban
 input = input_yoruban
-samples = samples_puerto
-
+samples = samples_yoruban
 class Configuration:
     threads = 33
     # reference = "/mnt/raid/zparteka/mm10_genome/bwa/mm10.fa"
