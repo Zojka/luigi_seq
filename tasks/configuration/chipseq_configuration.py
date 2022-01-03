@@ -118,9 +118,25 @@ samples_yoruban = {
                      ("/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/smc1_ii/fastq/GM19240_Smc1_II_S8_R1.fastq.gz",
                       "/mnt/raid/zparteka/hichip_trios/yoruban/gm19240/smc1_ii/fastq/GM19240_Smc1_II_S8_R2.fastq.gz")]}
 
+# on team-arwena
+samples_chinese = {
+    "hg00512_CTCF": [("/mnt/raid/zparteka/hichip/chinese/HG00512/ctcf_i/fastq/HG00512_CTCF_I_S2_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/chinese/HG00512/ctcf_i/fastq/HG00512_CTCF_I_S2_R2.fastq.gz"),
+                     ("/mnt/raid/zparteka/hichip/chinese/HG00512/ctcf_ii/fastq/HG00512_CTCF_II_S8_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/chinese/HG00512/ctcf_ii/fastq/HG00512_CTCF_II_S8_R2.fastq.gz")],
+    "hg00513_CTCF": [("/mnt/raid/zparteka/hichip/chinese/HG00513/ctcf_i/fastq/HG00513_CTCF_I_S3_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/chinese/HG00513/ctcf_i/fastq/HG00513_CTCF_I_S3_R2.fastq.gz"),
+                     ("/mnt/raid/zparteka/hichip/chinese/HG00513/ctcf_ii/fastq/HG00513_CTCF_II_S9_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/chinese/HG00513/ctcf_ii/fastq/HG00513_CTCF_II_S9_R2.fastq.gz")],
+    "hg00514_CTCF": [("/mnt/raid/zparteka/hichip/chinese/HG00514/ctcf_i/fastq/HG00514_CTCF_I_S4_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/chinese/HG00514/ctcf_i/fastq/HG00514_CTCF_I_S4_R2.fastq.gz"),
+                     ("/mnt/raid/zparteka/hichip/chinese/HG00514/ctcf_ii/fastq/HG00514_CTCF_II_S10_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/chinese/HG00514/ctcf_ii/fastq/HG00514_CTCF_II_S10_R2.fastq.gz")]}
+
 chips = chips_yoruban
 input = input_yoruban
-samples = samples_yoruban
+samples = samples_chinese
+
 class Configuration:
     threads = 33
     # reference = "/mnt/raid/zparteka/mm10_genome/bwa/mm10.fa"
