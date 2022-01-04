@@ -133,9 +133,28 @@ samples_chinese = {
                      ("/mnt/raid/zparteka/hichip/chinese/HG00514/ctcf_ii/fastq/HG00514_CTCF_II_S10_R1.fastq.gz",
                       "/mnt/raid/zparteka/hichip/chinese/HG00514/ctcf_ii/fastq/HG00514_CTCF_II_S10_R2.fastq.gz")]}
 
+# on team-bilbo
+samples_puerto = {
+    "hg00731_CTCF": [("/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00731/ctcf_i/fastq/HG00731_CTCF_I_S5_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00731/ctcf_i/fastq/HG00731_CTCF_I_S5_R2.fastq.gz"),
+                     (
+                     "/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00731/ctcf_ii/fastq/HG00731_CTCF_II_S11_R1.fastq.gz",
+                     "/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00731/ctcf_ii/fastq/HG00731_CTCF_II_S11_R2.fastq.gz")],
+    "hg00732_CTCF": [("/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00732/ctcf_i/fastq/HG00732_CTCF_I_S6_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00732/ctcf_i/fastq/HG00732_CTCF_I_S6_R2.fastq.gz"),
+                     (
+                     "/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00732/ctcf_ii/fastq/HG00732_CTCF_II_S12_R1.fastq.gz",
+                     "/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00732/ctcf_ii/fastq/HG00732_CTCF_II_S12_R2.fastq.gz")],
+    "hg00733_CTCF": [("/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00733/ctcf_i/fastq/HG00733_CTCF_I_S7_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00733/ctcf_i/fastq/HG00733_CTCF_I_S7_R2.fastq.gz"),
+                     (
+                     "/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00733/ctcf_ii/fastq/HG00733_CTCF_II_S12_R1.fastq.gz",
+                     "/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00733/ctcf_ii/fastq/HG00733_CTCF_II_S12_R2.fastq.gz")]
+}
+
 chips = chips_yoruban
 input = input_yoruban
-samples = samples_chinese
+samples = samples_puerto
 
 class Configuration:
     threads = 33
