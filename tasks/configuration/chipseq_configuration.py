@@ -151,10 +151,13 @@ samples_puerto = {
                      "/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00733/ctcf_ii/fastq/HG00733_CTCF_II_S12_R1.fastq.gz",
                      "/mnt/raid/zparteka/hichip_trios/puerto_rican/HG00733/ctcf_ii/fastq/HG00733_CTCF_II_S12_R2.fastq.gz")]
 }
-
+samples_mumbach = {"mumbach_cohesin": [("/mnt/raid/zparteka/hichip/mumbach/rep1/fastq/mumbach_rep1_pulled_R1.fastq",
+                                        "/mnt/raid/zparteka/hichip/mumbach/rep1/fastq/mumbach_rep1_pulled_R2.fastq"),
+                                       ("/mnt/raid/zparteka/hichip/mumbach/rep2/fastq/mumbach_rep2_pulled_R1.fastq",
+                                        "/mnt/raid/zparteka/hichip/mumbach/rep2/fastq/mumbach_rep2_pulled_R2.fastq")]}
 chips = chips_yoruban
 input = input_yoruban
-samples = samples_puerto
+samples = samples_mumbach
 
 class Configuration:
     threads = 33
