@@ -72,8 +72,11 @@ trial_samples = {"ko": [("/mnt/raid/zparteka/natalia_uva/ko1/fastq/KO1_S1_L001_R
                          "/mnt/raid/zparteka/natalia_uva/ko1/fastq/KO1_S1_L001_R2_001.fastq.gz"),
                         ("/mnt/raid/zparteka/natalia_uva/ko2/fastq/KO2_S2_L001_R1_001.fastq.gz",
                          "/mnt/raid/zparteka/natalia_uva/ko2/fastq/KO2_S2_L001_R2_001.fastq.gz")]}
+# arwena
 
-samples = samples_chinese
+sample_arima_hichip = {"sample": [("/mnt/raid/zparteka/hichip/swift/raw_data/fastq/KJ_Swift_1_R1.fastq.gz",
+                                   "/mnt/raid/zparteka/hichip/swift/raw_data/fastq/KJ_Swift_1_R2.fastq.gz")]}
+samples = sample_arima_hichip
 
 class Configuration:
     threads = 33

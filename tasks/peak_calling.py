@@ -144,7 +144,7 @@ class CallPeaks(luigi.Task):
         macs3 = local["macs3"]
         (macs3[
             "callpeak", "--nomodel", "-q", config.peak_quality, "-B", "-t", config.outnames["nodup"], "-n",
-            config.outnames["peaks"]])()
+            config.outnames["peaks"], "-g", config.genome_size, "-f", "BAMPE"])()
 
 
 # todo change input file to flag output
