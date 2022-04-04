@@ -158,6 +158,9 @@ samples_mumbach = {"mumbach_cohesin": [("/mnt/raid/zparteka/hichip/mumbach/rep1/
 chips = chips_yoruban
 input = input_yoruban
 samples = samples_mumbach
+sample_arima_hichip = {"sample": [("/mnt/raid/zparteka/hichip/swift/raw_data/fastq/KJ_Swift_1_R1.fastq.gz",
+                                   "/mnt/raid/zparteka/hichip/swift/raw_data/fastq/KJ_Swift_1_R2.fastq.gz")]}
+samples = sample_arima_hichip
 
 class Configuration:
     threads = 33
