@@ -170,7 +170,7 @@ input_gm12878 = {"gm12878_sa1": [("/mnt/raid/zparteka/cohesin_hichip_project/gm1
                  "gm12878_ctcf": [("/mnt/raid/zparteka/cohesin_hichip_project/gm12878_input/fastq/SRR998196_R1.fastq.gz",
                                    "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_input/fastq/SRR998196_R2.fastq.gz")]}
 chips = samples_gm12878
-input = input_yoruban
+input = input_gm12878
 samples = samples_mumbach
 sample_arima_hichip = {"sample": [("/mnt/raid/zparteka/hichip/swift/raw_data/fastq/KJ_Swift_1_R1.fastq.gz",
                                    "/mnt/raid/zparteka/hichip/swift/raw_data/fastq/KJ_Swift_1_R2.fastq.gz")]}
