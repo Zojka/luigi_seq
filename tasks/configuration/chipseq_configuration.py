@@ -165,8 +165,10 @@ samples_gm12878 = {"gm12878_sa1": [("/mnt/raid/zparteka/cohesin_hichip_project/g
                             "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_ctcf_chip_seq/rep2/fastq/SRR998176_R1.fastq.gz",
                             "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_ctcf_chip_seq/rep2/fastq/SRR998176_R2.fastq.gz"]}
 
-input_gm12878 = {"gm12878_sa1": [],
-                 "gm12878_ctcf": []}
+input_gm12878 = {"gm12878_sa1": [("/mnt/raid/zparteka/cohesin_hichip_project/gm12878_input/fastq/SRR998196_R1.fastq.gz",
+                                  "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_input/fastq/SRR998196_R2.fastq.gz")],
+                 "gm12878_ctcf": [("/mnt/raid/zparteka/cohesin_hichip_project/gm12878_input/fastq/SRR998196_R1.fastq.gz",
+                                   "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_input/fastq/SRR998196_R2.fastq.gz")]}
 chips = samples_gm12878
 input = input_yoruban
 samples = samples_mumbach
