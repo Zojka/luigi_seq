@@ -11,8 +11,7 @@ from os.path import basename, dirname, join, isdir, isfile
 from pathlib import Path
 from os import makedirs
 
-# todo add support for multiple chip-seq replicates???
-# todo test added support for one replicate
+# todo implement hichip+chipseq analysis
 
 class RunAnalysis(luigi.WrapperTask):
 
