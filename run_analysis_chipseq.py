@@ -30,30 +30,33 @@ class RunAnalysis(luigi.WrapperTask):
 
             # chip-seq samples - pulling replicates
             sample = chips[sam]
-            folder = join(Path(dirname(sample[0][0])).parent.parent.absolute(), f"{sam}_pulled/fastq/")
-            if not isdir(folder):
-                makedirs(folder)
-            out_r1 = join(folder, f"{sam}_pulled_R1.fastq.gz")
-            out_r2 = join(folder, f"{sam}_pulled_R2.fastq.gz")
-
-            if isfile(out_r2) and isfile(out_r1):
-                pass
-            else:
-                r1 = [s[0] for s in sample]
-                r2 = [s[1] for s in sample]
-                r1_str = ' '.join(r1)
-                r2_str = ' '.join(r2)
-                print(r1_str)
-                print(r2_str)
-                (cmd.cat.__getitem__(r1) > out_r1)()
-                (cmd.cat.__getitem__(r2) > out_r2)()
-            if (out_r1, out_r2) not in sample:
-                sample.append((out_r1, out_r2))
             print(sample)
+            if len(sample) > 1:
+                folder = join(Path(dirname(sample[0][0])).parent.parent.absolute(), f"{sam}_pulled/fastq/")
+                if not isdir(folder):
+                    makedirs(folder)
+                out_r1 = join(folder, f"{sam}_pulled_R1.fastq.gz")
+                out_r2 = join(folder, f"{sam}_pulled_R2.fastq.gz")
+
+                if isfile(out_r2) and isfile(out_r1):
+                    pass
+                else:
+                    r1 = [s[0] for s in sample]
+                    r2 = [s[1] for s in sample]
+                    r1_str = ' '.join(r1)
+                    r2_str = ' '.join(r2)
+                    print(r1_str)
+                    print(r2_str)
+                    (cmd.cat.__getitem__(r1) > out_r1)()
+                    (cmd.cat.__getitem__(r2) > out_r2)()
+                if (out_r1, out_r2) not in sample:
+                    sample.append((out_r1, out_r2))
+                print(sample)
 
             # control data (input) - pulling replicates (if needed)
+            # todo - input without replicates
             inp = input[sam]
-            print("here",inp)
+            print("here", inp)
             if len(inp) > 1:
                 if len(inp) != len(sample):
                     raise Exception("If you want to pull the input replicates you have to have an input for all samples.")

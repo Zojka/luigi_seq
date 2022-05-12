@@ -5,39 +5,29 @@
 """
 import luigi
 from plumbum import cmd
-from tasks.configuration.chipseq_configuration import samples
-from tasks.maps_task import RunMapsPulledReplicates, RunMapsSingleReplicate
+from tasks.configuration.chipseq_configuration import samples, chips, input
+from tasks.maps_task import RunMapsPulledReplicates, RunMapsSingleReplicate, RunMapsWithChipSingleReplicate
 from os.path import basename, dirname, join, isdir, isfile
 from pathlib import Path
 from os import makedirs
 
-# todo implement hichip+chipseq analysis
+# todo implement hichip+chipseq analysis - start with single replicate
+"""
+requirements
 
+
+run maps with chipseq → call peaks with input →
+"""
+
+
+# requirements
 class RunAnalysis(luigi.WrapperTask):
 
     def requires(self):
-
         for sam in samples.keys():
             sample = samples[sam]
-            if len(sample) > 1:
-                folder = join(Path(dirname(sample[0][0])).parent.parent.absolute(), f"{sam}_pulled/fastq/")
-                if not isdir(folder):
-                    makedirs(folder)
-                out_r1 = join(folder, f"{sam}_pulled_R1.fastq.gz")
-                out_r2 = join(folder, f"{sam}_pulled_R2.fastq.gz")
-
-                if isfile(out_r2) and isfile(out_r1):
-                    pass
-                else:
-                    r1 = [s[0] for s in sample]
-                    r2 = [s[1] for s in sample]
-                    (cmd.cat.__getitem__(r1) > out_r1)()
-                    (cmd.cat.__getitem__(r2) > out_r2)()
-                if (out_r1, out_r2) not in sample:
-                    sample.append((out_r1, out_r2))
-
-                print(sample)
-                yield RunMapsPulledReplicates(sample)
-            else:
-                yield RunMapsSingleReplicate(sample)
-
+            chip = chips[sam]
+            inp = input[sam]
+            # samples = [hichip, chip, input]
+            samp = [sample[0], chip[0], inp[0]]
+            yield RunMapsWithChipSingleReplicate(samp)

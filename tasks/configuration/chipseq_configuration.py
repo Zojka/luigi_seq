@@ -164,13 +164,16 @@ samples_gm12878 = {"gm12878_sa1": [("/mnt/raid/zparteka/cohesin_hichip_project/g
                             "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_ctcf_chip_seq/rep1/fastq/SRR998175_R2.fastq.gz"),
                             ("/mnt/raid/zparteka/cohesin_hichip_project/gm12878_ctcf_chip_seq/rep2/fastq/SRR998176_R1.fastq.gz",
                             "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_ctcf_chip_seq/rep2/fastq/SRR998176_R2.fastq.gz")]}
-
+chips_gm_pooled = {"sample": [("/mnt/raid/zparteka/cohesin_hichip_project/gm12878_sa1_chip_seq/gm12878_sa1_pulled/fastq/gm12878_sa1_pulled_R1.fastq.gz",
+                               "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_sa1_chip_seq/gm12878_sa1_pulled/fastq/gm12878_sa1_pulled_R2.fastq.gz")]}
+input_gm_pooled = {"sample": [("/mnt/raid/zparteka/cohesin_hichip_project/gm12878_input/fastq/SRR998196_R1.fastq.gz",
+                               "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_input/fastq/SRR998196_R2.fastq.gz")]}
 input_gm12878 = {"gm12878_sa1": [("/mnt/raid/zparteka/cohesin_hichip_project/gm12878_input/fastq/SRR998196_R1.fastq.gz",
                                   "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_input/fastq/SRR998196_R2.fastq.gz")],
                  "gm12878_ctcf": [("/mnt/raid/zparteka/cohesin_hichip_project/gm12878_input/fastq/SRR998196_R1.fastq.gz",
                                    "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_input/fastq/SRR998196_R2.fastq.gz")]}
-chips = samples_gm12878
-input = input_gm12878
+chips = chips_gm_pooled
+input = input_gm_pooled
 samples = samples_mumbach
 sample_arima_hichip = {"sample": [("/mnt/raid/zparteka/hichip/swift/raw_data/fastq/KJ_Swift_1_R1.fastq.gz",
                                    "/mnt/raid/zparteka/hichip/swift/raw_data/fastq/KJ_Swift_1_R2.fastq.gz")]}

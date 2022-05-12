@@ -5,7 +5,8 @@
 """
 
 import luigi
-from tasks.peak_calling import CallPeaks
+from tasks.peak_calling import CallPeaks, CallPeaksWithInput
+from tasks.configuration.chipseq_configuration import Configuration as ChipConfiguration
 from tasks.configuration.load_configuration import Configuration, loads
 from plumbum import local
 
@@ -59,3 +60,49 @@ class RunMapsPulledReplicates(luigi.Task):
             (run_maps > "done.txt")()
 
 
+# todo dodac informacje o chip-seq
+
+class RunMapsWithChipPulledReplicates(luigi.Task):
+    # samples = [[hichip_rep1, chip_rep1, input_rep1], [hichip_rep2, chip_rep2, input_rep2], [hichip_pooled, chip_pooled, input_pooled]]
+    samples = luigi.Parameter()
+
+    def requires(self):
+        task_list = []
+        # peak calling on chipseq
+
+        return RunMapsSingleReplicate(conf_s1), RunMapsSingleReplicate(conf_s2), CallPeaks(conf_s3)
+
+    def output(self):
+        config = loads(self.c)
+        return luigi.LocalTarget(config.outnames["maps"])
+
+    def run(self):
+        config = loads(self.c)
+        with local.env(DATASET_NUMBER=1, DATASET_NAME=config.maps_dataset, FASTQDIR=config.fastq_dir,
+                       OUTDIR=config.outdir, MACS_OUTPUT=config.narrow_peak, BWA_INDEX=config.bwa_index,
+                       MAPQ=config.mapq, THREADS=config.threads):
+            run_maps = local["./tasks/run_maps.sh"]
+            (run_maps >> "maps.txt")()
+
+
+class RunMapsWithChipSingleReplicate(luigi.Task):
+    # samples = [hichip, chip, input]
+    sample = luigi.Parameter()
+
+    def requires(self):
+        sam = [[self.sample[1][0], self.sample[1][1]], [self.sample[2][0], self.sample[2][1]]]
+        # sam = [[data_R1, data_R2], [input_R1, input_R2]]
+        return CallPeaksWithInput(sam)
+
+    def output(self):
+        config = Configuration(self.sample[0][0], self.sample[0][1])
+        return luigi.LocalTarget(config.outnames["maps"])
+
+    def run(self):
+        chip_conf = ChipConfiguration(self.sample[1][0], self.sample[1][1])
+        hichip_conf = Configuration(self.sample[0][0], self.sample[0][1])
+        with local.env(DATASET_NUMBER=1, DATASET_NAME=hichip_conf.maps_dataset, FASTQDIR=hichip_conf.fastq_dir,
+                       OUTDIR=hichip_conf.outdir, MACS_OUTPUT=chip_conf.narrow_peak, BWA_INDEX=hichip_conf.bwa_index,
+                       MAPQ=hichip_conf.mapq, THREADS=hichip_conf.threads):
+            run_maps = local["./tasks/run_maps.sh"]
+            (run_maps >> "maps.txt")()
