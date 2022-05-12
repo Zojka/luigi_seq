@@ -175,9 +175,11 @@ input_gm12878 = {"gm12878_sa1": [("/mnt/raid/zparteka/cohesin_hichip_project/gm1
 chips = chips_gm_pooled
 input = input_gm_pooled
 samples = samples_mumbach
-sample_arima_hichip = {"sample": [("/mnt/raid/zparteka/cohesin_hichip_project/gm12878_shallow/fastq/KJ_Swift_1_R1.fastq.gz",
+sample_arima_hichip_shallow = {"sample": [("/mnt/raid/zparteka/cohesin_hichip_project/gm12878_shallow/fastq/KJ_Swift_1_R1.fastq.gz",
                                    "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_shallow/fastq/KJ_Swift_1_R2.fastq.gz")]}
-samples = sample_arima_hichip
+sample_arima_hichip_deep = {"sample": [("/mnt/raid/zparteka/cohesin_hichip_project/karolina_arima/raw_data/fastq/KJ_Swift_1_S12_R1.fastq.gz",
+                                        "/mnt/raid/zparteka/cohesin_hichip_project/karolina_arima/raw_data/fastq/KJ_Swift_1_S12_R2.fastq.gz")]}
+samples = sample_arima_hichip_deep
 
 class Configuration:
     threads = 33
