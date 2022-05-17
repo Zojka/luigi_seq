@@ -51,19 +51,28 @@ RUN git clone https://github.com/lh3/bwa.git && \
 
 ENV PATH=${PATH}:/opt/bwa
 
+RUN wget https://github.com/samtools/bcftools/releases/download/1.10.2/bcftools-1.10.2.tar.bz2 && \
+  tar -vxjf bcftools-1.10.2.tar.bz2 && \
+  cd bcftools-1.10.2 && \
+  ./configure --prefix=/where/to/install && \
+  make && \
+  make install
+
+ENV PATH=${PATH}/opt/bcftools-1.10.2/bin:$PATH
+WORKDIR /opt
 RUN apt-get install -y python3-pip
 
 RUN apt-get clean && apt-get purge && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN git clone https://github.com/ijuric/MAPS.git
+RUN git clone https://github.com/HuMingLab/MAPS.git
 
 WORKDIR /app
 
 # todo fix package installation via pip3 and requirements
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
-RUN pip3 install cykhash macs3
+RUN pip3 install cykhash macs3 macs2
 RUN pip3 install deeptools
 EXPOSE 8082
 ENTRYPOINT luigid --background & /bin/bash
