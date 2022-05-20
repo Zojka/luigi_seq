@@ -7,11 +7,11 @@ import luigi
 from plumbum import cmd
 from tasks.configuration.chipseq_configuration import samples
 from tasks.maps_task import RunMapsPulledReplicates, RunMapsSingleReplicate
+from tasks.configuration.load_configuration import Configuration
 from os.path import basename, dirname, join, isdir, isfile
 from pathlib import Path
 from os import makedirs
 
-# todo add support for multiple chip-seq replicates???
 # todo test added support for one replicate
 
 class RunAnalysis(luigi.WrapperTask):
@@ -40,5 +40,6 @@ class RunAnalysis(luigi.WrapperTask):
                 print(sample)
                 yield RunMapsPulledReplicates(sample)
             else:
-                yield RunMapsSingleReplicate(sample)
+                conf = Configuration(sample[0][0], sample[0][1])
+                yield RunMapsSingleReplicate(conf)
 
