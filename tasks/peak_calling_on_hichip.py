@@ -43,7 +43,7 @@ class MappingQualityFilter(luigi.Task):
         config = loads(self.c)
         samtools = local["samtools"]
         (samtools[
-             "view", "-q", config.mapq, "-t", config.threads, "-b", config.outnames["mapped_only"]] >
+             "view", "-q", config.mapq, "-t", config.threads, "-b", config.outnames["mapped"]] >
          config.outnames["filtered"])()
 
 
