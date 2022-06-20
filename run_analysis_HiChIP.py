@@ -41,6 +41,7 @@ class RunAnalysis(luigi.WrapperTask):
                 yield RunMapsPulledReplicates(sample)
             else:
                 # todo test this
+                print("single replicate")
                 conf = Configuration(sample[0][0], sample[0][1]).dumps()
                 yield RunMapsSingleReplicate(conf)
 
