@@ -41,7 +41,7 @@ class Configuration:
         self.outnames = {}
         self.create_outnames()
         self.narrow_peak = self.outnames["peaks"] + "_peaks.narrowPeak"
-        self.chromosomes = None
+        self.chromosomes = "/mnt/raid/zparteka/hg38_reference/hg38_chrom.sizes"
         self.memory = "48G"
 
     # todo add checking if value is None

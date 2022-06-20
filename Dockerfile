@@ -76,6 +76,8 @@ RUN pip3 install cykhash macs3 macs2
 RUN pip3 install deeptools
 RUN pip3 install pairtools
 
+#export LC_ALL=C.UTF-8
+#export LANG=C.UTF-8
 
 EXPOSE 8082
 ENTRYPOINT luigid --background & /bin/bash
