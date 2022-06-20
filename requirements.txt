@@ -21,3 +21,6 @@ Cython
 luigi
 plumbum
 
+# pairtools
+click
+pairtools

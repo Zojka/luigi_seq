@@ -79,30 +79,6 @@ class RemoveDuplicates(luigi.Task):
             "fixmate", "--threads", config.threads, "-", "-"] | samtools[
              "rmdup", "-S", "-", config.outnames["nodup"]])()
 
-# # todo add samtools flags filtering
-#
-# class SamFlagFilter(luigi.Task):
-#     """Filter by samtools flags 83, 147, 163, 99 and merge all files"""
-#     c = luigi.DictParameter()
-#
-#     def requires(self):
-#         return RemoveDuplicates(self.c)
-#
-#     def output(self):
-#         config = loads(self.c)
-#         return luigi.LocalTarget(config.outnames["sam_flags"])
-#
-#     def run(self):
-#         config = loads(self.c)
-#         samtools = local["samtools"]
-#         name_base = config.outnames["nodup"]
-#         flags = ["83", "147", "163", "99"]
-#         names = []
-#         for flag in flags:
-#             name = name_base[:-4] + f"flag_{flag}.bam"
-#             names.append(name)
-#             (samtools["view", "-f", f"{flag}", "-b", name_base] > name)()
-#         (samtools["merge", config.outnames["sam_flags"], names[0], names[1], names[2], names[3], "-O", "BAM", "-c", "-p", "-t", config.threads])()
 
 class CreateBigwig(luigi.Task):
     """Create BigWig coverage file from deduplicated bam file. Needs samtools and deeptools"""

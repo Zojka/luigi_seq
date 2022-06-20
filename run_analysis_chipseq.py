@@ -20,7 +20,6 @@ from os import makedirs, path
 
 
 # todo add information about input - needs to be trated as "normal" chip-seq file
-# todo add single-end chip-seq support
 
 class RunAnalysis(luigi.WrapperTask):
 

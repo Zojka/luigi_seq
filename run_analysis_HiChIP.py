@@ -5,10 +5,10 @@
 """
 import luigi
 from plumbum import cmd
-from tasks.configuration.chipseq_configuration import samples
+from tasks.configuration.hichip_configuration import samples
 from tasks.maps_task import RunMapsPulledReplicates, RunMapsSingleReplicate
-from tasks.configuration.load_configuration import Configuration
-from os.path import basename, dirname, join, isdir, isfile
+from tasks.configuration.hichip_configuration import Configuration
+from os.path import dirname, join, isdir, isfile
 from pathlib import Path
 from os import makedirs
 
@@ -40,6 +40,7 @@ class RunAnalysis(luigi.WrapperTask):
                 print(sample)
                 yield RunMapsPulledReplicates(sample)
             else:
-                conf = Configuration(sample[0][0], sample[0][1])
+                # todo test this
+                conf = Configuration(sample[0][0], sample[0][1]).dumps()
                 yield RunMapsSingleReplicate(conf)
 
