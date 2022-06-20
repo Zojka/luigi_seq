@@ -25,7 +25,7 @@ class Mapping(luigi.Task):
         config = loads(self.c)
         with local.env(THREADS=config.threads, REFERENCE=config.reference, R1=config.r1, R2=config.r2,
                        OUTNAME_MAPPED=config.outnames["mapped"]):
-            run_bwa = local["./tasks/map.sh"]
+            run_bwa = local["./tasks/map_hichip.sh"]
             (run_bwa())
 
 
