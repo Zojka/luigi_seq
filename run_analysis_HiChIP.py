@@ -6,8 +6,8 @@
 import luigi
 from plumbum import cmd
 from tasks.configuration.hichip_configuration import samples
-from tasks.maps_task_hichip import RunMapsPulledReplicates, RunMapsSingleReplicate
-from tasks.configuration.hichip_configuration import Configuration
+from tasks.maps_task import RunMapsPulledReplicates, RunMapsSingleReplicate
+from tasks.configuration.load_configuration import Configuration
 from os.path import dirname, join, isdir, isfile
 from pathlib import Path
 from os import makedirs
