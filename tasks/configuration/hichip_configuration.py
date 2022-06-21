@@ -60,7 +60,7 @@ class Configuration:
         self.outnames["final_bam"] = join(self.outdir, f"{base}_final.bam")
         self.outnames["maps"] = join(self.outdir,
                                      f"MAPS_output/{self.maps_dataset}_current/{self.maps_dataset}.5k.2.sig3Dinteractions.bedpe")
-        self.outnames["dups_stats"] = join(self.outdir, f"{base}_dups_stats.txt")
+        self.outnames["dup_stats"] = join(self.outdir, f"{base}_dups_stats.txt")
 
     def dumps(self):
         c = {"r1": self.r1, "r2": self.r2}
