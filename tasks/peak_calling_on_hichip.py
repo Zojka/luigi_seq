@@ -51,7 +51,7 @@ class ParsePairtools(luigi.Task):
     c = luigi.DictParameter()
 
     def requires(self):
-        return MappingQualityFilter(self.c)
+        return Mapping(self.c)
 
     def output(self):
         config = loads(self.c)
@@ -62,7 +62,7 @@ class ParsePairtools(luigi.Task):
 
         with local.env(THREADS=config.threads, CHROMOSOMES=config.chromosomes, MEM=config.memory,
                        SORTED_PAIRS_PATH=config.outnames["paired"], TMPDIR=config.outdir,
-                       MAPPED=config.outnames["filtered"]):
+                       MAPPED=config.outnames["mapped"]):
             run_pairtools = local["./tasks/run_pairtools.sh"]
             (run_pairtools())
 
