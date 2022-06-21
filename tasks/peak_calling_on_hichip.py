@@ -81,7 +81,7 @@ class RemoveDuplicates(luigi.Task):
         config = loads(self.c)
         pairtools = local["pairtools"]
         (pairtools[
-            "dedup", "--mark-dups", "--output-dups", "--output-unmapped", "-", "--output", config.outnames["nodup"],
+            "dedup","--mark-dups", "--output-stats", config.outnames["dup_stats"], "--output", config.outnames["nodup"],
             config.outnames["paired"]])()
 
 
