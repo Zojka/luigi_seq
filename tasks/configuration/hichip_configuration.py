@@ -18,7 +18,7 @@ sample_arima_hichip_shallow = {"sample": [("/mnt/raid/zparteka/cohesin_hichip_pr
                                    "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_shallow/fastq/KJ_Swift_1_R2.fastq.gz")]}
 sample_arima_hichip_deep = {"sample": [("/mnt/raid/zparteka/cohesin_hichip_project/karolina_arima/raw_data/fastq/KJ_Swift_1_S12_R1.fastq.gz",
                                         "/mnt/raid/zparteka/cohesin_hichip_project/karolina_arima/raw_data/fastq/KJ_Swift_1_S12_R2.fastq.gz")]}
-samples = sample_arima_hichip_shallow
+samples = sample_arima_hichip_deep
 
 class Configuration:
     threads = 33
