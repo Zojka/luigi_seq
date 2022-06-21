@@ -52,11 +52,11 @@ class Configuration:
         self.outnames["mapped_only"] = join(self.outdir, f"{base}_mapped.bam")
         self.outnames["filtered"] = join(self.outdir, f"{base}_mapped_filtered.bam")
         self.outnames["bigwig"] = join(self.outdir, f"{base}.bw")
-        self.outnames["nodup"] = join(self.outdir, f"{base}_mapped_filtered_nodup.bam")
+        self.outnames["nodup"] = join(self.outdir, f"{base}_mapped_filtered_nodup.pairsam")
         self.outnames["index"] = join(self.outdir, f"{base}_indexed.bam")
         self.outnames["sorted"] = join(self.outdir, f"{base}_sorted.bam")
         self.outnames["peaks"] = join(self.outdir, f"{base}_macs3")
-        self.outnames["paired"] = join(self.outdir, f"{base}_paired.pairs")
+        self.outnames["paired"] = join(self.outdir, f"{base}_paired.pairsam")
         self.outnames["final_bam"] = join(self.outdir, f"{base}_final.bam")
         self.outnames["maps"] = join(self.outdir,
                                      f"MAPS_output/{self.maps_dataset}_current/{self.maps_dataset}.5k.2.sig3Dinteractions.bedpe")
