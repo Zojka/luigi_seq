@@ -138,7 +138,7 @@ class CallPeaks(luigi.Task):
         macs3 = local["macs3"]
         (macs3[
             "callpeak", "--nomodel", "-q", config.peak_quality, "-B", "-t", config.outnames["final_bam"], "-n",
-            config.outnames["peaks"], "-g", config.genome_size, "-f", "BAMPE"])()
+            config.outnames["peaks"], "-g", config.genome_size, "-f", "BAM"])()
 
 
 if __name__ == '__main__':
