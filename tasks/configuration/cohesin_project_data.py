@@ -4,7 +4,7 @@
 @author: zparteka
 """
 
-"""data for cohesin project calculations. All files are located on team-bilbo worskation on MiNI WUT"""
+"""data for cohesin project calculations. All files are located on team-bilbo workstation on MiNI WUT"""
 
 cohesin_project = {"gm12878_ctcf_hichip_mumbach": [("/mnt/raid/zparteka/cohesin_hichip_project/gm12878_ctcf_hichip_mumbach/rep1/fastq/SRR7990656_R1.fastq.gz",
                                                     "/mnt/raid/zparteka/cohesin_hichip_project/gm12878_ctcf_hichip_mumbach/rep1/fastq/SRR7990656_R2.fastq.gz"),
@@ -25,4 +25,13 @@ sample_arima_hichip_shallow = {"sample": [("/mnt/raid/zparteka/cohesin_hichip_pr
 sample_arima_hichip_deep = {"sample": [("/mnt/raid/zparteka/cohesin_hichip_project/karolina_arima/raw_data/fastq/KJ_Swift_1_S12_R1.fastq.gz",
                                         "/mnt/raid/zparteka/cohesin_hichip_project/karolina_arima/raw_data/fastq/KJ_Swift_1_S12_R2.fastq.gz")]}
 
-samples = cohesin_mumbach_arwena
+chiapet_snyder = {"gm12878_rad21_chiapet_snyder_2014": [("/mnt/raid/zparteka/cohesin_hichip_project/RAD21_chiapet_GM12878/2014/rep1/fastq/SRR1514668_GSM1436265_RAD21_ChIA-PET_in_GM12878_Homo_sapiens_ChIA-PET_R1.fastq.gz",
+                                                         "/mnt/raid/zparteka/cohesin_hichip_project/RAD21_chiapet_GM12878/2014/rep1/fastq/SRR1514668_GSM1436265_RAD21_ChIA-PET_in_GM12878_Homo_sapiens_ChIA-PET_R2.fastq.gz"),
+                                                        ("/mnt/raid/zparteka/cohesin_hichip_project/RAD21_chiapet_GM12878/2014/rep2/fastq/SRR1514669_GSM1436265_RAD21_ChIA-PET_in_GM12878_Homo_sapiens_ChIA-PET_R1.fastq.gz",
+                                                         "/mnt/raid/zparteka/cohesin_hichip_project/RAD21_chiapet_GM12878/2014/rep2/fastq/SRR1514669_GSM1436265_RAD21_ChIA-PET_in_GM12878_Homo_sapiens_ChIA-PET_R2.fastq.gz")],
+                 "gm12878_rad21_chiapet_snyder_2019": [("/mnt/raid/zparteka/cohesin_hichip_project/RAD21_chiapet_GM12878/2019/rep1/fastq/GSM3625224_ChIA-PET_from_GM12878_ENCLB784HEF_Homo_sapiens_ChIA-PET_R1.fastq.gz",
+                                                        "/mnt/raid/zparteka/cohesin_hichip_project/RAD21_chiapet_GM12878/2019/rep1/fastq/GSM3625224_ChIA-PET_from_GM12878_ENCLB784HEF_Homo_sapiens_ChIA-PET_R2.fastq.gz"),
+                                                       ("/mnt/raid/zparteka/cohesin_hichip_project/RAD21_chiapet_GM12878/2019/rep2/fastq/SRR8659674_GSM3625227_ChIA-PET_from_GM12878_ENCLB535GER_Homo_sapiens_ChIA-PET_R1.fastq.gz",
+                                                        "/mnt/raid/zparteka/cohesin_hichip_project/RAD21_chiapet_GM12878/2019/rep2/fastq/SRR8659674_GSM3625227_ChIA-PET_from_GM12878_ENCLB535GER_Homo_sapiens_ChIA-PET_R2.fastq.gz")]}
+
+samples = chiapet_snyder

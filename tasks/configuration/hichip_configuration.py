@@ -21,7 +21,7 @@ sample_arima_hichip_deep = {"sample": [("/mnt/raid/zparteka/cohesin_hichip_proje
 samples = sample_arima_hichip_deep
 
 class Configuration:
-    threads = 33
+    threads = 30
     # reference = "/mnt/raid/zparteka/mm10_genome/bwa/mm10.fa"
     reference = "/mnt/raid/zparteka/hg38_reference/Homo_sapiens_assembly38.fasta"
     mapq = 30
