@@ -34,4 +34,4 @@ chiapet_snyder = {"gm12878_rad21_chiapet_snyder_2014": [("/mnt/raid/zparteka/coh
                                                        ("/mnt/raid/zparteka/cohesin_hichip_project/RAD21_chiapet_GM12878/2019/rep2/fastq/SRR8659674_GSM3625227_ChIA-PET_from_GM12878_ENCLB535GER_Homo_sapiens_ChIA-PET_R1.fastq.gz",
                                                         "/mnt/raid/zparteka/cohesin_hichip_project/RAD21_chiapet_GM12878/2019/rep2/fastq/SRR8659674_GSM3625227_ChIA-PET_from_GM12878_ENCLB535GER_Homo_sapiens_ChIA-PET_R2.fastq.gz")]}
 
-samples = chiapet_snyder
+samples = cohesin_mumbach_arwena
