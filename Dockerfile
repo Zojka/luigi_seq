@@ -72,7 +72,7 @@ WORKDIR /app
 # todo fix package installation via pip3 and requirements
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
-RUN pip3 install cykhash macs3 macs2
+RUN pip3 install cykhash macs3
 RUN pip3 install deeptools
 RUN pip3 install pairtools
 
