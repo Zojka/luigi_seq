@@ -36,4 +36,12 @@ chiapet_snyder = {"gm12878_rad21_chiapet_snyder_2014": [("/mnt/raid/zparteka/coh
 
 samples_corces = {"gm12878_rad21_hichip_corces": [("/mnt/raid/zparteka/gstripes_project/hesc_corces/rad21_hichip/all_replicates/pooled/hesc_corces_rad21_hichip_pooled_R1.fastq.gz",
                                                    "/mnt/raid/zparteka/gstripes_project/hesc_corces/rad21_hichip/all_replicates/pooled/hesc_corces_rad21_hichip_pooled_R2.fastq.gz")]}
-samples = samples_corces
+
+samples_trios = {"trios_pooled_hichip": [("/mnt/raid/zparteka/hichip/hichip_trios/pooled_families/puerto/fastq/puerto_rican_ctcf_hichip_R1.fastq.gz",
+                                          "/mnt/raid/zparteka/hichip/hichip_trios/pooled_families/puerto/fastq/puerto_rican_ctcf_hichip_R2.fastq.gz"),
+                                         ("/mnt/raid/zparteka/hichip/hichip_trios/pooled_families/chinese/fastq/chinese_ctcf_hichip_R1.fastq.gz",
+                                          "/mnt/raid/zparteka/hichip/hichip_trios/pooled_families/chinese/fastq/chinese_ctcf_hichip_R2.fastq.gz"),
+                                         ("/mnt/raid/zparteka/hichip/hichip_trios/pooled_families/yoruban/fastq/yoruban_CTCF_hichip_R1.fastq.gz",
+                                          "/mnt/raid/zparteka/hichip/hichip_trios/pooled_families/yoruban/fastq/yoruban_CTCF_hichip_R2.fastq.gz")]}
+
+samples = samples_trios

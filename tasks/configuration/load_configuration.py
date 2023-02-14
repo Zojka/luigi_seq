@@ -112,6 +112,7 @@ class Configuration:
         self.outnames["peaks"] = join(self.outdir, f"{base}_macs3")
         self.outnames["maps"] = join(self.outdir,
                                      f"MAPS_output/{self.maps_dataset}_current/{self.maps_dataset}.5k.2.sig3Dinteractions.bedpe")
+        self.outnames["temp"] = join(self.outdir, "temp")
 
     def dumps(self):
         c = {"r1": self.r1, "r2": self.r2}

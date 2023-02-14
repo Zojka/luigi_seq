@@ -75,7 +75,7 @@ class RemoveDuplicates(luigi.Task):
     def run(self):
         config = loads(self.c)
         samtools = local["samtools"]
-        (samtools["sort", "-n", "-t", config.threads, config.outnames["filtered"], "-o", "-"] | samtools[
+        (samtools["sort", "-n", "-t", config.threads, "-m", "1G", "-T", config.outnames["temp"], config.outnames["filtered"], "-o", "-"] | samtools[
             "fixmate", "--threads", config.threads, "-", "-"] | samtools[
              "rmdup", "-S", "-", config.outnames["nodup"]])()
 
