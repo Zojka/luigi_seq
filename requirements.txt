@@ -10,7 +10,7 @@ numpy==v1.17.1
 pysam==v0.15.2
 pybedtools==v0.8.0
 
-setuptools
+
 
 
 Cython
