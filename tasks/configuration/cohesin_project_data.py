@@ -44,4 +44,4 @@ samples_trios = {"trios_pooled_hichip": [("/mnt/raid/zparteka/hichip/hichip_trio
                                          ("/mnt/raid/zparteka/hichip/hichip_trios/pooled_families/yoruban/fastq/yoruban_CTCF_hichip_R1.fastq.gz",
                                           "/mnt/raid/zparteka/hichip/hichip_trios/pooled_families/yoruban/fastq/yoruban_CTCF_hichip_R2.fastq.gz")]}
 
-samples = samples_corces
+samples = samples_trios
