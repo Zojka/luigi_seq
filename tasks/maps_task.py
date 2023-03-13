@@ -29,7 +29,7 @@ class RunMapsSingleReplicate(luigi.Task):
             run_maps = local["./tasks/run_maps.sh"]
             (run_maps >> "maps.txt")()
 
-
+# todo this only works for two replicates!!!
 class RunMapsPulledReplicates(luigi.Task):
     sample = luigi.DictParameter()
 
@@ -59,6 +59,37 @@ class RunMapsPulledReplicates(luigi.Task):
             run_maps = local["./tasks/run_maps.sh"]
             (run_maps > "done.txt")()
 
+class RunMapsMultipleReplicates(luigi.Task):
+    sample = luigi.DictParameter()
+
+    def requires(self):
+        conf_s1 = Configuration(self.sample[0][0], self.sample[0][1]).dumps()
+        conf_s2 = Configuration(self.sample[1][0], self.sample[1][1]).dumps()
+        conf_s3 = Configuration(self.sample[2][0], self.sample[2][1]).dumps()
+        conf_s4 = Configuration(self.sample[3][0], self.sample[3][1]).dumps()
+
+        return RunMapsSingleReplicate(conf_s1), RunMapsSingleReplicate(conf_s2), RunMapsSingleReplicate(conf_s3), CallPeaks(conf_s4)
+
+    def output(self):
+        config = Configuration(self.sample[3][0], self.sample[3][1])
+        return luigi.LocalTarget(config.outnames["maps"])
+
+    def run(self):
+        conf_s1 = Configuration(self.sample[0][0], self.sample[0][1])
+        conf_s2 = Configuration(self.sample[1][0], self.sample[1][1])
+        conf_s3 = Configuration(self.sample[2][0], self.sample[2][1])
+        conf_s4 = Configuration(self.sample[3][0], self.sample[3][1]).dumps()
+
+        feather1 = f"{conf_s1.outdir}/feather_output/{conf_s1.maps_dataset}_current/"
+        feather2 = f"{conf_s2.outdir}/feather_output/{conf_s2.maps_dataset}_current/"
+        feather3 = f"{conf_s3.outdir}/feather_output/{conf_s3.maps_dataset}_current/"
+        print(feather1, feather2, feather3)
+
+        with local.env(DATASET_NUMBER=3, DATASET_NAME=conf_s3.maps_dataset, FASTQDIR="",
+                       OUTDIR=conf_s3.outdir, MACS_OUTPUT=conf_s3.narrow_peak, BWA_INDEX=conf_s3.bwa_index,
+                       MAPQ=conf_s3.mapq, THREADS=conf_s3.threads, DATASET1=feather1, DATASET2=feather2, DATASET3=feather3):
+            run_maps = local["./tasks/run_maps.sh"]
+            (run_maps > "done.txt")()
 
 # todo dodac informacje o chip-seq
 

@@ -6,7 +6,7 @@
 import luigi
 from plumbum import cmd
 from tasks.configuration.cohesin_project_data import samples
-from tasks.maps_task import RunMapsPulledReplicates, RunMapsSingleReplicate
+from tasks.maps_task import RunMapsPulledReplicates, RunMapsSingleReplicate, RunMapsMultipleReplicates
 from tasks.configuration.load_configuration import Configuration
 from os.path import dirname, join, isdir, isfile
 from pathlib import Path
@@ -37,7 +37,8 @@ class RunAnalysis(luigi.WrapperTask):
                     sample.append((out_r1, out_r2))
 
                 print(sample)
-                yield RunMapsPulledReplicates(sample)
+                # temporary modification
+                yield RunMapsMultipleReplicates(sample)
             else:
                 print("single replicate")
                 conf = Configuration(sample[0][0], sample[0][1]).dumps()
