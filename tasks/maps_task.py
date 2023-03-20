@@ -85,9 +85,9 @@ class RunMapsMultipleReplicates(luigi.Task):
         feather3 = f"{conf_s3.outdir}/feather_output/{conf_s3.maps_dataset}_current/"
         print(feather1, feather2, feather3)
 
-        with local.env(DATASET_NUMBER=3, DATASET_NAME=conf_s3.maps_dataset, FASTQDIR="",
-                       OUTDIR=conf_s3.outdir, MACS_OUTPUT=conf_s3.narrow_peak, BWA_INDEX=conf_s3.bwa_index,
-                       MAPQ=conf_s3.mapq, THREADS=conf_s3.threads, DATASET1=feather1, DATASET2=feather2, DATASET3=feather3):
+        with local.env(DATASET_NUMBER=3, DATASET_NAME=conf_s4.maps_dataset, FASTQDIR="",
+                       OUTDIR=conf_s4.outdir, MACS_OUTPUT=conf_s4.narrow_peak, BWA_INDEX=conf_s4.bwa_index,
+                       MAPQ=conf_s4.mapq, THREADS=conf_s4.threads, DATASET1=feather1, DATASET2=feather2, DATASET3=feather3):
             run_maps = local["./tasks/run_maps.sh"]
             (run_maps > "done.txt")()
 
