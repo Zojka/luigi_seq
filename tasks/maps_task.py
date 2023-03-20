@@ -78,7 +78,7 @@ class RunMapsMultipleReplicates(luigi.Task):
         conf_s1 = Configuration(self.sample[0][0], self.sample[0][1])
         conf_s2 = Configuration(self.sample[1][0], self.sample[1][1])
         conf_s3 = Configuration(self.sample[2][0], self.sample[2][1])
-        conf_s4 = Configuration(self.sample[3][0], self.sample[3][1]).dumps()
+        conf_s4 = Configuration(self.sample[3][0], self.sample[3][1])
 
         feather1 = f"{conf_s1.outdir}/feather_output/{conf_s1.maps_dataset}_current/"
         feather2 = f"{conf_s2.outdir}/feather_output/{conf_s2.maps_dataset}_current/"
