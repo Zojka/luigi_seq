@@ -98,7 +98,7 @@ class CreateBigwig(luigi.Task):
         (samtools[
             "sort", "-t", 4, "-m", "16G", config.outnames["nodup"], "-o", config.outnames["sorted"]])()
         (samtools["index", config.outnames["sorted"]])()
-        (bamCoverage["-b", config.outnames["sorted"], "-o", config.outnames["bigwig"]])()
+        (bamCoverage["-b", config.outnames["sorted"], "-o", config.outnames["bigwig"], "-p", config.threads])()
 
 
 class CallPeaks(luigi.Task):
