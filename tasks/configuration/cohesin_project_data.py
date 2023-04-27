@@ -44,4 +44,9 @@ samples_trios = {"trios_pooled_hichip": [("/mnt/raid/zparteka/hichip/hichip_trio
                                          ("/mnt/raid/zparteka/hichip/hichip_trios/pooled_families/yoruban/fastq/yoruban_CTCF_hichip_R1.fastq.gz",
                                           "/mnt/raid/zparteka/hichip/hichip_trios/pooled_families/yoruban/fastq/yoruban_CTCF_hichip_R2.fastq.gz")]}
 
-samples = samples_trios
+repeated_yoruban = {"gm19240_CTCF": [("/mnt/raid/zparteka/hichip/hichip_trios/yoruban/gm19240/ctcf_i/fastq/GM19240_CTCF_I_S5_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/hichip_trios/yoruban/gm19240/ctcf_i/fastq/GM19240_CTCF_I_S5_R2.fastq.gz"),
+                     ("/mnt/raid/zparteka/hichip/hichip_trios/yoruban/gm19240/ctcf_ii/fastq/GM19240_CTCF_II_S6_R1.fastq.gz",
+                      "/mnt/raid/zparteka/hichip/hichip_trios/yoruban/gm19240/ctcf_ii/fastq/GM19240_CTCF_II_S6_R2.fastq.gz")]}
+
+samples = repeated_yoruban
