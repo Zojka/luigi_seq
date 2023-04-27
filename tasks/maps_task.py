@@ -59,7 +59,7 @@ class RunMapsPulledReplicates(luigi.Task):
             run_maps = local["./tasks/run_maps.sh"]
             (run_maps > "done.txt")()
 
-class RunMapsMultipleReplicates(luigi.Task):
+class RunMapsMultipleReplicates2(luigi.Task):
     sample = luigi.DictParameter()
 
     def requires(self):
