@@ -38,7 +38,7 @@ class RunAnalysis(luigi.WrapperTask):
 
                 print(sample)
                 # temporary modification
-                yield RunMapsMultipleReplicates(sample)
+                yield RunMapsPulledReplicates(sample)
             else:
                 print("single replicate")
                 conf = Configuration(sample[0][0], sample[0][1]).dumps()
