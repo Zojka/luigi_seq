@@ -49,4 +49,4 @@ repeated_yoruban = {"gm19240_CTCF": [("/mnt/raid/zparteka/hichip/hichip_trios/yo
                      ("/mnt/raid/zparteka/hichip/hichip_trios/yoruban/gm19240/ctcf_ii/fastq/GM19240_CTCF_II_S6_R1.fastq.gz",
                       "/mnt/raid/zparteka/hichip/hichip_trios/yoruban/gm19240/ctcf_ii/fastq/GM19240_CTCF_II_S6_R2.fastq.gz")]}
 
-samples = repeated_yoruban
+samples = samples_trios
