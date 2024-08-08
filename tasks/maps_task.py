@@ -60,6 +60,7 @@ class RunMapsPulledReplicates(luigi.Task):
             (run_maps > "done.txt")()
 
 class RunMapsMultipleReplicates(luigi.Task):
+    # todo fixed number of replicates?
     sample = luigi.DictParameter()
 
     def requires(self):
@@ -90,31 +91,6 @@ class RunMapsMultipleReplicates(luigi.Task):
                        MAPQ=conf_s4.mapq, THREADS=conf_s4.threads, DATASET1=feather1, DATASET2=feather2, DATASET3=feather3):
             run_maps = local["./tasks/run_maps.sh"]
             (run_maps > "done.txt")()
-
-# todo dodac informacje o chip-seq
-
-class RunMapsWithChipPulledReplicates(luigi.Task):
-    # samples = [[hichip_rep1, chip_rep1, input_rep1], [hichip_rep2, chip_rep2, input_rep2], [hichip_pooled, chip_pooled, input_pooled]]
-    samples = luigi.Parameter()
-
-    def requires(self):
-        task_list = []
-        # peak calling on chipseq
-
-        return RunMapsSingleReplicate(conf_s1), RunMapsSingleReplicate(conf_s2), CallPeaks(conf_s3)
-
-    def output(self):
-        config = loads(self.c)
-        return luigi.LocalTarget(config.outnames["maps"])
-
-    def run(self):
-        config = loads(self.c)
-        with local.env(DATASET_NUMBER=1, DATASET_NAME=config.maps_dataset, FASTQDIR=config.fastq_dir,
-                       OUTDIR=config.outdir, MACS_OUTPUT=config.narrow_peak, BWA_INDEX=config.bwa_index,
-                       MAPQ=config.mapq, THREADS=config.threads):
-            run_maps = local["./tasks/run_maps.sh"]
-            (run_maps >> "maps.txt")()
-
 
 class RunMapsWithChipSingleReplicate(luigi.Task):
     # samples = [hichip, chip, input]
